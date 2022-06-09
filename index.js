@@ -62,6 +62,10 @@ bot.on('inline_query', query => {
 	});
 });
 
+bot.on('new_chat_members', (ctx) => {
+	console.log(ctx.message.new_chat_members)
+	ctx.reply(`${ctx.message.new_chat_members ? ctx.message.new_chat_members : 'user'}, вітаємо тебе українською мовою. \nОзнайомся, будь ласка, з закріпленими повідомленнями!`);
+})
 
 
 
