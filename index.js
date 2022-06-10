@@ -52,9 +52,8 @@ bot.on('chat_member', async(ctx) => {
 			const msg = await ctx.replyWithPhoto({ source: './assets/img/rssstandwithukraine.png' },
 				{ caption:
 					`<b>${user}, раді вітати тебе українською мовою!</b>\n\n` +
-					`Ознайомся, будь ласка, з закріпленими повідомленнями!\n\n` +
-					`Поводься чемно, дотримуйся <a href='https://docs.rs.school/#/code-of-conduct'>правил поведінки</a> та\n`+
-					`<tg-spoiler>не отримаєш бан</tg-spoiler>😊`,
+					`❗Поводься, чемно, дотримуйся <a href='https://docs.rs.school/#/code-of-conduct'>правил поведінки</a>.\n\n`+
+					`Ознайомся, будь ласка, з закріпленими повідомленнями, та <tg-spoiler>тицяй кнопку👇</tg-spoiler>!`,
 					parse_mode: 'HTML',
 					...Markup.inlineKeyboard([
 						// [Markup.urlButton('github', 'https://github.com/AmelianceSkyMusic')],
@@ -91,12 +90,13 @@ addButtonActon('btn_readall', async (ctx) => {
 	// *----- add wrong user message -----
 	if ( !BOT.users[userId] ) {
 		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
-		const msg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
+		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
+		log(randomMsg)
 		setTimeout( async () => { // remove messages
 			try {
-				await ctx.deleteMessage(msg);
+				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.minToMs(10));
+		}, asm.minToMs(1));
 		await ctx.answerCbQuery()
 	} else {
 		// *----- add message -----
@@ -115,8 +115,8 @@ addButtonActon('btn_readall', async (ctx) => {
 								await ctx.deleteMessage(msgId);
 							}
 						} catch (error) { log(`ASM: Maybe messages from array was removed by the user\n${error}`) }
-					}, asm.secToMs(10));
-				}, asm.secToMs(10));
+					}, asm.secToMs(5));
+				}, asm.secToMs(5));
 				await ctx.answerCbQuery()
 			}
 		} catch (error) { console.error(error); }
@@ -153,20 +153,53 @@ bot.on('left_chat_member', async (ctx) => {
 // bot.start((ctx) => {
 // 	ctx.reply(`Welcome, ${ctx.message.from.username ? ctx.message.from.username : 'user'}!`);
 // 	log(ctx.message);
+
 // })
-// bot.help((ctx) => ctx.reply(constants.commands));
+bot.help((ctx) => ctx.reply(constants.commands));
 // bot.on('sticker', (ctx) => ctx.reply('👍'));
 // bot.hears(['Привіт', 'Hi', 'Hello'], (ctx) => ctx.reply('Ну привіт😅'));
-// bot.command('asm', async (ctx) => {
-// 	try {
-// 		await ctx.replyWithHTML('<b>Ameliance SkyMusic</b> на зв\'язку', Markup.inlineKeyboard(
-// 			[
-// 				// [Markup.urlButton('github', 'https://github.com/AmelianceSkyMusic')],
-// 				[Markup.button.callback('github', 'btn_github')],
-// 			]
-// 		))
-// 	} catch (error) { console.error(error);}
-// })
+bot.command('asm', async (ctx) => {
+	try { await ctx.replyWithHTML('@AmelianceSkyMusic') } catch (error) { console.error(error);}
+})
+
+bot.command('app', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Додаток школи</a>') } catch (error) { console.error(error);}
+})
+bot.command('coursejsfe', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks">Про курс</a>') } catch (error) { console.error(error);}
+})
+bot.command('roadmap', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання:</a>') } catch (error) { console.error(error);}
+})
+bot.command('docs', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/">Документація</a>') } catch (error) { console.error(error);}
+})
+bot.command('dismission', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/#/dismission">За що відраховуємо</a>') } catch (error) { console.error(error);}
+})
+bot.command('registration', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://app.rs.school/registry/student">Реєстрація</a>') } catch (error) { console.error(error);}
+})
+bot.command('codeofconduct', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Норми поведінки</a>') } catch (error) { console.error(error);}
+})
+bot.command('stickers', async (ctx) => {
+	try { await ctx.replyWithHTML('<a href="https://t.me/addstickers/RSSchool_Ukraine">Стікери</a>') } catch (error) { console.error(error);}
+})
+
+bot.command('random', async (ctx) => {
+	const memberPressed = ctx.update.message.from;
+	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+	try {
+		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
+		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
+		setTimeout( async () => { // remove messages
+			try {
+				await ctx.deleteMessage(randomMsg.message_id);
+			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+		}, asm.secToMs(20));
+	} catch (error) { console.error(error);}
+})
 
 
 
