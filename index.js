@@ -38,33 +38,27 @@ function addButtonActon(name, src, text) {
 	})
 }
 
+bot.on('new_chat_member', async(ctx) => {
+	try {
+		const newChatMember = ctx.message.new_chat_members[0];
+		const user = newChatMember.username ? `@${newChatMember.username}` : newChatMember.first_name
 
+		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssstandwithukraine.png' },
+		{ caption:
+`<b>${user}, раді вітати тебе українською мовою!</b>
 
-// ИНЛАЙН РЕЖИМ
+Ознайомся, будь ласка, з закріпленими повідомленнями!
 
-bot.on('inline_query', query => {
-	const results = []
+Поводся чемно, дотримуйся <a href="">правил поведінки</a> та
+<tg-spoiler>не отримаєш бан</tg-spoiler>😊`
+	, parse_mode: 'HTML'});
 
-	for (let i = 0; i < 5; i++){
-			results.push({
-					type: 'article',
-					id: i.toString(),
-					title: 'title' + i,
-					input_message_content: {
-							message_text: `Article #${i+1}`
-					}
-
-			})
-	};
-
-	bot.answerInlineQuery(query.id, results, {
-			cash_time: 0
-	});
-});
-
-bot.on('new_chat_members', (ctx) => {
-	console.log(ctx.message.new_chat_members)
-	ctx.reply(`${ctx.message.new_chat_members ? ctx.message.new_chat_members : 'user'}, вітаємо тебе українською мовою. \nОзнайомся, будь ласка, з закріпленими повідомленнями!`);
+		setTimeout( async () => {
+			await ctx.deleteMessage(msg.message_id)
+		}, 600000);
+	} catch (error) {
+		log(error)
+	}
 })
 
 
