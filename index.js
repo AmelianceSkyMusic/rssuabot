@@ -80,13 +80,16 @@ bot.on('chat_member', async(ctx) => {
 	}
 })
 
+
+// ^------------------------ add button ------------------------
 addButtonActon('btn_readall', async (ctx) => {
 
 	const memberPressed = ctx.update.callback_query.from;
 	const userId = memberPressed.id;
 	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 
-	if ( !BOT.users[userId] ) { // add wrong user message
+	// *----- add wrong user message -----
+	if ( !BOT.users[userId] ) {
 		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
 		const msg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
 		setTimeout( async () => { // remove messages
@@ -96,6 +99,7 @@ addButtonActon('btn_readall', async (ctx) => {
 		}, asm.minToMs(10));
 		await ctx.answerCbQuery()
 	} else {
+		// *----- add message -----
 		try {
 			if (BOT.users[userId].isInteractionWithReadAllBtn === false) {
 				BOT.users[userId].isInteractionWithReadAllBtn = true;
@@ -121,14 +125,14 @@ addButtonActon('btn_readall', async (ctx) => {
 
 
 // ^------------------------ remove service add message ------------------------
-bot.on('new_chat_members', async (ctx) => {
-	const msg = ctx.update.message;
-	setTimeout( async () => {
-		try {
-			await ctx.deleteMessage(msg.message_id);
-		} catch (error) { console.error(`ASM: Maybe service message was removed by the user\n${error}`) }
-	}, 10000);
-})
+// bot.on('new_chat_members', async (ctx) => {
+// 	const msg = ctx.update.message;
+// 	setTimeout( async () => {
+// 		try {
+// 			await ctx.deleteMessage(msg.message_id);
+// 		} catch (error) { console.error(`ASM: Maybe service message was removed by the user\n${error}`) }
+// 	}, 10000);
+// })
 
 
 // ^------------------------ remove service removed left message ------------------------
