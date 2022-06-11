@@ -265,6 +265,20 @@ bot.command('reply', async (ctx) => {
 	} catch (error) { console.error(error);}
 })
 
+bot.command('two', async (ctx) => {
+	try {
+		const commandMessageId = ctx.update.message.message_id;
+		const memberPressed = ctx.update.message.reply_to_message.from;
+		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+		await removeMsgById.call(ctx, commandMessageId, 0);
+		const randomMsg = await ctx.replyWithHTML(`${user}, сідай, 2😅}`);
+		setTimeout( async () => { // remove messages
+			try {
+				await ctx.deleteMessage(randomMsg.message_id);
+			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+		}, asm.secToMs(300));
+	} catch (error) { console.error(error);}
+})
 
 
 bot.command('random', async (ctx) => {
