@@ -9,6 +9,9 @@ const commands = `
 /codeofconduct - get link to the code of conduct
 /stickers - get link to the stickers
 /random - get random phrase
+/reply - reply with random phrase
+/banpool - ban pool for user
+/anonymousbanpool - anonymous ban pool for user
 `
 
 const githubUrl = '<a href="https://github.com/AmelianceSkyMusic">github</a>'

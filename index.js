@@ -31,8 +31,10 @@ addButtonActon = (name, callback) => {
 		} catch (error) { console.error(error); }
 	})
 }
+
 const BOT = {};
 BOT.users = {};
+
 bot.on('chat_member', async(ctx) => {
 
 	const newChatMemberStatus = ctx.update.chat_member.new_chat_member.status
@@ -246,13 +248,21 @@ bot.command('stickers', async (ctx) => {
 	} catch (error) { console.error(error);}
 })
 
-// bot.command('reply', async (ctx) => {
-// 	const commandMessageId = ctx.update.message.message_id;
-// 	try {
-// 		await removeMsgById.call(ctx, commandMessageId, 30);
-// 		await ctx.replyWithHTML('reply')
-// 	} catch (error) { console.error(error);}
-// })
+bot.command('reply', async (ctx) => {
+	const commandMessageId = ctx.update.message.message_id;
+	const memberPressed = ctx.update.message.reply_to_message.from;
+	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 1);
+		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
+		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
+		setTimeout( async () => { // remove messages
+			try {
+				await ctx.deleteMessage(randomMsg.message_id);
+			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+		}, asm.secToMs(30));
+	} catch (error) { console.error(error);}
+})
 
 
 
@@ -272,9 +282,98 @@ bot.command('random', async (ctx) => {
 	} catch (error) { console.error(error);}
 })
 
+bot.command('banpool', async (ctx) => {
+	const commandMessageId = ctx.update.message.message_id;
+	const memberPressed = ctx.update.message.from
+	const memberToBan = ctx.update.message.reply_to_message.from;
+	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+	const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 1);
+		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
+		{ caption:
+			`${user} пропонує забанити ${userToBan}\n` +
+			`Ви підтримуєте ви його пропозицію?🤔`,
+			parse_mode: 'HTML',
+			...Markup.inlineKeyboard([
+				Markup.button.callback(`👍 0`, 'btn_banpool_like'),
+				Markup.button.callback(`👎 0`, 'btn_banpool_dislike')
+		])});
+	} catch (error) { console.error(error);}
+})
 
+bot.command('anonymousbanpool', async (ctx) => {
+	const commandMessageId = ctx.update.message.message_id;
+	const memberToBan = ctx.update.message.reply_to_message.from;
+	const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 0);
+		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
+		{ caption:
+			`Хтось пропонує забанити ${userToBan}\n` +
+			`Що скажете?🤔`,
+			parse_mode: 'HTML',
+			...Markup.inlineKeyboard([
+				Markup.button.callback(`👍 0`, 'btn_banpool_like'),
+				Markup.button.callback(`👎 0`, 'btn_banpool_dislike')
+		])});
+	} catch (error) { console.error(error);}
+})
 
+bot.command('asmban', async (ctx) => {
+	const commandMessageId = ctx.update.message.message_id;
+	const memberToBan = ctx.update.message.reply_to_message.from;
+	const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 0);
+		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
+		{ caption:
+			`${userToBan} — підозрілий тип, чи не так?\n` +
+			`Може тра його забанити?🤨`,
+			parse_mode: 'HTML',
+			...Markup.inlineKeyboard([
+				Markup.button.callback(`👍 0`, 'btn_banpool_like'),
+				Markup.button.callback(`👎 0`, 'btn_banpool_dislike')
+		])});
+	} catch (error) { console.error(error);}
+})
 
+addButtonActon('btn_banpool_like', async (ctx) => {
+	try {
+		const btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
+		const btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
+		await ctx.editMessageReplyMarkup({
+			inline_keyboard: [
+				[
+					Markup.button.callback(`👍 ${+btnLabelLike + 1}`, 'btn_banpool_like'),
+					Markup.button.callback(`👎 ${+btnLabelDislike}`, 'btn_banpool_dislike')
+				]
+			]
+		})
+	} catch (error) {
+		log(error);
+	}
+	await ctx.answerCbQuery('👍');
+})
+
+addButtonActon('btn_banpool_dislike', async (ctx) => {
+	try {
+		const btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
+		const btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
+		await ctx.editMessageReplyMarkup({
+			inline_keyboard: [
+				[
+					Markup.button.callback(`👍 ${+btnLabelLike}`, 'btn_banpool_like'),
+					Markup.button.callback(`👎 ${+btnLabelDislike + 1}`, 'btn_banpool_dislike')
+				]
+			]
+		})
+	} catch (error) {
+		log(error);
+	}
+	await ctx.answerCbQuery('👎');
+
+})
 
 // function addButtonActon(name, src, text) {
 // 	bot.action(name, async (ctx) => {
@@ -307,3 +406,76 @@ bot.launch({
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+// secondStep.on('callback_query', async ctx => {
+// 	try {
+// 	  let callback = ctx.callbackQuery.data;
+// 	  if (callback === 'back/') {
+// 		await ctx.editMessageReplyMarkup({
+// 		  inline_keyboard: [
+// 			[
+// 			  Markup.button.callback("🧢Личные задачи", `privateTask/${ctx.scene.state.taskId}`),
+// 			  Markup.button.callback("💰Бизнес задачи", `businessTask/${ctx.scene.state.taskId}`),
+// 			],
+// 			[
+// 			  Markup.button.callback("❌Написать клиенту", `badDescription/${ctx.scene.state.taskId}`),
+// 			],
+// 		  ]
+// 		})
+// 		return ctx.wizard.back();
+// 	  } else {
+// 		ctx.scene.state.profile = callback;
+// 		await ctx.editMessageReplyMarkup({ inline_keyboard: deadlineBtn });
+// 		return ctx.wizard.next()
+// 	  }
+// 	} catch (e) {
+// 	  console.log(e)
+// 	}
+//   });
+//   const thirdStep = new Composer();
+//   thirdStep.on('callback_query', async ctx => {
+// 	try {
+// 	  let callback = ctx.callbackQuery.data;
+// 	  if (callback === 'back/') {
+// 		await ctx.editMessageReplyMarkup({ inline_keyboard: selectProfileBtn });
+// 		return ctx.wizard.back();
+// 	  } else {
+// 		ctx.scene.state.deadline = callback.split("/")[1];
+// 		await ctx.editMessageReplyMarkup({ inline_keyboard: complexityBtn })
+// 		return ctx.wizard.next()
+// 	  }
+// 	} catch (e) {
+// 	  console.log(e)
+// 	}
+//   });
+//   const fourthStep = new Composer();
+//   fourthStep.on('callback_query', async ctx => {
+// 	try {
+// 	  let callback = ctx.callbackQuery.data;
+// 	  if (callback === 'back/') {
+// 		await ctx.editMessageReplyMarkup({ inline_keyboard: deadlineBtn });
+// 		return ctx.wizard.back();
+// 	  } else {
+// 		ctx.scene.state.complexity = callback.split("/")[1];
+// 		let sendInvoice = await confirmTask(ctx);
+// 		if (sendInvoice) {
+// 		  return ctx.scene.leave();
+// 		}
+// 	  }
+// 	} catch (e) {
+// 	  console.log(e)
+// 	}
+//   });
+//   const timeManagerScene = new Scenes.WizardScene("timeManagerTaskWizard", startStep, secondStep, thirdStep, fourthStep);
