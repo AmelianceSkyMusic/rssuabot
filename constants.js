@@ -1,17 +1,17 @@
 const commands = `
-/help - show help
-/app - get link to the app
-/coursejsfe - get link to the course js fe
-/roadmap - get link to the roadmap
-/docs - get link to the documentation
-/dismission - get link to the dismission
-/registration - get link to the registration
-/codeofconduct - get link to the code of conduct
-/stickers - get link to the stickers
-/random - get random phrase
-/reply - reply with random phrase
-/banpool - ban pool for user
-/anonymousbanpool - anonymous ban pool for user
+/help - усі команди
+/app - додаток школи
+/coursejsfe - про курс jsfe
+/roadmap - програма навчання
+/docs - документація
+/dismission - за що можуть виключити з курсу
+/registration - реєстрація
+/codeofconduct - правила поведінки
+/stickers - стікери
+/random - отримати рандомну фразу
+/reply - (reply) рандомною фразою
+/banpoll - (reply) влаштувати опитування на бан
+/banpollanonymous - (reply) анонімно влаштувати опитування на бан
 `
 
 const githubUrl = '<a href="https://github.com/AmelianceSkyMusic">github</a>'
