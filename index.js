@@ -34,6 +34,7 @@ addButtonActon = (name, callback) => {
 
 const BOT = {};
 BOT.users = {};
+BOT.inlineKeyboards = {};
 
 bot.on('chat_member', async(ctx) => {
 
@@ -310,7 +311,7 @@ bot.command('anonymousbanpool', async (ctx) => {
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 		{ caption:
-			`Хтось пропонує забанити ${userToBan}\n` +
+			`Хтось пропонує забанити 👉 ${userToBan}\n` +
 			`Що скажете?🤔`,
 			parse_mode: 'HTML',
 			...Markup.inlineKeyboard([
@@ -328,8 +329,8 @@ bot.command('asmban', async (ctx) => {
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 		{ caption:
-			`${userToBan} — підозрілий тип, чи не так?\n` +
-			`Може тра його забанити?🤨`,
+			`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
+			`Може тра його забанити?🤔`,
 			parse_mode: 'HTML',
 			...Markup.inlineKeyboard([
 				Markup.button.callback(`👍 0`, 'btn_banpool_like'),
@@ -340,38 +341,84 @@ bot.command('asmban', async (ctx) => {
 
 addButtonActon('btn_banpool_like', async (ctx) => {
 	try {
-		const btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
-		const btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
+		const msgId = ctx.update.callback_query.message.message_id
+		const userClickedId = ctx.update.callback_query.from.id
+		const uniqID = msgId + userClickedId + ''
+		log(uniqID)
+		if (!BOT.inlineKeyboards[uniqID]) {
+			BOT.inlineKeyboards[uniqID] = {}
+		}
+
+		let btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
+		let btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
+
+		if (!BOT.inlineKeyboards[uniqID].choice) {
+			BOT.inlineKeyboards[uniqID] = { choice: 'yes', msgId: msgId }
+			btnLabelLike = +btnLabelLike + 1;
+		} else if (BOT.inlineKeyboards[uniqID].choice === 'no') {
+			BOT.inlineKeyboards[uniqID] = { choice: 'yes', msgId: msgId }
+			btnLabelLike = +btnLabelLike + 1;
+			btnLabelDislike = +btnLabelDislike - 1;
+		} else {
+			log(BOT.inlineKeyboards[uniqID])
+			await ctx.answerCbQuery();
+			return
+		}
+
 		await ctx.editMessageReplyMarkup({
 			inline_keyboard: [
 				[
-					Markup.button.callback(`👍 ${+btnLabelLike + 1}`, 'btn_banpool_like'),
-					Markup.button.callback(`👎 ${+btnLabelDislike}`, 'btn_banpool_dislike')
+					Markup.button.callback(`👍 ${btnLabelLike}`, 'btn_banpool_like'),
+					Markup.button.callback(`👎 ${btnLabelDislike}`, 'btn_banpool_dislike')
 				]
 			]
 		})
+		await ctx.answerCbQuery('👍');
+		log(BOT.inlineKeyboards[uniqID])
 	} catch (error) {
 		log(error);
 	}
-	await ctx.answerCbQuery('👍');
 })
 
 addButtonActon('btn_banpool_dislike', async (ctx) => {
 	try {
-		const btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
-		const btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
+		const msgId = ctx.update.callback_query.message.message_id
+		const userClickedId = ctx.update.callback_query.from.id
+		const uniqID = msgId + userClickedId + ''
+		log(uniqID)
+		if (!BOT.inlineKeyboards[uniqID]) {
+			BOT.inlineKeyboards[uniqID] = {}
+		}
+
+		let btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
+		let btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
+
+		if (!BOT.inlineKeyboards[uniqID].choice) {
+			BOT.inlineKeyboards[uniqID] = { choice: 'no', msgId: msgId }
+			btnLabelDislike = +btnLabelDislike + 1;
+		} else if (BOT.inlineKeyboards[uniqID].choice === 'yes') {
+			BOT.inlineKeyboards[uniqID] = { choice: 'no', msgId: msgId }
+			btnLabelDislike = +btnLabelDislike + 1;
+			btnLabelLike = +btnLabelLike - 1;
+		} else {
+			log(BOT.inlineKeyboards[uniqID])
+			await ctx.answerCbQuery();
+			return
+		}
+
 		await ctx.editMessageReplyMarkup({
 			inline_keyboard: [
 				[
-					Markup.button.callback(`👍 ${+btnLabelLike}`, 'btn_banpool_like'),
-					Markup.button.callback(`👎 ${+btnLabelDislike + 1}`, 'btn_banpool_dislike')
+					Markup.button.callback(`👍 ${btnLabelLike}`, 'btn_banpool_like'),
+					Markup.button.callback(`👎 ${btnLabelDislike}`, 'btn_banpool_dislike')
 				]
 			]
 		})
+		log(BOT.inlineKeyboards[uniqID])
+		await ctx.answerCbQuery('👎');
 	} catch (error) {
 		log(error);
 	}
-	await ctx.answerCbQuery('👎');
 
 })
 
