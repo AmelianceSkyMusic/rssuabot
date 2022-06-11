@@ -339,7 +339,7 @@ bot.command('asmban', async (ctx) => {
 	} catch (error) { console.error(error);}
 })
 
-addButtonActon('btn_banpool_like', async (ctx) => {
+addButtonActon('btn_banpoll_like', async (ctx) => {
 	try {
 		const msgId = ctx.update.callback_query.message.message_id
 		const userClickedId = ctx.update.callback_query.from.id
@@ -380,7 +380,7 @@ addButtonActon('btn_banpool_like', async (ctx) => {
 	}
 })
 
-addButtonActon('btn_banpool_dislike', async (ctx) => {
+addButtonActon('btn_banpoll_dislike', async (ctx) => {
 	try {
 		const msgId = ctx.update.callback_query.message.message_id
 		const userClickedId = ctx.update.callback_query.from.id
