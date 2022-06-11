@@ -303,7 +303,7 @@ bot.command('banpoll', async (ctx) => {
 	} catch (error) { console.error(error);}
 })
 
-bot.command('anonymousbanpoll', async (ctx) => {
+bot.command('banpollanonymous', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		const memberToBan = ctx.update.message.reply_to_message.from;
