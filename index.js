@@ -254,7 +254,7 @@ bot.command('reply', async (ctx) => {
 	const memberPressed = ctx.update.message.reply_to_message.from;
 	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 1);
+		await removeMsgById.call(ctx, commandMessageId, 0);
 		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
 		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
 		setTimeout( async () => { // remove messages
