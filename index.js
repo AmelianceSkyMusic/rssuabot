@@ -261,7 +261,7 @@ bot.command('reply', async (ctx) => {
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.secToMs(30));
+		}, asm.secToMs(60));
 	} catch (error) { console.error(error);}
 })
 
@@ -279,7 +279,7 @@ bot.command('random', async (ctx) => {
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.secToMs(300));
+		}, asm.secToMs(60));
 	} catch (error) { console.error(error);}
 })
 
