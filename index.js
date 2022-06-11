@@ -283,7 +283,7 @@ bot.command('random', async (ctx) => {
 	} catch (error) { console.error(error);}
 })
 
-bot.command('banpool', async (ctx) => {
+bot.command('banpoll', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		const memberPressed = ctx.update.message.from
@@ -297,13 +297,13 @@ bot.command('banpool', async (ctx) => {
 			`Ви підтримуєте ви його пропозицію?🤔`,
 			parse_mode: 'HTML',
 			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍 0`, 'btn_banpool_like'),
-				Markup.button.callback(`👎 0`, 'btn_banpool_dislike')
+				Markup.button.callback(`👍 0`, 'btn_banpoll_like'),
+				Markup.button.callback(`👎 0`, 'btn_banpoll_dislike')
 		])});
 	} catch (error) { console.error(error);}
 })
 
-bot.command('anonymousbanpool', async (ctx) => {
+bot.command('anonymousbanpoll', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		const memberToBan = ctx.update.message.reply_to_message.from;
@@ -315,8 +315,8 @@ bot.command('anonymousbanpool', async (ctx) => {
 			`Може тра його забанити?🤔`,
 			parse_mode: 'HTML',
 			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍`, 'btn_banpool_like'),
-				Markup.button.callback(`👎`, 'btn_banpool_dislike')
+				Markup.button.callback(`👍`, 'btn_banpoll_like'),
+				Markup.button.callback(`👎`, 'btn_banpoll_dislike')
 		])});
 	} catch (error) { console.error(error);}
 })
@@ -333,8 +333,8 @@ bot.command('asmban', async (ctx) => {
 			`Може тра його забанити?🤔`,
 			parse_mode: 'HTML',
 			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍`, 'btn_banpool_like'),
-				Markup.button.callback(`👎`, 'btn_banpool_dislike')
+				Markup.button.callback(`👍`, 'btn_banpoll_like'),
+				Markup.button.callback(`👎`, 'btn_banpoll_dislike')
 		])});
 	} catch (error) { console.error(error);}
 })
@@ -368,8 +368,8 @@ addButtonActon('btn_banpoll_like', async (ctx) => {
 		await ctx.editMessageReplyMarkup({
 			inline_keyboard: [
 				[
-					Markup.button.callback(`👍 ${btnLabelLike}`, 'btn_banpool_like'),
-					Markup.button.callback(`👎 ${btnLabelDislike}`, 'btn_banpool_dislike')
+					Markup.button.callback(`👍 ${btnLabelLike}`, 'btn_banpoll_like'),
+					Markup.button.callback(`👎 ${btnLabelDislike}`, 'btn_banpoll_dislike')
 				]
 			]
 		})
@@ -409,8 +409,8 @@ addButtonActon('btn_banpoll_dislike', async (ctx) => {
 		await ctx.editMessageReplyMarkup({
 			inline_keyboard: [
 				[
-					Markup.button.callback(`👍 ${btnLabelLike}`, 'btn_banpool_like'),
-					Markup.button.callback(`👎 ${btnLabelDislike}`, 'btn_banpool_dislike')
+					Markup.button.callback(`👍 ${btnLabelLike}`, 'btn_banpoll_like'),
+					Markup.button.callback(`👎 ${btnLabelDislike}`, 'btn_banpoll_dislike')
 				]
 			]
 		})
@@ -453,76 +453,3 @@ bot.launch({
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-// secondStep.on('callback_query', async ctx => {
-// 	try {
-// 	  let callback = ctx.callbackQuery.data;
-// 	  if (callback === 'back/') {
-// 		await ctx.editMessageReplyMarkup({
-// 		  inline_keyboard: [
-// 			[
-// 			  Markup.button.callback("🧢Личные задачи", `privateTask/${ctx.scene.state.taskId}`),
-// 			  Markup.button.callback("💰Бизнес задачи", `businessTask/${ctx.scene.state.taskId}`),
-// 			],
-// 			[
-// 			  Markup.button.callback("❌Написать клиенту", `badDescription/${ctx.scene.state.taskId}`),
-// 			],
-// 		  ]
-// 		})
-// 		return ctx.wizard.back();
-// 	  } else {
-// 		ctx.scene.state.profile = callback;
-// 		await ctx.editMessageReplyMarkup({ inline_keyboard: deadlineBtn });
-// 		return ctx.wizard.next()
-// 	  }
-// 	} catch (e) {
-// 	  console.log(e)
-// 	}
-//   });
-//   const thirdStep = new Composer();
-//   thirdStep.on('callback_query', async ctx => {
-// 	try {
-// 	  let callback = ctx.callbackQuery.data;
-// 	  if (callback === 'back/') {
-// 		await ctx.editMessageReplyMarkup({ inline_keyboard: selectProfileBtn });
-// 		return ctx.wizard.back();
-// 	  } else {
-// 		ctx.scene.state.deadline = callback.split("/")[1];
-// 		await ctx.editMessageReplyMarkup({ inline_keyboard: complexityBtn })
-// 		return ctx.wizard.next()
-// 	  }
-// 	} catch (e) {
-// 	  console.log(e)
-// 	}
-//   });
-//   const fourthStep = new Composer();
-//   fourthStep.on('callback_query', async ctx => {
-// 	try {
-// 	  let callback = ctx.callbackQuery.data;
-// 	  if (callback === 'back/') {
-// 		await ctx.editMessageReplyMarkup({ inline_keyboard: deadlineBtn });
-// 		return ctx.wizard.back();
-// 	  } else {
-// 		ctx.scene.state.complexity = callback.split("/")[1];
-// 		let sendInvoice = await confirmTask(ctx);
-// 		if (sendInvoice) {
-// 		  return ctx.scene.leave();
-// 		}
-// 	  }
-// 	} catch (e) {
-// 	  console.log(e)
-// 	}
-//   });
-//   const timeManagerScene = new Scenes.WizardScene("timeManagerTaskWizard", startStep, secondStep, thirdStep, fourthStep);
