@@ -311,12 +311,12 @@ bot.command('anonymousbanpool', async (ctx) => {
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 		{ caption:
-			`Хтось пропонує забанити 👉 ${userToBan}\n` +
-			`Що скажете?🤔`,
+			`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
+			`Може тра його забанити?🤔`,
 			parse_mode: 'HTML',
 			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍 0`, 'btn_banpool_like'),
-				Markup.button.callback(`👎 0`, 'btn_banpool_dislike')
+				Markup.button.callback(`👍`, 'btn_banpool_like'),
+				Markup.button.callback(`👎`, 'btn_banpool_dislike')
 		])});
 	} catch (error) { console.error(error);}
 })
@@ -333,8 +333,8 @@ bot.command('asmban', async (ctx) => {
 			`Може тра його забанити?🤔`,
 			parse_mode: 'HTML',
 			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍 0`, 'btn_banpool_like'),
-				Markup.button.callback(`👎 0`, 'btn_banpool_dislike')
+				Markup.button.callback(`👍`, 'btn_banpool_like'),
+				Markup.button.callback(`👎`, 'btn_banpool_dislike')
 		])});
 	} catch (error) { console.error(error);}
 })
