@@ -9,7 +9,7 @@ const commands = `
 /codeofconduct - правила поведінки
 /stickers - стікери
 /random - отримати рандомну фразу
-/reply - (reply) рандомною фразою
+/reply - (reply) відповісти рандомною фразою
 /banpoll - (reply) влаштувати опитування на бан
 /banpollanonymous - (reply) анонімно влаштувати опитування на бан
 `
