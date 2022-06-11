@@ -55,7 +55,7 @@ bot.on('chat_member', async(ctx) => {
 			const msg = await ctx.replyWithPhoto({ source: './assets/img/rssstandwithukraine.png' },
 				{ caption:
 					`<b>${user}, раді вітати тебе українською мовою!</b>\n\n` +
-					`❗Поводься, чемно, дотримуйся <a href='https://docs.rs.school/#/code-of-conduct'>правил поведінки</a>.\n\n`+
+					`❗Поводься чемно, дотримуйся <a href='https://docs.rs.school/#/code-of-conduct'>правил поведінки</a>.\n\n`+
 					`Ознайомся, будь ласка, з закріпленими повідомленнями, та <tg-spoiler>тицяй кнопку👇</tg-spoiler>!`,
 					parse_mode: 'HTML',
 					...Markup.inlineKeyboard([
