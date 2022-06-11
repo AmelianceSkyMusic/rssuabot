@@ -142,7 +142,7 @@ bot.on('left_chat_member', async (ctx) => {
 		try {
 			await ctx.deleteMessage(msg.message_id);
 		} catch (error) { console.error(`ASM: Maybe service message was removed by the user\n${error}`) }
-	}, 10000);
+	}, asm.secToMs(10));
 })
 
 
@@ -158,48 +158,121 @@ bot.on('left_chat_member', async (ctx) => {
 bot.help((ctx) => ctx.reply(constants.commands));
 // bot.on('sticker', (ctx) => ctx.reply('👍'));
 // bot.hears(['Привіт', 'Hi', 'Hello'], (ctx) => ctx.reply('Ну привіт😅'));
+
+// async function addBotCommand(command, ...args) {
+
+// 	log(command)
+// 	bot.command(command, async () => {
+// 		try { await this.replyWithHTML(`<a href="${args[1]}">${args[2]}</a>`) } catch (error) { console.error(error);}
+// 	})
+// 	return
+// }
+
+async function removeMsgById(msgId, sec) {
+	setTimeout( async () => { // remove messages
+		try {
+			await this.deleteMessage(msgId);
+		} catch (error) {
+			log(`ASM: Maybe message ${msgId} was removed by the user\n${error}`) }
+	}, asm.secToMs(sec));
+}
+
+
 bot.command('asm', async (ctx) => {
-	try { await ctx.replyWithHTML('@AmelianceSkyMusic') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 5);
+		await ctx.replyWithHTML('@AmelianceSkyMusic')
+	} catch (error) { console.error(error);}
 })
+
+
+// addBotCommand.call(ctx, 'app', 'https://docs.rs.school/#/code-of-conduct', 'Додаток школи');
 
 bot.command('app', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Додаток школи</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Додаток школи</a>')
+	} catch (error) { console.error(error);}
 })
 bot.command('coursejsfe', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks">Про курс</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks">Про курс</a>')
+	} catch (error) { console.error(error);}
 })
 bot.command('roadmap', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання:</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання:</a>')
+	} catch (error) { console.error(error);}
 })
 bot.command('docs', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/">Документація</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://docs.rs.school/">Документація</a>')
+	} catch (error) { console.error(error);}
 })
 bot.command('dismission', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/#/dismission">За що відраховуємо</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/dismission">За що відраховуємо</a>')
+	} catch (error) { console.error(error);}
 })
 bot.command('registration', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://app.rs.school/registry/student">Реєстрація</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://app.rs.school/registry/student">Реєстрація</a>')
+	} catch (error) { console.error(error);}
 })
 bot.command('codeofconduct', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Норми поведінки</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Норми поведінки</a>')
+	} catch (error) { console.error(error);}
 })
 bot.command('stickers', async (ctx) => {
-	try { await ctx.replyWithHTML('<a href="https://t.me/addstickers/RSSchool_Ukraine">Стікери</a>') } catch (error) { console.error(error);}
+	const commandMessageId = ctx.update.message.message_id;
+	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		await ctx.replyWithHTML('<a href="https://t.me/addstickers/RSSchool_Ukraine">Стікери</a>')
+	} catch (error) { console.error(error);}
 })
 
+// bot.command('reply', async (ctx) => {
+// 	const commandMessageId = ctx.update.message.message_id;
+// 	try {
+// 		await removeMsgById.call(ctx, commandMessageId, 30);
+// 		await ctx.replyWithHTML('reply')
+// 	} catch (error) { console.error(error);}
+// })
+
+
+
 bot.command('random', async (ctx) => {
+	const commandMessageId = ctx.update.message.message_id;
 	const memberPressed = ctx.update.message.from;
 	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 	try {
+		await removeMsgById.call(ctx, commandMessageId, 30);
 		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
 		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
 		setTimeout( async () => { // remove messages
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.secToMs(20));
+		}, asm.secToMs(30));
 	} catch (error) { console.error(error);}
 })
+
+
 
 
 
