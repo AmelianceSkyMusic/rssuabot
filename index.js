@@ -182,8 +182,8 @@ async function removeMsgById(msgId, sec) {
 
 
 bot.command('asm', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
+		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, 5);
 		await ctx.replyWithHTML('@AmelianceSkyMusic')
 	} catch (error) { console.error(error);}
@@ -193,67 +193,67 @@ bot.command('asm', async (ctx) => {
 // addBotCommand.call(ctx, 'app', 'https://docs.rs.school/#/code-of-conduct', 'Додаток школи');
 
 bot.command('app', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Додаток школи</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('coursejsfe', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks">Про курс</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('roadmap', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання:</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('docs', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/">Документація</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('dismission', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/dismission">За що відраховуємо</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('registration', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://app.rs.school/registry/student">Реєстрація</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('codeofconduct', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Норми поведінки</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('stickers', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
 	try {
-		await removeMsgById.call(ctx, commandMessageId, 30);
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
 		await ctx.replyWithHTML('<a href="https://t.me/addstickers/RSSchool_Ukraine">Стікери</a>')
 	} catch (error) { console.error(error);}
 })
 
 bot.command('reply', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
-	const memberPressed = ctx.update.message.reply_to_message.from;
-	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 	try {
+		const commandMessageId = ctx.update.message.message_id;
+		const memberPressed = ctx.update.message.reply_to_message.from;
+		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
 		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
@@ -268,10 +268,10 @@ bot.command('reply', async (ctx) => {
 
 
 bot.command('random', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
-	const memberPressed = ctx.update.message.from;
-	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 	try {
+		const commandMessageId = ctx.update.message.message_id;
+		const memberPressed = ctx.update.message.from;
+		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 		await removeMsgById.call(ctx, commandMessageId, 30);
 		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
 		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
@@ -284,12 +284,12 @@ bot.command('random', async (ctx) => {
 })
 
 bot.command('banpool', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
-	const memberPressed = ctx.update.message.from
-	const memberToBan = ctx.update.message.reply_to_message.from;
-	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
-	const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 	try {
+		const commandMessageId = ctx.update.message.message_id;
+		const memberPressed = ctx.update.message.from
+		const memberToBan = ctx.update.message.reply_to_message.from;
+		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+		const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 		await removeMsgById.call(ctx, commandMessageId, 1);
 		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 		{ caption:
@@ -304,10 +304,10 @@ bot.command('banpool', async (ctx) => {
 })
 
 bot.command('anonymousbanpool', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
-	const memberToBan = ctx.update.message.reply_to_message.from;
-	const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 	try {
+		const commandMessageId = ctx.update.message.message_id;
+		const memberToBan = ctx.update.message.reply_to_message.from;
+		const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 		{ caption:
@@ -322,10 +322,10 @@ bot.command('anonymousbanpool', async (ctx) => {
 })
 
 bot.command('asmban', async (ctx) => {
-	const commandMessageId = ctx.update.message.message_id;
-	const memberToBan = ctx.update.message.reply_to_message.from;
-	const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 	try {
+		const commandMessageId = ctx.update.message.message_id;
+		const memberToBan = ctx.update.message.reply_to_message.from;
+		const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 		{ caption:
