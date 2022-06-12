@@ -255,8 +255,8 @@ bot.command('reply', async (ctx) => {
 		const memberPressed = ctx.update.message.reply_to_message.from;
 		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 		await removeMsgById.call(ctx, commandMessageId, 0);
-		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
-		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
+		const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
+		const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
 		setTimeout( async () => { // remove messages
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
@@ -287,8 +287,8 @@ bot.command('random', async (ctx) => {
 		const memberPressed = ctx.update.message.from;
 		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
 		await removeMsgById.call(ctx, commandMessageId, 30);
-		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
-		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
+		const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
+		const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
 		setTimeout( async () => { // remove messages
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
@@ -435,6 +435,8 @@ addButtonActon('btn_banpoll_dislike', async (ctx) => {
 	}
 
 })
+
+
 
 // function addButtonActon(name, src, text) {
 // 	bot.action(name, async (ctx) => {
