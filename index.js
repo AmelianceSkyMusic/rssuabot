@@ -531,20 +531,24 @@ bot.command('admins', async (ctx) => {
 
 bot.on("channel_post", async (ctx) => {
 	try {
-		const channelPost = ctx.update.channel_post.text
-		const postArr = channelPost.split('\n')
-		const postDate = postArr.shift().replaceAll('*', '')
-		const postAuthor = postArr.shift().replaceAll('*', '').slice(0, -5)
-		postArr.push('')
-		postArr.push(`\`${postAuthor}\``)
-		postArr.push(`\`${postDate}\``)
-
-		const post = postArr.join('\n').replaceAll('**', '*').replaceAll('__', '_')
-
 		const channelUsername = ctx.update.channel_post.sender_chat.username
+		const channelPost = ctx.update.channel_post.text
 
-		if(channelUsername === 'rss_announcements') {
+		if (channelUsername === 'rss_announcements') {
+			const postArr = channelPost.split('\n')
+			const postDate = postArr.shift().replaceAll('*', '')
+			const postAuthor = postArr.shift().replaceAll('*', '').slice(0, -5)
+			postArr.push('')
+			postArr.push(`\`${postAuthor}\``)
+			postArr.push(`\`${postDate}\``)
+
+			const post = postArr.join('\n').replaceAll('**', '*').replaceAll('__', '_')
 			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'})
+
+		} else if(channelUsername === 'DesignIs_Official') { // test
+			const channelPost = ctx.update.channel_post.text
+			log(channelUsername, channelPost)
+			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
 		}
 	} catch (error) {
 		console.error(error)
@@ -560,44 +564,6 @@ bot.on("channel_post", async (ctx) => {
 // >----------------------------------------------------------------<
 
 bot.command('ctx', async (ctx) => await ctx.replyWithHTML(`<code>${debug(ctx.update)}</code>`))
-
-bot.on("channel_post", async (ctx) => {
-	try {
-		// const postArr =
-// `Mon, Jun 13, 2022 7:21 AM
-// *WiiJoy* said in channel *announcements-2022q1* that
-
-// Всем привет!
-
-// **Сегодня последний день выполнения задания** <#983335939118071828>!
-// Если вы еще не отправили свои мемчики, или до сих пор не оценили уже присланные - самое время этим заняться 😉
-
-// И не забудьте поддержать понравившиеся мемы лайком 👍
-
-// Наполняемся хорошим настроением перед стартом **Stage#2**!
-
-// Успехов!🧙‍♂️`.split('\n')
-
-		// const channelPost = 'зібен зібен ай лю лю'
-		const channelPost = ctx.update.channel_post.text
-		const channelUsername = ctx.update.channel_post.sender_chat.username
-		log(channelUsername, channelPost)
-		if(channelUsername === 'DesignIs_Official') {
-			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
-		// if(channelUsername === 'rss_announcements') {
-		// 	await ctx.telegram.sendMessage(RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'})
-			// const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
-			// { caption:
-			// 	post,
-			// 	// parse_mode: 'HTML'
-			// });
-		}
-	} catch (error) {
-		console.error(error)
-	}
-
-
-})
 
 bot.command('sendtest', async (ctx) => {
 	const chatId = ctx.update.message.chat.id
