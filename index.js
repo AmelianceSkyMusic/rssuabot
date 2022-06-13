@@ -526,22 +526,26 @@ bot.command('admins', async (ctx) => {
 
 // ^------------------------ Test ------------------------
 
-bot.command('test', async (ctx) => {
-	const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getUpdates`;
-	https.get(url, res => {
-	let data = '';
-	res.on('data', chunk => {
-		data += chunk;
-	});
-	res.on('end', () => {
-		data = JSON.parse(data);
-		console.log(data);
-	})
-	}).on('error', err => {
-	console.log(err.message);
-	})
-})
+// bot.command('test', async (ctx) => {
+// 	const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getUpdates`;
+// 	https.get(url, res => {
+// 		let data = '';
+// 		res.on('data', chunk => {
+// 			data += chunk;
+// 		});
+// 		res.on('end', () => {
+// 			data = JSON.parse(data);
+// 			console.log(data);
+// 			ctx.replyWithHTML(debug(data))
+// 		})
+// 	}).on('error', err => {
+// 		console.log(err.message);
+// 	})
+// })
 
+bot.on("message", (ctx) => {log(ctx)})
+
+bot.command('ctx', async (ctx) => await ctx.replyWithHTML(`<code>${debug(ctx.update)}</code>`))
 // >----------------------------------------------------------------<
 // >                             LAUNCH                             <
 // >----------------------------------------------------------------<
