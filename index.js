@@ -549,6 +549,7 @@ bot.on("channel_post", async (ctx) => {
 			const channelPost = ctx.update.channel_post.text
 			log(channelUsername, channelPost)
 			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
+			await ctx.telegram.sendMessage(TEST_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
 		}
 	} catch (error) {
 		console.error(error)
