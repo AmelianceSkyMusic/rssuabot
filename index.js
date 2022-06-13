@@ -548,8 +548,8 @@ bot.on("channel_post", async (ctx) => {
 		} else if(channelUsername === 'DesignIs_Official') { // test
 			const channelPost = ctx.update.channel_post.text
 			log(channelUsername, channelPost)
-			await ctx.telegram.sendMessage(TEST_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
 			await ctx.telegram.sendMessage(RSS2022Q1UA_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
+			await ctx.telegram.sendMessage(TEST_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
 		}
 	} catch (error) {
 		console.error(error)
