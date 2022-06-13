@@ -11,6 +11,7 @@ const asm = require('./scripts/modules/asm.js');
 const constants = require('./constants');
 const debug = require('./helpers');
 
+const https = require('https')
 
 // >----------------------------------------------------------------<
 // >                           TELEGRAF                             <
@@ -254,36 +255,61 @@ bot.command('stickers', async (ctx) => {
 bot.command('reply', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		const memberPressed = ctx.update.message.reply_to_message.from;
-		const memberPressedId = memberPressed.id
-		const memberPressedfirstName = memberPressed.first_name
-		const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
 		await removeMsgById.call(ctx, commandMessageId, 0);
-		const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
-		const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
-		setTimeout( async () => { // remove messages
-			try {
-				await ctx.deleteMessage(randomMsg.message_id);
-			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.minToMs(60));
-	} catch (error) { console.error(error);}
+
+		const memberPressed = ctx.update.message?.reply_to_message?.from;
+		if (memberPressed) {
+			const memberPressedId = memberPressed.id;
+			const memberPressedfirstName = memberPressed.first_name;
+			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
+			const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
+			const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
+			setTimeout( async () => { // remove messages
+				try {
+					await ctx.deleteMessage(randomMsg.message_id);
+				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+			}, asm.minToMs(60));
+		} else {
+			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
+			setTimeout( async () => {
+				try {
+					await ctx.deleteMessage(msg.message_id);
+				} catch (error) { console.error(error); }
+			}, asm.secToMs(5));
+		}
+	} catch (error) {
+		console.error(error);
+	}
 })
 
 bot.command('two', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		const memberPressed = ctx.update.message.reply_to_message.from;
-		const memberPressedId = memberPressed.id
-		const memberPressedfirstName = memberPressed.first_name
-		const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
 		await removeMsgById.call(ctx, commandMessageId, 0);
-		const randomMsg = await ctx.replyWithHTML(`${user} сідай, 2😅`);
-		setTimeout( async () => { // remove messages
-			try {
-				await ctx.deleteMessage(randomMsg.message_id);
-			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.minToMs(60));
-	} catch (error) { console.error(error);}
+		const memberPressed = ctx.update.message?.reply_to_message?.from;
+		if (memberPressed) {
+			const memberPressedId = memberPressed.id;
+			const memberPressedfirstName = memberPressed.first_name;
+			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
+			await removeMsgById.call(ctx, commandMessageId, 0);
+			const randomMsg = await ctx.replyWithHTML(`${user} сідай, 2😅`);
+			setTimeout( async () => { // remove messages
+				try {
+					await ctx.deleteMessage(randomMsg.message_id);
+				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+			}, asm.minToMs(60));
+		} else {
+			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
+			setTimeout( async () => {
+				try {
+					await ctx.deleteMessage(msg.message_id);
+				} catch (error) { console.error(error); }
+			}, asm.secToMs(5));
+		}
+
+	} catch (error) {
+		console.error(error);
+	}
 })
 
 
@@ -308,57 +334,76 @@ bot.command('random', async (ctx) => {
 bot.command('banpoll', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		const memberPressed = ctx.update.message.from
-		const memberToBan = ctx.update.message.reply_to_message.from;
-		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
-		const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 		await removeMsgById.call(ctx, commandMessageId, 1);
-		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
-		{ caption:
-			`${user} пропонує забанити ${userToBan}\n` +
-			`Ви підтримуєте ви його пропозицію?🤔`,
-			parse_mode: 'HTML',
-			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍 0`, 'btn_banpoll_like'),
-				Markup.button.callback(`👎 0`, 'btn_banpoll_dislike')
-		])});
-	} catch (error) { console.error(error);}
+
+		const memberToBan = ctx.update.message?.reply_to_message?.from;
+		log(memberToBan)
+		if (memberToBan) {
+			const memberPressed = ctx.update.message?.from
+			const memberPressedId = memberPressed.id
+			const memberPressedfirstName = memberPressed.first_name
+			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
+
+			const memberToBanId = memberToBan.id
+			const memberToBanfirstName = memberToBan.first_name
+			const userToBan = `<a href="tg://user?id=${memberToBanId}">${memberToBanfirstName}</a>`
+			const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
+			{ caption:
+				`${user} пропонує забанити ${userToBan}\n` +
+				`Ви підтримуєте ви його пропозицію?🤔`,
+				parse_mode: 'HTML',
+				...Markup.inlineKeyboard([
+					Markup.button.callback(`👍 0`, 'btn_banpoll_like'),
+					Markup.button.callback(`👎 0`, 'btn_banpoll_dislike')
+			])});
+		} else {
+			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
+			setTimeout( async () => {
+				try {
+					await ctx.deleteMessage(msg.message_id);
+				} catch (error) { console.error(error); }
+			}, asm.secToMs(5));
+		}
+
+	} catch (error) {
+		console.error(error);
+	}
 })
 
 bot.command('banpollanonymous', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		const memberToBan = ctx.update.message.reply_to_message.from;
-		const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
 		await removeMsgById.call(ctx, commandMessageId, 0);
-		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
-		{ caption:
-			`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
-			`Може тра його забанити?🤔`,
-			parse_mode: 'HTML',
-			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍`, 'btn_banpoll_like'),
-				Markup.button.callback(`👎`, 'btn_banpoll_dislike')
-		])});
-	} catch (error) { console.error(error);}
+
+		const memberToBan = ctx.update.message?.reply_to_message?.from;
+		if (memberToBan) {
+			const memberToBanId = memberToBan.id
+			const memberToBanfirstName = memberToBan.first_name
+			const userToBan = `<a href="tg://user?id=${memberToBanId}">${memberToBanfirstName}</a>`
+			const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
+			{ caption:
+				`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
+				`Може тра його забанити?🤔`,
+				parse_mode: 'HTML',
+				...Markup.inlineKeyboard([
+					Markup.button.callback(`👍`, 'btn_banpoll_like'),
+					Markup.button.callback(`👎`, 'btn_banpoll_dislike')
+			])});
+		} else {
+			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
+			setTimeout( async () => {
+				try {
+					await ctx.deleteMessage(msg.message_id);
+				} catch (error) { console.error(error); }
+			}, asm.secToMs(5));
+		}
+	} catch (error) {
+		console.error(error);
+	}
 })
 
 bot.command('asmban', async (ctx) => {
-	try {
-		const commandMessageId = ctx.update.message.message_id;
-		const memberToBan = ctx.update.message.reply_to_message.from;
-		const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
-		await removeMsgById.call(ctx, commandMessageId, 0);
-		const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
-		{ caption:
-			`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
-			`Може тра його забанити?🤔`,
-			parse_mode: 'HTML',
-			...Markup.inlineKeyboard([
-				Markup.button.callback(`👍`, 'btn_banpoll_like'),
-				Markup.button.callback(`👎`, 'btn_banpoll_dislike')
-		])});
-	} catch (error) { console.error(error);}
+
 })
 
 addButtonActon('btn_banpoll_like', async (ctx) => {
@@ -482,7 +527,19 @@ bot.command('admins', async (ctx) => {
 // ^------------------------ Test ------------------------
 
 bot.command('test', async (ctx) => {
-	log(BOT.users)
+	const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getUpdates`;
+	https.get(url, res => {
+	let data = '';
+	res.on('data', chunk => {
+		data += chunk;
+	});
+	res.on('end', () => {
+		data = JSON.parse(data);
+		console.log(data);
+	})
+	}).on('error', err => {
+	console.log(err.message);
+	})
 })
 
 // >----------------------------------------------------------------<

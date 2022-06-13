@@ -9,22 +9,22 @@
 					"label": "!--REQUIRE"
 				},
 				{
-					"line": 15,
+					"line": 16,
 					"column": 39,
 					"label": "!--TELEGRAF"
 				},
 				{
-					"line": 23,
+					"line": 24,
 					"column": 38,
 					"label": "!--CHAT"
 				},
 				{
-					"line": 447,
+					"line": 492,
 					"column": 44,
 					"label": "    Call All Admins"
 				},
 				{
-					"line": 481,
+					"line": 526,
 					"column": 31,
 					"label": "    Test"
 				}
