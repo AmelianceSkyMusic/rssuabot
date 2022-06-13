@@ -212,7 +212,7 @@ bot.command('roadmap', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, 60000);
-		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання:</a>')
+		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('docs', async (ctx) => {
