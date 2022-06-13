@@ -545,7 +545,7 @@ bot.command('admins', async (ctx) => {
 
 bot.on("message", (ctx) => {
 	log(ctx)
-	ctx.replyWithHTML('test')
+	// ctx.replyWithHTML('test')
 })
 
 bot.command('ctx', async (ctx) => await ctx.replyWithHTML(`<code>${debug(ctx.update)}</code>`))
