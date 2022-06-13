@@ -580,19 +580,10 @@ bot.on("channel_post", async (ctx) => {
 
 		// const channelPost = 'зібен зібен ай лю лю'
 		const channelPost = ctx.update.channel_post.text
-		const postArr = channelPost.split('\n')
-		const postDate = postArr.shift().replaceAll('*', '')
-		log(postDate)
-		const postAuthor = postArr.shift().replaceAll('*', '').slice(0, -5)
-		log(postAuthor)
-		postArr.push('')
-		postArr.push(`\`${postAuthor}\``)
-		postArr.push(`\`${postDate}\``)
-		const post = postArr.join('\n').replaceAll('**', '*').replaceAll('__', '_')
 		const channelUsername = ctx.update.channel_post.sender_chat.username
 		log(channelUsername, channelPost)
 		if(channelUsername === 'DesignIs_Official') {
-			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'})
+			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
 		// if(channelUsername === 'rss_announcements') {
 		// 	await ctx.telegram.sendMessage(RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'})
 			// const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
