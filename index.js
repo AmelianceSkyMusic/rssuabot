@@ -528,7 +528,7 @@ bot.command('admins', async (ctx) => {
 
 bot.command('sendtest', async (ctx) => {
 	const chatId = ctx.update.message.chat.id
-	await ctx.telegram.sendMessage(-1001799287707, `chat.id: ${chatId}`)
+	const randomMsg = await ctx.replyWithHTML(-1001799287707, `chat.id: ${chatId}`)
 // 	const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getUpdates`;
 // 	https.get(url, res => {
 // 		let data = '';
