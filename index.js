@@ -13,7 +13,7 @@ const debug = require('./helpers');
 
 
 // >----------------------------------------------------------------<
-// >                           Telegraf                             <
+// >                           TELEGRAF                             <
 // >----------------------------------------------------------------<
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
@@ -86,6 +86,7 @@ bot.on('chat_member', async(ctx) => {
 
 
 // ^------------------------ add button ------------------------
+
 addButtonActon('btn_readall', async (ctx) => {
 	const messageForFirstName = ctx.update.callback_query.message.caption.split(',')[0]
 	const memberPressed = ctx.update.callback_query.from;
@@ -115,9 +116,10 @@ addButtonActon('btn_readall', async (ctx) => {
 				BOT.users[userId].messageToRemove.push(msg.message_id);
 				setTimeout( async () => { // remove messages
 					try {
-						for (const msgId of BOT.users[userId].messageToRemove) {
+						for await (const msgId of BOT.users[userId].messageToRemove) {
 							await ctx.deleteMessage(msgId);
 						}
+						delete BOT.users[userId]
 					} catch (error) { log(`ASM: Maybe messages from array was removed by the user\n${error}`) }
 				}, asm.secToMs(5));
 			}, asm.secToMs(3));
@@ -443,40 +445,22 @@ addButtonActon('btn_banpoll_dislike', async (ctx) => {
 })
 
 
+// ^------------------------ Call All Admins ------------------------
 
-bot.command('calladmins', async (ctx) => {
+bot.command('admins', async (ctx) => {
 	try {
 		const botName = ctx.botInfo.first_name
 		const chatId = ctx.update.message.chat.id;
 		const admins = await ctx.getChatAdministrators(chatId);
-		// const adminNames = admins.map(admin => {
-		// 	const adminName = admin.user.username ? `@${admin.user.username}` : admin.user.first_name
-		// 	return adminName === botName ? '' : adminName
-		// });
 		const adminNames = []
 		for await (const admin of admins) {
 			const adminName = admin.user.first_name
-			const adminId = admin.user.id
 			if (adminName !== botName) {
-				adminNames.push(adminName)
-				const randomMsg = await ctx.replyWithHTML(`<a href="tg://user?id=${adminId}">${adminName}</a>`);
+				const adminId = admin.user.id
+				adminNames.push(`<a href="tg://user?id=${adminId}">${adminName}</a>`)
 			}
 		}
-		log(adminNames.join(' '))
-		// ctx.sendMessage(admin.user.id, 'Привіт, адмін! Я повідомляю тобі про подію🤔');
-		// const commandMessageId = ctx.update.message.message_id;
-		// const memberToBan = ctx.update.message.reply_to_message.from;
-		// const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
-		// await removeMsgById.call(ctx, commandMessageId, 0);
-		// const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
-		// { caption:
-		// 	`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
-		// 	`Може тра його забанити?🤔`,
-		// 	parse_mode: 'HTML',
-		// 	...Markup.inlineKeyboard([
-		// 		Markup.button.callback(`👍`, 'btn_banpoll_like'),
-		// 		Markup.button.callback(`👎`, 'btn_banpoll_dislike')
-		// ])});
+		const randomMsg = await ctx.replyWithHTML(adminNames.join(' '));
 	} catch (error) { console.error(error);}
 })
 
@@ -495,7 +479,11 @@ bot.command('calladmins', async (ctx) => {
 
 // addButtonActon('btn_github', './assets/img/asm_logo_old.jpg', constants.githubUrl);
 
+// ^------------------------ Test ------------------------
 
+bot.command('test', async (ctx) => {
+	log(BOT.users)
+})
 
 // >----------------------------------------------------------------<
 // >                             LAUNCH                             <
