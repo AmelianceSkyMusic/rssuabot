@@ -19,7 +19,9 @@ const https = require('https')
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
-
+const TEST_CHAT_ID = -1001799287707
+const RSSUA_CHAT_ID = -1001315899508
+const RSS2022Q1UA_CHAT_ID = -1001730193639
 
 // >----------------------------------------------------------------<
 // >                              CHAT                              <
@@ -546,27 +548,37 @@ bot.command('sendtest', async (ctx) => {
 })
 
 bot.on("channel_post", async (ctx) => {
-const post = `
-Mon, Jun 13, 2022 7:21 AM
- *WiiJoy* said in channel *announcements\\-2022q1* that
+// const postArr =
+// `Mon, Jun 13, 2022 7:21 AM
+// *WiiJoy* said in channel *announcements-2022q1* that
 
-Всем привет!
+// Всем привет!
 
-**Сегодня последний день выполнения задания** <#983335939118071828>!
-Если вы еще не отправили свои мемчики, или до сих пор не оценили уже присланные \\- самое время этим заняться 😉
+// **Сегодня последний день выполнения задания** <#983335939118071828>!
+// Если вы еще не отправили свои мемчики, или до сих пор не оценили уже присланные - самое время этим заняться 😉
 
-И не забудьте поддержать понравившиеся мемы лайком 👍
+// И не забудьте поддержать понравившиеся мемы лайком 👍
 
-Наполняемся хорошим настроением перед стартом **Stage#2**!
+// Наполняемся хорошим настроением перед стартом **Stage#2**!
 
-Успехов!🧙‍♂️`
+// Успехов!🧙‍♂️`.split('\n')
 
-	const channelUsername = ctx.update.channel_post.sender_chat.username
 	const channelPost = ctx.update.channel_post.text
-	const chatId = -1001799287707
+	const postArr = channelPost.split('\n')
+	const postDate = postArr.shift().replaceAll('*', '')
+	log(postDate)
+	const postAuthor = postArr.shift().replaceAll('*', '').slice(0, -5)
+	log(postAuthor)
+	postArr.push('')
+	postArr.push(`\`${postAuthor}\``)
+	postArr.push(`\`${postDate}\``)
+	const post = postArr.join('\n').replaceAll('**', '*').replaceAll('__', '_')
+	const channelUsername = ctx.update.channel_post.sender_chat.username
 	log(channelUsername, channelPost)
-	if(channelUsername === 'DesignIs_Official') {
-		await ctx.telegram.sendMessage(chatId, post)
+	// if(channelUsername === 'DesignIs_Official') {
+	// 	await ctx.telegram.sendMessage(TEST_CHAT_ID, post, {parse_mode: 'Markdown'})
+	if(channelUsername === 'rss_announcements') {
+		await ctx.telegram.sendMessage(RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'})
 		// const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 		// { caption:
 		// 	post,

@@ -14,17 +14,17 @@
 					"label": "!--TELEGRAF"
 				},
 				{
-					"line": 24,
+					"line": 26,
 					"column": 38,
 					"label": "!--CHAT"
 				},
 				{
-					"line": 492,
+					"line": 494,
 					"column": 44,
 					"label": "    Call All Admins"
 				},
 				{
-					"line": 526,
+					"line": 528,
 					"column": 31,
 					"label": "    Test"
 				}
