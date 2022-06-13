@@ -9,6 +9,7 @@ const { log } = require('console');
 
 const asm = require('./scripts/modules/asm.js');
 const constants = require('./constants');
+const debug = require('./helpers');
 
 
 // >----------------------------------------------------------------<
@@ -38,14 +39,15 @@ BOT.inlineKeyboards = {};
 
 bot.on('chat_member', async(ctx) => {
 
-	const newChatMemberStatus = ctx.update.chat_member.new_chat_member.status
 
 	try {
+		const newChatMemberStatus = ctx.update.chat_member.new_chat_member.status
 		const newChatMember = ctx.update.chat_member.new_chat_member.user;
-		const user = newChatMember.username ? `@${newChatMember.username}` : newChatMember.first_name
-		if (newChatMemberStatus === 'member') {
-			const newChatMemberId = newChatMember.id;
-			BOT.users[newChatMemberId] = { isInteractionWithReadAllBtn: false };
+		const newChatMemberId = newChatMember.id
+		const newChatMemberfirstName = newChatMember.first_name
+		const user = `<a href="tg://user?id=${newChatMemberId}">${newChatMemberfirstName}</a>`
+		// if (newChatMemberStatus === 'member') {
+			BOT.users[newChatMemberId] = {};
 					// 		const newChatMember = ctx.message.new_chat_participant;
 			// chatId = ctx.message.chat.id;
 			// log(ctx.message.chat.id)
@@ -64,16 +66,16 @@ bot.on('chat_member', async(ctx) => {
 				])});
 				BOT.users[newChatMemberId].messageToRemove = []
 				BOT.users[newChatMemberId].messageToRemove.push(msg.message_id);
-				log(BOT.users[newChatMemberId])
+				log(BOT.users)
 
 			setTimeout( async () => { // remove message after 10 minutes
 				try {
 					await ctx.deleteMessage(msg.message_id);
 				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
 			}, asm.minToMs(360));
-		} else if (newChatMemberStatus === 'left' || newChatMemberStatus === 'kicked') {
-			log(`${user} was ${newChatMemberStatus}`)
-		}
+		// } else if (newChatMemberStatus === 'left' || newChatMemberStatus === 'kicked') {
+		// 	log(`${user} was ${newChatMemberStatus}`)
+		// }
 
 
 
@@ -85,16 +87,17 @@ bot.on('chat_member', async(ctx) => {
 
 // ^------------------------ add button ------------------------
 addButtonActon('btn_readall', async (ctx) => {
-
+	const messageForFirstName = ctx.update.callback_query.message.caption.split(',')[0]
 	const memberPressed = ctx.update.callback_query.from;
-	const userId = memberPressed.id;
-	const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
-
+	const userId = memberPressed.id
+	const firstName = memberPressed.first_name
+	const user = `<a href="tg://user?id=${userId}">${firstName}</a>`
 	// *----- add wrong user message -----
-	if ( !BOT.users[userId] ) {
+	if (firstName !== messageForFirstName) {
+	// if ( !BOT.users[userId] ) {
 		const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
 		const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
-		log(randomMsg)
+		// log(randomMsg)
 		setTimeout( async () => { // remove messages
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
@@ -104,24 +107,21 @@ addButtonActon('btn_readall', async (ctx) => {
 	} else {
 		// *----- add message -----
 		try {
-			if (BOT.users[userId].isInteractionWithReadAllBtn === false) {
-				BOT.users[userId].isInteractionWithReadAllBtn = true;
-				const msg = await ctx.replyWithHTML(`${user}, ану кажи паляниця!😠`)
-				BOT.users[userId].messageToRemove.push(msg.message_id);
+			const msg = await ctx.replyWithHTML(`${user}, ану кажи паляниця!😠`)
+			BOT.users[userId].messageToRemove.push(msg.message_id);
 
-				setTimeout( async () => { // remove message after 10 minutes
-					const msg = await ctx.replyWithHTML('Жартую, заходь!😊')
-					BOT.users[userId].messageToRemove.push(msg.message_id);
-					setTimeout( async () => { // remove messages
-						try {
-							for (const msgId of BOT.users[userId].messageToRemove) {
-								await ctx.deleteMessage(msgId);
-							}
-						} catch (error) { log(`ASM: Maybe messages from array was removed by the user\n${error}`) }
-					}, asm.secToMs(5));
+			setTimeout( async () => { // remove message after 10 minutes
+				const msg = await ctx.replyWithHTML('Жартую, заходь!😊')
+				BOT.users[userId].messageToRemove.push(msg.message_id);
+				setTimeout( async () => { // remove messages
+					try {
+						for (const msgId of BOT.users[userId].messageToRemove) {
+							await ctx.deleteMessage(msgId);
+						}
+					} catch (error) { log(`ASM: Maybe messages from array was removed by the user\n${error}`) }
 				}, asm.secToMs(5));
-				await ctx.answerCbQuery()
-			}
+			}, asm.secToMs(3));
+			await ctx.answerCbQuery()
 		} catch (error) { console.error(error); }
 	}
 })
@@ -253,7 +253,9 @@ bot.command('reply', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		const memberPressed = ctx.update.message.reply_to_message.from;
-		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+		const memberPressedId = memberPressed.id
+		const memberPressedfirstName = memberPressed.first_name
+		const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
 		const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
@@ -261,7 +263,7 @@ bot.command('reply', async (ctx) => {
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.secToMs(300));
+		}, asm.minToMs(60));
 	} catch (error) { console.error(error);}
 })
 
@@ -269,14 +271,16 @@ bot.command('two', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		const memberPressed = ctx.update.message.reply_to_message.from;
-		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+		const memberPressedId = memberPressed.id
+		const memberPressedfirstName = memberPressed.first_name
+		const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
 		await removeMsgById.call(ctx, commandMessageId, 0);
 		const randomMsg = await ctx.replyWithHTML(`${user} сідай, 2😅`);
 		setTimeout( async () => { // remove messages
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.secToMs(300));
+		}, asm.minToMs(60));
 	} catch (error) { console.error(error);}
 })
 
@@ -285,7 +289,9 @@ bot.command('random', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		const memberPressed = ctx.update.message.from;
-		const user = memberPressed.username ? `@${memberPressed.username}` : memberPressed.first_name
+		const memberPressedId = memberPressed.id
+		const memberPressedfirstName = memberPressed.first_name
+		const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
 		await removeMsgById.call(ctx, commandMessageId, 30);
 		const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
 		const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
@@ -437,6 +443,42 @@ addButtonActon('btn_banpoll_dislike', async (ctx) => {
 })
 
 
+
+bot.command('calladmins', async (ctx) => {
+	try {
+		const botName = ctx.botInfo.first_name
+		const chatId = ctx.update.message.chat.id;
+		const admins = await ctx.getChatAdministrators(chatId);
+		// const adminNames = admins.map(admin => {
+		// 	const adminName = admin.user.username ? `@${admin.user.username}` : admin.user.first_name
+		// 	return adminName === botName ? '' : adminName
+		// });
+		const adminNames = []
+		for await (const admin of admins) {
+			const adminName = admin.user.first_name
+			const adminId = admin.user.id
+			if (adminName !== botName) {
+				adminNames.push(adminName)
+				const randomMsg = await ctx.replyWithHTML(`<a href="tg://user?id=${adminId}">${adminName}</a>`);
+			}
+		}
+		log(adminNames.join(' '))
+		// ctx.sendMessage(admin.user.id, 'Привіт, адмін! Я повідомляю тобі про подію🤔');
+		// const commandMessageId = ctx.update.message.message_id;
+		// const memberToBan = ctx.update.message.reply_to_message.from;
+		// const userToBan = memberToBan.username ? `@${memberToBan.username}` : memberToBan.first_name
+		// await removeMsgById.call(ctx, commandMessageId, 0);
+		// const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
+		// { caption:
+		// 	`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
+		// 	`Може тра його забанити?🤔`,
+		// 	parse_mode: 'HTML',
+		// 	...Markup.inlineKeyboard([
+		// 		Markup.button.callback(`👍`, 'btn_banpoll_like'),
+		// 		Markup.button.callback(`👎`, 'btn_banpoll_dislike')
+		// ])});
+	} catch (error) { console.error(error);}
+})
 
 // function addButtonActon(name, src, text) {
 // 	bot.action(name, async (ctx) => {
