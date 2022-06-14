@@ -272,7 +272,7 @@ bot.command('reply', async (ctx) => {
 				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
 			}, asm.minToMs(60));
 		} else {
-			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
+			const msg = await ctx.replyWithHTML(`Команда /reply працює тільки як Reply!`);
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
@@ -352,14 +352,14 @@ bot.command('banpoll', async (ctx) => {
 			const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 			{ caption:
 				`${user} пропонує забанити ${userToBan}\n` +
-				`Ви підтримуєте ви його пропозицію?🤔`,
+				`Може тра забанити?🤔`,
 				parse_mode: 'HTML',
 				...Markup.inlineKeyboard([
 					Markup.button.callback(`👍 0`, 'btn_banpoll_like'),
 					Markup.button.callback(`👎 0`, 'btn_banpoll_dislike')
 			])});
 		} else {
-			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
+			const msg = await ctx.replyWithHTML(`Команда /banpoll працює тільки як Reply!`);
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
@@ -385,14 +385,14 @@ bot.command('banpollanonymous', async (ctx) => {
 			const msg = await ctx.replyWithPhoto({ source: './assets/img/rssuabot-ban.png' },
 			{ caption:
 				`👉 ${userToBan} 👈 підозрілий тип, чи не так?🤨\n` +
-				`Може тра його забанити?🤔`,
+				`Може тра забанити?🤔`,
 				parse_mode: 'HTML',
 				...Markup.inlineKeyboard([
 					Markup.button.callback(`👍`, 'btn_banpoll_like'),
 					Markup.button.callback(`👎`, 'btn_banpoll_dislike')
 			])});
 		} else {
-			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
+			const msg = await ctx.replyWithHTML(`Команда /banpollanonymous працює тільки як Reply!`);
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
