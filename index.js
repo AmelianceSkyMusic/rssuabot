@@ -13,15 +13,56 @@ const debug = require('./helpers');
 
 const https = require('https')
 
+
+
+
+
+
+// >----------------------------------------------------------------<
+// >                           CONSTANTS                            <
+// >----------------------------------------------------------------<
+
+const TEST_CHAT_ID = -1001799287707
+const RSSUA_CHAT_ID = -1001315899508
+const RSS2022Q1UA_CHAT_ID = -1001730193639
+const BOT = {};
+
+
+
+// >----------------------------------------------------------------<
+// >                           NOTION API                           <
+// >----------------------------------------------------------------<
+
+const { Client } = require("@notionhq/client")
+
+// Initializing a client
+const notion = new Client({
+  auth: process.env.NOTION_TOKEN,
+})
+async function notionRequest() {
+	const blockId = process.env.NOTION_PAGEID;
+	// const blockId = '2161290adfc34d84a8a76fe3334e1ff8';
+	const response = await notion.blocks.children.list({
+	  block_id: blockId,
+	  page_size: 50,
+	});
+	BOT.notion = {};
+	BOT.notion.rssuabot = {};
+	BOT.notion.rssuabot.phrases = [];
+	const rssuabotPhrases = BOT.notion.rssuabot.phrases
+
+	for await (const element of response.results) {
+		const phrase = element?.paragraph?.rich_text[0]?.plain_text;
+		if(phrase) rssuabotPhrases.push(phrase)
+	}
+	log(rssuabotPhrases)
+}
+notionRequest();
 // >----------------------------------------------------------------<
 // >                           TELEGRAF                             <
 // >----------------------------------------------------------------<
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
-
-const TEST_CHAT_ID = -1001799287707
-const RSSUA_CHAT_ID = -1001315899508
-const RSS2022Q1UA_CHAT_ID = -1001730193639
 
 // >----------------------------------------------------------------<
 // >                              CHAT                              <
@@ -36,7 +77,7 @@ addButtonActon = (name, callback) => {
 	})
 }
 
-const BOT = {};
+
 BOT.users = {};
 BOT.inlineKeyboards = {};
 
@@ -45,6 +86,7 @@ bot.on('chat_member', async(ctx) => {
 
 	try {
 		const newChatMemberStatus = ctx.update.chat_member.new_chat_member.status
+		log(newChatMemberStatus)
 		const newChatMember = ctx.update.chat_member.new_chat_member.user;
 		const newChatMemberId = newChatMember.id
 		const newChatMemberfirstName = newChatMember.first_name
@@ -267,6 +309,36 @@ bot.command('reply', async (ctx) => {
 			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
 			const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
 			const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
+			setTimeout( async () => { // remove messages
+				try {
+					await ctx.deleteMessage(randomMsg.message_id);
+				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+			}, asm.minToMs(60));
+		} else {
+			const msg = await ctx.replyWithHTML(`Команда /reply працює тільки як Reply!`);
+			setTimeout( async () => {
+				try {
+					await ctx.deleteMessage(msg.message_id);
+				} catch (error) { console.error(error); }
+			}, asm.secToMs(5));
+		}
+	} catch (error) {
+		console.error(error);
+	}
+})
+
+bot.command('rp', async (ctx) => {
+	try {
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 0);
+
+		const memberPressed = ctx.update.message?.reply_to_message?.from;
+		if (memberPressed) {
+			const memberPressedId = memberPressed.id;
+			const memberPressedfirstName = memberPressed.first_name;
+			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
+			const randomNum = asm.getRandomNumber(0, BOT.notion.rssuabot.phrases.length - 1);
+			const randomMsg = await ctx.replyWithHTML(`${user}, ${BOT.notion.rssuabot.phrases[randomNum]}`);
 			setTimeout( async () => { // remove messages
 				try {
 					await ctx.deleteMessage(randomMsg.message_id);
