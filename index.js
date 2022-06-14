@@ -107,7 +107,7 @@ bot.on('chat_member', async(ctx) => {
 					parse_mode: 'HTML',
 					...Markup.inlineKeyboard([
 						// [Markup.urlButton('github', 'https://github.com/AmelianceSkyMusic')],
-						[Markup.button.callback('Гайда спілкуватися!', 'btn_readall')],
+						[Markup.button.callback('Ознайомився. Гайда спілкуватися!😊', 'btn_readall')],
 				])});
 				BOT.users[newChatMemberId].messageToRemove = []
 				BOT.users[newChatMemberId].messageToRemove.push(msg.message_id);
@@ -240,6 +240,13 @@ bot.command('asm', async (ctx) => {
 
 // addBotCommand.call(ctx, 'app', 'https://docs.rs.school/#/code-of-conduct', 'Додаток школи');
 
+bot.command('link', async (ctx) => {
+	try {
+		const commandMessageId = ctx.update.message.message_id;
+		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await ctx.replyWithHTML('<a href="https://t.me/RSSchoolUkraine">RS School | Ukraine</a>')
+	} catch (error) { console.error(error);}
+})
 bot.command('app', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
