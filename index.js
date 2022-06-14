@@ -49,7 +49,7 @@ bot.on('chat_member', async(ctx) => {
 		const newChatMemberId = newChatMember.id
 		const newChatMemberfirstName = newChatMember.first_name
 		const user = `<a href="tg://user?id=${newChatMemberId}">${newChatMemberfirstName}</a>`
-		// if (newChatMemberStatus === 'member') {
+		if (newChatMemberStatus === 'member') {
 			BOT.users[newChatMemberId] = {};
 					// 		const newChatMember = ctx.message.new_chat_participant;
 			// chatId = ctx.message.chat.id;
@@ -76,9 +76,10 @@ bot.on('chat_member', async(ctx) => {
 					await ctx.deleteMessage(msg.message_id);
 				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
 			}, asm.minToMs(360));
-		// } else if (newChatMemberStatus === 'left' || newChatMemberStatus === 'kicked') {
-		// 	log(`${user} was ${newChatMemberStatus}`)
-		// }
+		} else if (newChatMemberStatus === 'left' || newChatMemberStatus === 'kicked') {
+			log(`${user} was ${newChatMemberStatus}`)
+			ctx.replyWithHTML(`Прощавай, ${user}, я буду за тобою сумувати!`)
+		}
 
 
 
