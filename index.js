@@ -77,7 +77,7 @@ addButtonActon = (name, callback) => {
 	bot.action(name, async (ctx) => {
 		try {
 			await callback(ctx);
-		} catch (error) { console.error(error); }
+		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 	})
 }
 
@@ -170,7 +170,7 @@ addButtonActon('btn_readall', async (ctx) => {
 				}, asm.secToMs(5));
 			}, asm.secToMs(3));
 			await ctx.answerCbQuery()
-		} catch (error) { console.error(error); }
+		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 	}
 })
 
@@ -214,7 +214,7 @@ bot.help((ctx) => ctx.reply(constants.commands));
 
 // 	log(command)
 // 	bot.command(command, async () => {
-// 		try { await this.replyWithHTML(`<a href="${args[1]}">${args[2]}</a>`) } catch (error) { console.error(error);}
+// 		try { await this.replyWithHTML(`<a href="${args[1]}">${args[2]}</a>`) } catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 // 	})
 // 	return
 // }
@@ -234,7 +234,7 @@ bot.command('asm', async (ctx) => {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, 5);
 		await ctx.replyWithHTML('@AmelianceSkyMusic')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 
 
@@ -245,63 +245,63 @@ bot.command('link', async (ctx) => {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://t.me/RSSchoolUkraine">RS School | Ukraine</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('app', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Додаток школи</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('coursejsfe', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks">Про курс</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('roadmap', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('docs', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/">Документація</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('dismission', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/dismission">За що відраховуємо</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('registration', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://app.rs.school/registry/student">Реєстрація</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('codeofconduct', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Норми поведінки</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 bot.command('stickers', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
 		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://t.me/addstickers/RSSchool_Ukraine">Стікери</a>')
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 
 bot.command('reply', async (ctx) => {
@@ -326,11 +326,11 @@ bot.command('reply', async (ctx) => {
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error(error); }
+				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 			}, asm.secToMs(5));
 		}
 	} catch (error) {
-		console.error(error);
+		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
 	}
 })
 
@@ -356,11 +356,11 @@ bot.command('rp', async (ctx) => {
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error(error); }
+				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 			}, asm.secToMs(5));
 		}
 	} catch (error) {
-		console.error(error);
+		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
 	}
 })
 
@@ -385,12 +385,12 @@ bot.command('two', async (ctx) => {
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error(error); }
+				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 			}, asm.secToMs(5));
 		}
 
 	} catch (error) {
-		console.error(error);
+		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
 	}
 })
 
@@ -410,7 +410,7 @@ bot.command('random', async (ctx) => {
 				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
 		}, asm.secToMs(3600));
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 
 bot.command('banpoll', async (ctx) => {
@@ -443,12 +443,12 @@ bot.command('banpoll', async (ctx) => {
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error(error); }
+				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 			}, asm.secToMs(5));
 		}
 
 	} catch (error) {
-		console.error(error);
+		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
 	}
 })
 
@@ -476,11 +476,11 @@ bot.command('banpollanonymous', async (ctx) => {
 			setTimeout( async () => {
 				try {
 					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error(error); }
+				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 			}, asm.secToMs(5));
 		}
 	} catch (error) {
-		console.error(error);
+		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
 	}
 })
 
@@ -588,7 +588,7 @@ bot.command('admins', async (ctx) => {
 			}
 		}
 		const randomMsg = await ctx.replyWithHTML(adminNames.join(' '));
-	} catch (error) { console.error(error);}
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 
 // function addButtonActon(name, src, text) {
@@ -599,7 +599,7 @@ bot.command('admins', async (ctx) => {
 // 			}
 // 			await ctx.replyWithHTML(text)
 // 			await ctx.answerCbQuery()
-// 		} catch (error) { console.error(error); }
+// 		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 // 	})
 // }
 
@@ -608,6 +608,7 @@ bot.command('admins', async (ctx) => {
 
 
 
+// ^------------------------ Redirect Announsments ------------------------
 
 bot.on("channel_post", async (ctx) => {
 	try {
@@ -615,25 +616,48 @@ bot.on("channel_post", async (ctx) => {
 		const channelPost = ctx.update.channel_post.text
 
 		if (channelUsername === 'rss_announcements') {
-			const postArr = channelPost.split('\n')
-			const postDate = postArr.shift().replaceAll('*', '')
-			const postAuthor = postArr.shift().replaceAll('*', '').slice(0, -5)
-			postArr.push('')
-			postArr.push(`\`${postAuthor}\``)
-			postArr.push(`\`${postDate}\``)
+		// if (channelUsername === 'DesignIs_Official') {
+			const chatId = RSSUA_CHAT_ID
+			// const chatId = TEST_CHAT_ID
+			const postArrTemp = channelPost.split('\n')
+			const postDate = postArrTemp.shift().replaceAll('*', '').trim()
+			const postAuthor = postArrTemp.shift().replaceAll('*', '').slice(0, -5).trim()
 
-			const post = postArr.join('\n').replaceAll('**', '*').replaceAll('__', '_')
-			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'})
+			const postArr = [
+				...postArrTemp,
+				'',
+				`\`${postAuthor}\``,
+				`\`${postDate}\``
+			];
+
+			const post = '#announcement\n\n' + postArr.join('\n').replaceAll('**', '*').replaceAll('__', '_').trim()
+			const msg = await ctx.telegram.sendMessage(chatId, post, {parse_mode: 'Markdown'})
+			const msgId = msg.message_id
+			await ctx.telegram.pinChatMessage(chatId, msgId, true)
+			setTimeout( async () => {
+				try {
+					await ctx.telegram.unpinChatMessage(chatId, msgId)
+				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
+
+			}, asm.minToMs(720));
 
 		} else if(channelUsername === 'DesignIs_Official') { // test
+			// const chatId = TEST_CHAT_ID
+			const chatId = RSSUA_CHAT_ID
 			const channelPost = ctx.update.channel_post.text
-			log(channelUsername, channelPost)
-			await ctx.telegram.sendMessage(RSSUA_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
-			// await ctx.telegram.sendMessage(RSS2022Q1UA_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
-			// await ctx.telegram.sendMessage(TEST_CHAT_ID, channelPost, {parse_mode: 'Markdown'})
+			const msg = await ctx.telegram.sendMessage(chatId, channelPost, {parse_mode: 'Markdown'})
+			const msgId = msg.message_id
+			await ctx.telegram.pinChatMessage(chatId, msgId, true)
+			setTimeout( async () => {
+				try {
+					await ctx.telegram.unpinChatMessage(chatId, msgId)
+				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
+
+			}, asm.secToMs(10));
+
 		}
 	} catch (error) {
-		console.error(error)
+		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error)
 	}
 
 

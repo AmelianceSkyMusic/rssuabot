@@ -34,7 +34,12 @@
 					"label": "    Call All Admins"
 				},
 				{
-					"line": 644,
+					"line": 610,
+					"column": 50,
+					"label": "    Redirect Announsments"
+				},
+				{
+					"line": 668,
 					"column": 36,
 					"label": "!--TEST"
 				}
