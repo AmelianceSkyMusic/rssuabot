@@ -9,14 +9,24 @@
 					"label": "!--REQUIRE"
 				},
 				{
-					"line": 61,
+					"line": 32,
+					"column": 38,
+					"label": "!--NOTION API"
+				},
+				{
+					"line": 65,
 					"column": 39,
 					"label": "!--TELEGRAF"
 				},
 				{
-					"line": 67,
+					"line": 71,
 					"column": 38,
 					"label": "!--CHAT"
+				},
+				{
+					"line": 87,
+					"column": 62,
+					"label": "    Detect Entered Leaved Chat Member"
 				},
 				{
 					"line": 574,

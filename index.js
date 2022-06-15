@@ -40,22 +40,26 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 })
 async function notionRequest() {
-	const blockId = process.env.NOTION_PAGEID;
-	// const blockId = '2161290adfc34d84a8a76fe3334e1ff8';
-	const response = await notion.blocks.children.list({
-	  block_id: blockId,
-	  page_size: 50,
-	});
-	BOT.notion = {};
-	BOT.notion.rssuabot = {};
-	BOT.notion.rssuabot.phrases = [];
-	const rssuabotPhrases = BOT.notion.rssuabot.phrases
+	try {
+		const blockId = process.env.NOTION_PAGEID;
+		// const blockId = '2161290adfc34d84a8a76fe3334e1ff8';
+		const response = await notion.blocks.children.list({
+		block_id: blockId,
+		page_size: 50,
+		});
+		BOT.notion = {};
+		BOT.notion.rssuabot = {};
+		BOT.notion.rssuabot.phrases = [];
+		const rssuabotPhrases = BOT.notion.rssuabot.phrases
 
-	for await (const element of response.results) {
-		const phrase = element?.paragraph?.rich_text[0]?.plain_text;
-		if(phrase) rssuabotPhrases.push(phrase)
+		for await (const element of response.results) {
+			const phrase = element?.paragraph?.rich_text[0]?.plain_text;
+			if(phrase) rssuabotPhrases.push(phrase)
+		}
+		log('NOTION API LOAD:', rssuabotPhrases)
+	} catch (error) {
+		console.error('ASM NOTION ERR:', error);
 	}
-	log(rssuabotPhrases)
 }
 notionRequest();
 // >----------------------------------------------------------------<
@@ -81,24 +85,20 @@ addButtonActon = (name, callback) => {
 BOT.users = {};
 BOT.inlineKeyboards = {};
 
+// ^------------------------ Detect Entered Leaved Chat Member ------------------------
 bot.on('chat_member', async(ctx) => {
 
-
 	try {
+		const chatId = ctx.update.chat_member.chat.id
 		const newChatMemberStatus = ctx.update.chat_member.new_chat_member.status
 		log(newChatMemberStatus)
 		const newChatMember = ctx.update.chat_member.new_chat_member.user;
 		const newChatMemberId = newChatMember.id
+		const newChatMemberName = newChatMember?.username
 		const newChatMemberfirstName = newChatMember.first_name
 		const user = `<a href="tg://user?id=${newChatMemberId}">${newChatMemberfirstName}</a>`
 		if (newChatMemberStatus === 'member') {
 			BOT.users[newChatMemberId] = {};
-					// 		const newChatMember = ctx.message.new_chat_participant;
-			// chatId = ctx.message.chat.id;
-			// log(ctx.message.chat.id)
-			// ctx.restrictChatMember(newChatMemberId, chatId {permissions: false});
-			// log(ctx)
-
 			const msg = await ctx.replyWithPhoto({ source: './assets/img/rssstandwithukraine.png' },
 				{ caption:
 					`<b>${user}, раді вітати тебе українською мовою!</b>\n\n` +
@@ -118,8 +118,8 @@ bot.on('chat_member', async(ctx) => {
 					await ctx.deleteMessage(msg.message_id);
 				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
 			}, asm.minToMs(360));
-		} else if (newChatMemberStatus === 'left' || newChatMemberStatus === 'kicked') {
-			log(`${user} was ${newChatMemberStatus}`)
+		} else if ((newChatMemberStatus === 'left' || newChatMemberStatus === 'kicked') && chatId === RSSUA_CHAT_ID) {
+			log(`${newChatMemberfirstName} ${newChatMemberName} <${newChatMemberId}> was ${newChatMemberStatus}`)
 			ctx.replyWithHTML(`Прощавай, ${user}, я буду за тобою сумувати!`)
 		}
 
@@ -131,7 +131,7 @@ bot.on('chat_member', async(ctx) => {
 })
 
 
-// ^------------------------ add button ------------------------
+// ^------------------------ Add Button ------------------------
 
 addButtonActon('btn_readall', async (ctx) => {
 	const messageForFirstName = ctx.update.callback_query.message.caption.split(',')[0]
@@ -243,63 +243,63 @@ bot.command('asm', async (ctx) => {
 bot.command('link', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://t.me/RSSchoolUkraine">RS School | Ukraine</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('app', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Додаток школи</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('coursejsfe', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks">Про курс</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('roadmap', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('docs', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/">Документація</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('dismission', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/dismission">За що відраховуємо</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('registration', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://app.rs.school/registry/student">Реєстрація</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('codeofconduct', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://docs.rs.school/#/code-of-conduct">Норми поведінки</a>')
 	} catch (error) { console.error(error);}
 })
 bot.command('stickers', async (ctx) => {
 	try {
 		const commandMessageId = ctx.update.message.message_id;
-		await removeMsgById.call(ctx, commandMessageId, 60000);
+		await removeMsgById.call(ctx, commandMessageId, asm.secToMs(3600));
 		await ctx.replyWithHTML('<a href="https://t.me/addstickers/RSSchool_Ukraine">Стікери</a>')
 	} catch (error) { console.error(error);}
 })
@@ -409,7 +409,7 @@ bot.command('random', async (ctx) => {
 			try {
 				await ctx.deleteMessage(randomMsg.message_id);
 			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.secToMs(60));
+		}, asm.secToMs(3600));
 	} catch (error) { console.error(error);}
 })
 
