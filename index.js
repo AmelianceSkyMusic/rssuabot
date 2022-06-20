@@ -642,18 +642,18 @@ bot.on("channel_post", async (ctx) => {
 			}, asm.minToMs(720));
 
 		} else if(channelUsername === 'DesignIs_Official') { // test
-			// const chatId = TEST_CHAT_ID
-			const chatId = RSSUA_CHAT_ID
+			const chatId = TEST_CHAT_ID
+			// const chatId = RSSUA_CHAT_ID
 			const channelPost = ctx.update.channel_post.text
 			const msg = await ctx.telegram.sendMessage(chatId, channelPost, {parse_mode: 'Markdown'})
-			const msgId = msg.message_id
-			await ctx.telegram.pinChatMessage(chatId, msgId, true)
-			setTimeout( async () => {
-				try {
-					await ctx.telegram.unpinChatMessage(chatId, msgId)
-				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
+			// const msgId = msg.message_id
+			// await ctx.telegram.pinChatMessage(chatId, msgId, true)
+			// setTimeout( async () => {
+			// 	try {
+			// 		await ctx.telegram.unpinChatMessage(chatId, msgId)
+			// 	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 
-			}, asm.secToMs(10));
+			// }, asm.secToMs(10));
 
 		}
 	} catch (error) {
