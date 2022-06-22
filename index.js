@@ -692,21 +692,19 @@ bot.command('sendtest', async (ctx) => {
 })
 
 bot.command('testobj', async (ctx) => {
-	const randomMsg = await ctx.replyWithHTML(debug(ctx.update))
-// 	const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getUpdates`;
-// 	https.get(url, res => {
-// 		let data = '';
-// 		res.on('data', chunk => {
-// 			data += chunk;
-// 		});
-// 		res.on('end', () => {
-// 			data = JSON.parse(data);
-// 			console.log(data);
-// 			ctx.replyWithHTML(debug(data))
-// 		})
-// 	}).on('error', err => {
-// 		console.log(err.message);
-// 	})
+
+
+	try {
+		const commandMessageId = ctx.update.message.message_id;
+
+		await removeMsgById.call(ctx, commandMessageId, 30);
+		const randomMsg = await ctx.replyWithHTML(debug(ctx.update))
+		setTimeout( async () => { // remove messages
+			try {
+				await ctx.deleteMessage(randomMsg.message_id);
+			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+		}, asm.secToMs(600));
+	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 })
 
 
