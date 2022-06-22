@@ -9,39 +9,24 @@
 					"label": "!--REQUIRE"
 				},
 				{
-					"line": 33,
+					"line": 29,
 					"column": 38,
 					"label": "!--NOTION API"
 				},
 				{
-					"line": 66,
+					"line": 31,
 					"column": 39,
 					"label": "!--TELEGRAF"
 				},
 				{
-					"line": 72,
+					"line": 37,
 					"column": 38,
 					"label": "!--CHAT"
 				},
 				{
-					"line": 88,
+					"line": 52,
 					"column": 62,
 					"label": "    Detect Entered Leaved Chat Member"
-				},
-				{
-					"line": 575,
-					"column": 44,
-					"label": "    Call All Admins"
-				},
-				{
-					"line": 611,
-					"column": 50,
-					"label": "    Redirect Announsments"
-				},
-				{
-					"line": 669,
-					"column": 36,
-					"label": "!--TEST"
 				}
 			]
 		}

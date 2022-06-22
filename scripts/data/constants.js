@@ -8,13 +8,13 @@ const commands = `
 /registration - реєстрація
 /link - посилання на чат
 /codeofconduct - правила поведінки
-/stickers - стікери
-/random - отримати рандомну фразу
-/rp - (reply) відповісти рандомною своєю фразою
-/reply - (reply) відповісти рандомною фразою
-/banpoll - (reply) влаштувати опитування на бан
-/banpollanonymous - (reply) анонімно влаштувати опитування на бан
 `
+// /stickers - стікери
+// /random - отримати рандомну фразу
+// /rp - (reply) відповісти рандомною своєю фразою
+// /reply - (reply) відповісти рандомною фразою
+// /banpoll - (reply) влаштувати опитування на бан
+// /banpollanonymous - (reply) анонімно влаштувати опитування на бан
 
 const githubUrl = '<a href="https://github.com/AmelianceSkyMusic">github</a>'
 
