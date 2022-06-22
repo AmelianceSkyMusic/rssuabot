@@ -25,6 +25,7 @@ const https = require('https')
 const TEST_CHAT_ID = -1001799287707
 const RSSUA_CHAT_ID = -1001315899508
 const RSS2022Q1UA_CHAT_ID = -1001730193639
+const RSSUA_ONTOPIC_CHAT_ID = -1001723989874
 const BOT = {};
 
 
@@ -617,7 +618,7 @@ bot.on("channel_post", async (ctx) => {
 
 		if (channelUsername === 'rss_announcements') {
 		// if (channelUsername === 'DesignIs_Official') {
-			const chatId = RSSUA_CHAT_ID
+			const chatId = RSSUA_ONTOPIC_CHAT_ID
 			// const chatId = TEST_CHAT_ID
 			const postArrTemp = channelPost.split('\n')
 			const postDate = postArrTemp.shift().replaceAll('*', '').trim()
