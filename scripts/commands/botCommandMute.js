@@ -4,6 +4,7 @@
 
 const { log } = require('console');
 
+const {APP} = require('../data/app');
 const asm = require('../modules/_asm');
 const f = require('../functions/_f');
 
@@ -13,8 +14,8 @@ const f = require('../functions/_f');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandMute = (bot) => {
-	bot.command('mute', async (ctx) => {
+module.exports.botCommandMute = () => {
+	APP.BOT.command('mute', async (ctx) => {
 		try {
 
 			const commandMessageId = ctx.update.message.message_id;

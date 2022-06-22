@@ -2,9 +2,10 @@
 // >                            REQUIRE                             <
 // >----------------------------------------------------------------<
 
+const { Markup } = require('telegraf')
 const { log } = require('console');
 
-const {BOT} = require('../data/app');
+const {APP} = require('../data/app');
 const asm = require('../modules/_asm');
 const f = require('../functions/_f');
 
@@ -13,8 +14,8 @@ const f = require('../functions/_f');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandBanpoll = (bot) => {
-	bot.command('banpoll', async (ctx) => {
+module.exports.botCommandBanpoll = () => {
+	APP.BOT.command('banpoll', async (ctx) => {
 		try {
 			const commandMessageId = ctx.update.message.message_id;
 			await f.removeMsgById(ctx, commandMessageId, 1);
@@ -53,7 +54,7 @@ module.exports.botCommandBanpoll = (bot) => {
 		}
 	})
 
-	bot.command('banpollanonymous', async (ctx) => {
+	APP.BOT.command('banpollanonymous', async (ctx) => {
 		try {
 			const commandMessageId = ctx.update.message.message_id;
 			await f.removeMsgById(ctx, commandMessageId, 0);
@@ -85,32 +86,32 @@ module.exports.botCommandBanpoll = (bot) => {
 		}
 	})
 
-	bot.command('asmban', async (ctx) => {
+	APP.BOT.command('asmban', async (ctx) => {
 
 	})
 
-	addButtonActon('btn_banpoll_like', async (ctx) => {
+	f.addButtonActon('btn_banpoll_like', async (ctx) => {
 		try {
 			const msgId = ctx.update.callback_query.message.message_id
 			const userClickedId = ctx.update.callback_query.from.id
 			const uniqID = msgId + userClickedId + ''
 			log(uniqID)
-			if (!BOT.inlineKeyboards[uniqID]) {
-				BOT.inlineKeyboards[uniqID] = {}
+			if (!APP.inlineKeyboards[uniqID]) {
+				APP.inlineKeyboards[uniqID] = {}
 			}
 
 			let btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
 			let btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
 
-			if (!BOT.inlineKeyboards[uniqID].choice) {
-				BOT.inlineKeyboards[uniqID] = { choice: 'yes', msgId: msgId }
+			if (!APP.inlineKeyboards[uniqID].choice) {
+				APP.inlineKeyboards[uniqID] = { choice: 'yes', msgId: msgId }
 				btnLabelLike = +btnLabelLike + 1;
-			} else if (BOT.inlineKeyboards[uniqID].choice === 'no') {
-				BOT.inlineKeyboards[uniqID] = { choice: 'yes', msgId: msgId }
+			} else if (APP.inlineKeyboards[uniqID].choice === 'no') {
+				APP.inlineKeyboards[uniqID] = { choice: 'yes', msgId: msgId }
 				btnLabelLike = +btnLabelLike + 1;
 				btnLabelDislike = +btnLabelDislike - 1;
 			} else {
-				log(BOT.inlineKeyboards[uniqID])
+				log(APP.inlineKeyboards[uniqID])
 				await ctx.answerCbQuery();
 				return
 			}
@@ -124,34 +125,34 @@ module.exports.botCommandBanpoll = (bot) => {
 				]
 			})
 			await ctx.answerCbQuery('👍');
-			log(BOT.inlineKeyboards[uniqID])
+			log(APP.inlineKeyboards[uniqID])
 		} catch (error) {
 			log(error);
 		}
 	})
 
-	addButtonActon('btn_banpoll_dislike', async (ctx) => {
+	f.addButtonActon('btn_banpoll_dislike', async (ctx) => {
 		try {
 			const msgId = ctx.update.callback_query.message.message_id
 			const userClickedId = ctx.update.callback_query.from.id
 			const uniqID = msgId + userClickedId + ''
 			log(uniqID)
-			if (!BOT.inlineKeyboards[uniqID]) {
-				BOT.inlineKeyboards[uniqID] = {}
+			if (!APP.inlineKeyboards[uniqID]) {
+				APP.inlineKeyboards[uniqID] = {}
 			}
 
 			let btnLabelLike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][0].text.slice(2);
 			let btnLabelDislike = ctx.update.callback_query.message.reply_markup.inline_keyboard[0][1].text.slice(2);
 
-			if (!BOT.inlineKeyboards[uniqID].choice) {
-				BOT.inlineKeyboards[uniqID] = { choice: 'no', msgId: msgId }
+			if (!APP.inlineKeyboards[uniqID].choice) {
+				APP.inlineKeyboards[uniqID] = { choice: 'no', msgId: msgId }
 				btnLabelDislike = +btnLabelDislike + 1;
-			} else if (BOT.inlineKeyboards[uniqID].choice === 'yes') {
-				BOT.inlineKeyboards[uniqID] = { choice: 'no', msgId: msgId }
+			} else if (APP.inlineKeyboards[uniqID].choice === 'yes') {
+				APP.inlineKeyboards[uniqID] = { choice: 'no', msgId: msgId }
 				btnLabelDislike = +btnLabelDislike + 1;
 				btnLabelLike = +btnLabelLike - 1;
 			} else {
-				log(BOT.inlineKeyboards[uniqID])
+				log(APP.inlineKeyboards[uniqID])
 				await ctx.answerCbQuery();
 				return
 			}
@@ -164,7 +165,7 @@ module.exports.botCommandBanpoll = (bot) => {
 					]
 				]
 			})
-			log(BOT.inlineKeyboards[uniqID])
+			log(APP.inlineKeyboards[uniqID])
 			await ctx.answerCbQuery('👎');
 		} catch (error) {
 			log(error);

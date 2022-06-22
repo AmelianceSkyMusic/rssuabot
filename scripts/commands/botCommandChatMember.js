@@ -13,9 +13,9 @@ const f = require('../functions/_f');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandChatMember = (bot) => {
+module.exports.botCommandChatMember = () => {
 	// ^------------------------ Detect Entered Leaved Chat Member ------------------------
-bot.on('chat_member', async(ctx) => {
+	APP.BOT.on('chat_member', async(ctx) => {
 
 	//(property) status: "creator" | "administrator" | "member" | "restricted" | "left" | "kicked"
 		try {
@@ -31,7 +31,7 @@ bot.on('chat_member', async(ctx) => {
 			const user = `<a href="tg://user?id=${newChatMemberId}">${newChatMemberfirstName}</a>`
 			log(`${newChatMemberfirstName} ${newChatMemberName} <${newChatMemberId}> is ${newChatMemberStatus} / was ${oldChatMemberStatus}`)
 			return
-			bot.command('unmute', async (ctx) => {
+			APP.BOT.command('unmute', async (ctx) => {
 				try {
 					const commandMessageId = ctx.update.message.message_id;
 					await f.removeMsgById(ctx, commandMessageId, 0);
@@ -44,8 +44,8 @@ bot.on('chat_member', async(ctx) => {
 						ctx.telegram.restrictChatMember(chatId, memberPressedId)
 						return
 						const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
-						const randomNum = asm.getRandomNumber(0, BOT.notion.rssuabot.phrases.length - 1);
-						const randomMsg = await ctx.replyWithHTML(`${user}, ${BOT.notion.rssuabot.phrases[randomNum]}`);
+						const randomNum = asm.getRandomNumber(0, APP.notion.rssuabot.phrases.length - 1);
+						const randomMsg = await ctx.replyWithHTML(`${user}, ${APP.notion.rssuabot.phrases[randomNum]}`);
 						setTimeout( async () => { // remove messages
 							try {
 								await ctx.deleteMessage(randomMsg.message_id);
@@ -72,7 +72,7 @@ bot.on('chat_member', async(ctx) => {
 			// 	})
 			// } else
 			if (oldChatMemberStatus === 'restricted' && newChatMemberStatus === 'restricted') {
-				ctx.telegram.restrictChatMember(chatId, newChatMemberId, { permissions: BOT.UNRESTRICT_OPTIONS })
+				ctx.telegram.restrictChatMember(chatId, newChatMemberId, { permissions: APP.UNRESTRICT_OPTIONS })
 				// ctx.replyWithHTML(`was ${oldChatMemberStatus} / is ${newChatMemberStatus}`)
 				// log(`${newChatMemberfirstName} ${newChatMemberName} <${newChatMemberId}> is ${newChatMemberStatus} / was ${oldChatMemberStatus}`)
 			}
@@ -81,7 +81,7 @@ bot.on('chat_member', async(ctx) => {
 				// ctx.replyWithHTML(`${newChatMemberStatus}`)
 				return
 				// if oldChatMemberStatus
-				BOT.users[newChatMemberId] = {};
+				APP.users[newChatMemberId] = {};
 				const msg = await ctx.replyWithPhoto({ source: './assets/img/rssstandwithukraine.png' },
 					{ caption:
 						`<b>${user}, раді вітати тебе українською мовою!</b>\n\n` +
@@ -92,9 +92,9 @@ bot.on('chat_member', async(ctx) => {
 							// [Markup.urlButton('github', 'https://github.com/AmelianceSkyMusic')],
 							[Markup.button.callback('Зроблено, гайда спілкуватися!😊', 'btn_readall')],
 					])});
-					BOT.users[newChatMemberId].messageToRemove = []
-					BOT.users[newChatMemberId].messageToRemove.push(msg.message_id);
-					log(BOT.users)
+					APP.users[newChatMemberId].messageToRemove = []
+					APP.users[newChatMemberId].messageToRemove.push(msg.message_id);
+					log(APP.users)
 
 				setTimeout( async () => { // remove message after 10 minutes
 					try {
@@ -116,7 +116,7 @@ bot.on('chat_member', async(ctx) => {
 
 	// ^------------------------ Add Button ------------------------
 
-	addButtonActon('btn_readall', async (ctx) => {
+	f.addButtonActon('btn_readall', async (ctx) => {
 		const callbackQuery = ctx.update.callback_query
 		const chatId = callbackQuery.message.chat.id
 		const messageForFirstName = callbackQuery.message.caption.split(',')[0]
@@ -132,7 +132,7 @@ bot.on('chat_member', async(ctx) => {
 		})
 		// *----- add wrong user message -----
 		if (firstName !== messageForFirstName) {
-		// if ( !BOT.users[userId] ) {
+		// if ( !APP.users[userId] ) {
 			const randomNum = asm.getRandomNumber(0, constants.inlineNoUserMessages.length - 1);
 			// const randomMsg = await ctx.replyWithHTML(`${user}${constants.inlineNoUserMessages[randomNum]}`);
 			// // log(randomMsg)
@@ -147,17 +147,17 @@ bot.on('chat_member', async(ctx) => {
 			// *----- add message -----
 			try {
 				const msg = await ctx.replyWithHTML(`${user}, ану кажи паляниця!😠`)
-				BOT.users[userId].messageToRemove.push(msg.message_id);
+				APP.users[userId].messageToRemove.push(msg.message_id);
 
 				setTimeout( async () => { // remove message after 10 minutes
 					const msg = await ctx.replyWithHTML('Жартую, заходь!😊')
-					BOT.users[userId].messageToRemove.push(msg.message_id);
+					APP.users[userId].messageToRemove.push(msg.message_id);
 					setTimeout( async () => { // remove messages
 						try {
-							for await (const msgId of BOT.users[userId].messageToRemove) {
+							for await (const msgId of APP.users[userId].messageToRemove) {
 								await ctx.deleteMessage(msgId);
 							}
-							delete BOT.users[userId]
+							delete APP.users[userId]
 						} catch (error) { log(`ASM: Maybe messages from array was removed by the user\n${error}`) }
 					}, asm.secToMs(5));
 				}, asm.secToMs(3));

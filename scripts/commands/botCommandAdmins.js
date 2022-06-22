@@ -2,6 +2,8 @@
 // >                            REQUIRE                             <
 // >----------------------------------------------------------------<
 
+const {APP} = require('../data/app');
+
 
 
 
@@ -9,8 +11,8 @@
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandAdmins = (bot) => {
-	bot.command('admins', async (ctx) => {
+module.exports.botCommandAdmins = () => {
+	APP.BOT.command('admins', async (ctx) => {
 		try {
 			const botName = ctx.botInfo.first_name
 			const chatId = ctx.update.message.chat.id;

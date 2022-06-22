@@ -11,8 +11,8 @@ const {APP} = require('../data/app');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandChannelPost = (bot) => {
-	bot.on("channel_post", async (ctx) => {
+module.exports.botCommandChannelPost = () => {
+	APP.BOT.on("channel_post", async (ctx) => {
 		try {
 			const channelUsername = ctx.update.channel_post.sender_chat.username
 			const channelPost = ctx.update.channel_post.text

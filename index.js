@@ -8,218 +8,52 @@ require('dotenv').config()
 const { log } = require('console');
 
 const constants = require('./scripts/data/constants');
-const {APP} = require('./scripts/data/app');
 const {notionRequest} = require('./scripts/data/notionAPI');
 
-const asm = require('./scripts/modules/_asm');
-const f = require('./scripts/functions/_f');
+const {APP} = require('./scripts/data/app');
 const c = require('./scripts/commands/_c');
 
 
 
-
-
-// >----------------------------------------------------------------<
-// >                           CONSTANTS                            <
-// >----------------------------------------------------------------<
-
-
-
-
-
-notionRequest();
 // >----------------------------------------------------------------<
 // >                           TELEGRAF                             <
 // >----------------------------------------------------------------<
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
+APP.BOT = bot;
+
 
 // >----------------------------------------------------------------<
-// >                              CHAT                              <
+// >                              RUN                               <
 // >----------------------------------------------------------------<
+
+
+notionRequest();
+
+// TODO: Refacto two functions below but disable for this bot
+// c.botCommandNewChatMembers(bot) // remove service add message
+// c.botCommandLeftChatMember() // remove service removed left message
+
+c.botHelp()
+c.botCommandSimple()
+
+c.botCommandReply()
+c.botCommandRp()
+c.botCommandTwo()
+c.botCommandRandom()
+
+c.botCommandChannelPost()
+// c.botCommandChatMember()
+c.botCommandBanpoll() // TODO: Rewrite to ban with mute no anonymous
+
+c.botCommandAdmins()
+c.botCommandTest()
+c.botCommandInfo() // get info from reply to log
+// c.botCommandUnmute()
+// c.botCommandMute()
+
+
 log('script loaded...')
-
-addButtonActon = (name, callback) => {
-	bot.action(name, async (ctx) => {
-		try {
-			await callback(ctx);
-		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
-	})
-}
-
-
-
-
-
-
-
-// ^------------------------ remove service add message ------------------------
-// bot.on('new_chat_members', async (ctx) => {
-// 	const msg = ctx.update.message;
-// 	setTimeout( async () => {
-// 		try {
-// 			await ctx.deleteMessage(msg.message_id);
-// 		} catch (error) { console.error(`ASM: Maybe service message was removed by the user\n${error}`) }
-// 	}, 10000);
-// })
-
-
-// ^------------------------ remove service removed left message ------------------------
-bot.on('left_chat_member', async (ctx) => {
-	const msg = ctx.update.message;
-	setTimeout( async () => {
-		try {
-			await ctx.deleteMessage(msg.message_id);
-		} catch (error) { console.error(`ASM: Maybe service message was removed by the user\n${error}`) }
-	}, asm.secToMs(10));
-})
-
-// >----------------------------------------------------------------<
-// >                              ....                              <
-// >----------------------------------------------------------------<
-// bot.start((ctx) => {
-// 	ctx.reply(`Welcome, ${ctx.message.from.username ? ctx.message.from.username : 'user'}!`);
-// 	log(ctx.message);
-
-// })
-
-// bot.on('sticker', (ctx) => ctx.reply('👍'));
-// bot.hears(['Привіт', 'Hi', 'Hello'], (ctx) => ctx.reply('Ну привіт😅'));
-
-// async function addBotCommand(command, ...args) {
-
-// 	log(command)
-// 	bot.command(command, async () => {
-// 		try { await this.replyWithHTML(`<a href="${args[1]}">${args[2]}</a>`) } catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
-// 	})
-// 	return
-// }
-
-
-
-bot.command('reply', async (ctx) => {
-	try {
-		const commandMessageId = ctx.update.message.message_id;
-		await f.removeMsgById(ctx, commandMessageId, 0);
-
-		const memberPressed = ctx.update.message?.reply_to_message?.from;
-		if (memberPressed) {
-			const memberPressedId = memberPressed.id;
-			const memberPressedfirstName = memberPressed.first_name;
-			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
-			const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
-			const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
-			setTimeout( async () => { // remove messages
-				try {
-					await ctx.deleteMessage(randomMsg.message_id);
-				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-			}, asm.minToMs(60));
-		} else {
-			const msg = await ctx.replyWithHTML(`Команда /reply працює тільки як Reply!`);
-			setTimeout( async () => {
-				try {
-					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
-			}, asm.secToMs(5));
-		}
-	} catch (error) {
-		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
-	}
-})
-
-bot.command('rp', async (ctx) => {
-	try {
-		const commandMessageId = ctx.update.message.message_id;
-		await f.removeMsgById(ctx, commandMessageId, 0);
-
-		const memberPressed = ctx.update.message?.reply_to_message?.from;
-		if (memberPressed) {
-			const memberPressedId = memberPressed.id;
-			const memberPressedfirstName = memberPressed.first_name;
-			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
-			const randomNum = asm.getRandomNumber(0, APP.notion.rssuabot.phrases.length - 1);
-			const randomMsg = await ctx.replyWithHTML(`${user}, ${APP.notion.rssuabot.phrases[randomNum]}`);
-			setTimeout( async () => { // remove messages
-				try {
-					await ctx.deleteMessage(randomMsg.message_id);
-				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-			}, asm.minToMs(60));
-		} else {
-			const msg = await ctx.replyWithHTML(`Команда /reply працює тільки як Reply!`);
-			setTimeout( async () => {
-				try {
-					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
-			}, asm.secToMs(5));
-		}
-	} catch (error) {
-		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
-	}
-})
-
-bot.command('two', async (ctx) => {
-	try {
-		const commandMessageId = ctx.update.message.message_id;
-		await f.removeMsgById(ctx, commandMessageId, 0);
-		const memberPressed = ctx.update.message?.reply_to_message?.from;
-		if (memberPressed) {
-			const memberPressedId = memberPressed.id;
-			const memberPressedfirstName = memberPressed.first_name;
-			const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
-			await f.removeMsgById(ctx, commandMessageId, 0);
-			const randomMsg = await ctx.replyWithHTML(`${user} сідай, 2😅`);
-			setTimeout( async () => { // remove messages
-				try {
-					await ctx.deleteMessage(randomMsg.message_id);
-				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-			}, asm.minToMs(60));
-		} else {
-			const msg = await ctx.replyWithHTML(`Ця команда працює тільки як Reply!`);
-			setTimeout( async () => {
-				try {
-					await ctx.deleteMessage(msg.message_id);
-				} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
-			}, asm.secToMs(5));
-		}
-
-	} catch (error) {
-		console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);
-	}
-})
-
-
-bot.command('random', async (ctx) => {
-	try {
-		const commandMessageId = ctx.update.message.message_id;
-		const memberPressed = ctx.update.message.from;
-		const memberPressedId = memberPressed.id
-		const memberPressedfirstName = memberPressed.first_name
-		const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
-		await f.removeMsgById(ctx, commandMessageId, 30);
-		const randomNum = asm.getRandomNumber(0, constants.randomPhrases.length - 1);
-		const randomMsg = await ctx.replyWithHTML(`${user}${constants.randomPhrases[randomNum]}`);
-		setTimeout( async () => { // remove messages
-			try {
-				await ctx.deleteMessage(randomMsg.message_id);
-			} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
-		}, asm.secToMs(3600));
-	} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
-})
-
-c.botHelp(bot, constants.commands)
-c.botCommandSimple(bot)
-
-
-c.botCommandChannelPost(bot)
-c.botCommandChatMember(bot)
-c.botCommandBanpoll(bot)
-
-
-c.botCommandAdmins(bot)
-c.botCommandTest(bot)
-c.botCommandInfo(bot)
-c.botCommandUnmute(bot)
-c.botCommandMute(bot)
 
 
 // >----------------------------------------------------------------<
@@ -246,7 +80,26 @@ process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
 
 
+// starn code
 
+
+
+// bot.start((ctx) => {
+// 	ctx.reply(`Welcome, ${ctx.message.from.username ? ctx.message.from.username : 'user'}!`);
+// 	log(ctx.message);
+
+// })
+
+// bot.hears(['Привіт', 'Hi', 'Hello'], (ctx) => ctx.reply('Ну привіт😅'));
+
+// async function addBotCommand(command, ...args) {
+
+// 	log(command)
+// 	bot.command(command, async () => {
+// 		try { await this.replyWithHTML(`<a href="${args[1]}">${args[2]}</a>`) } catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
+// 	})
+// 	return
+// }
 
 
 

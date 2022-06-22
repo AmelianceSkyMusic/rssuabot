@@ -4,6 +4,7 @@
 
 const { log } = require('console');
 
+const {APP} = require('../data/app');
 const asm = require('../modules/_asm');
 const f = require('../functions/_f');
 
@@ -13,8 +14,8 @@ const f = require('../functions/_f');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandInfo = (bot) => {
-	bot.command('info', async (ctx) => {
+module.exports.botCommandInfo = () => {
+	APP.BOT.command('info', async (ctx) => {
 		log(ctx)
 		try {
 
@@ -45,7 +46,7 @@ module.exports.botCommandInfo = (bot) => {
 					log(`\n-\n${fromUserFirstName} @${fromUserUsername} ${fromUserId} (${fromMemberStatus})\n→ tried get status →\n${replyToFirstName} @${replyToUsername} ${replyToId} (${replyToStatus})\n-\n`)
 				}
 			} else {
-				const msg = await ctx.replyWithHTML(`Команда /mute працює тільки як Reply!`);
+				const msg = await ctx.replyWithHTML(`Команда /info працює тільки як Reply!`);
 				setTimeout( async () => {
 					try {
 						await ctx.deleteMessage(msg.message_id);

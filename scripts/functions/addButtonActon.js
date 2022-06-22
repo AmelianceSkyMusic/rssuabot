@@ -2,14 +2,19 @@
 // >                            REQUIRE                             <
 // >----------------------------------------------------------------<
 
-const constants = require('../data/constants');
-const {APP} = require('../data/app');
+const { APP } = require("../data/app");
+
+
 
 
 // >----------------------------------------------------------------<
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botHelp = () => {
-    APP.BOT.help((ctx) => ctx.reply(constants.commands));
-};
+module.exports.addButtonActon = (name, callback) => {
+	APP.BOT.action(name, async (ctx) => {
+		try {
+			await callback(ctx);
+		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
+	})
+}
