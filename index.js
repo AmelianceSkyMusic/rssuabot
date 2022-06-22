@@ -691,8 +691,8 @@ bot.command('sendtest', async (ctx) => {
 // 	})
 })
 
-bot.command('test', async (ctx) => {
-	const randomMsg = await ctx.replyWithHTML(debug(`${ctx.update}`))
+bot.command('testobj', async (ctx) => {
+	const randomMsg = await ctx.replyWithHTML(debug(ctx.update))
 // 	const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getUpdates`;
 // 	https.get(url, res => {
 // 		let data = '';
