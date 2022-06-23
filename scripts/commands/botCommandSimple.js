@@ -15,12 +15,12 @@ const f = require('../functions/_f');
 
 module.exports.botCommandSimple = () => {
 
-
 	APP.BOT.on('sticker', async (ctx) => {
 		const sticker = constants.emoji[f.getRandomNumber(0, 19)]
-		ctx.reply(sticker)
+		setTimeout(() => {
+			ctx.reply(sticker)
+		}, 800);
 	});
-
 	APP.BOT.command('asm', async (ctx) => {
 		try {
 			const commandMessageId = ctx.update.message.message_id;
@@ -29,12 +29,18 @@ module.exports.botCommandSimple = () => {
 			await ctx.replyWithHTML('@AmelianceSkyMusic')
 		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 	})
-
 	APP.BOT.command('link', async (ctx) => {
 		try {
 			const commandMessageId = ctx.update.message.message_id;
 			await f.removeMsgById(ctx, commandMessageId, asm.secToMs(3600));
 			await ctx.replyWithHTML('<a href="https://t.me/RSSchoolUkraine">RS School | Ukraine</a>')
+		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
+	})
+	APP.BOT.command('topic', async (ctx) => {
+		try {
+			const commandMessageId = ctx.update.message.message_id;
+			await f.removeMsgById(ctx, commandMessageId, asm.secToMs(3600));
+			await ctx.replyWithHTML('<a href="https://t.me/+H1FJHYfK6Fs2ZTIy">RS School | On Topic</a>')
 		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 	})
 	APP.BOT.command('app', async (ctx) => {
