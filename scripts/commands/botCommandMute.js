@@ -24,25 +24,36 @@ module.exports.botCommandMute = () => {
 			const replyTo = ctx.update.message?.reply_to_message?.from;
 			if (replyTo) {
 				const chatId = ctx.update.message.chat.id
+
+				// *----- action from -----
 				const from = ctx.update.message.from
-				const fromUserId = ctx.update.message.from.id
-				const fromUserFirstName = ctx.update.message.from.first_name
-				const fromUserUsername = ctx.update.message.from.username
+				const {	id: fromUserId,
+						first_name: fromUserFirstName,
+						username: fromUserUsername } = from
+				const userFrom = `<a href="tg://user?id=${fromUserId}">${fromUserFirstName}</a>`
 				const fromGetChatMember = await ctx.telegram.getChatMember(chatId, fromUserId)
 				const fromMemberStatus = fromGetChatMember.status
-				const replyToId = replyTo.id;
-				const replyToFirstName = replyTo.first_name;
-				const replyToUsername = replyTo.username;
-				const getChatMember = await ctx.telegram.getChatMember(chatId, replyToId)
-				const replyToStatus = getChatMember.status
+
+				// *----- reply to user -----
+				const {	id: replyToId,
+						first_name: replyToFirstName,
+						username: replyToUsername } = replyTo
+				const userReplyTo = `<a href="tg://user?id=${replyToId}">${replyToFirstName}</a>`
+				const replyToGetChatMember = await ctx.telegram.getChatMember(chatId, replyToId)
+				const replyToStatus = replyToGetChatMember.status
+
+				// *----- detect if user has access -----
 				if (fromMemberStatus === 'creator' || fromMemberStatus === 'administrator') {
 					if (replyToStatus !== 'creator' && replyToStatus !== 'administrator') {
 						await ctx.telegram.restrictChatMember(chatId, replyToId)
+						const randomMsg = await ctx.replyWithHTML(`${userFrom} зам'ютив ${userReplyTo}`);
 						log(`\n-\n${fromUserFirstName} @${fromUserUsername} ${fromUserId} (${fromMemberStatus})\n→ mute →\n${replyToFirstName} @${replyToUsername} ${replyToId} (${replyToStatus})\n-\n`)
 					} else {
+						const randomMsg = await ctx.replyWithHTML(`${userFrom} спробував зам'ютити ${userReplyTo}, але нічого не вийшло ¯\\_(ツ)_/¯`);
 						log(`\n-\n${fromUserFirstName} @${fromUserUsername} ${fromUserId} (${fromMemberStatus})\n→ tried to mute →\n${replyToFirstName} @${replyToUsername} ${replyToId} (${replyToStatus})\n-\n`)
 					}
 				} else {
+					const randomMsg = await ctx.replyWithHTML(`${userFrom} спробував зам'ютити ${userReplyTo}, але нічого не вийшло ¯\\_(ツ)_/¯`);
 					log(`\n-\n${fromUserFirstName} @${fromUserUsername} ${fromUserId} (${fromMemberStatus})\n→ tried to mute →\n${replyToFirstName} @${replyToUsername} ${replyToId} (${replyToStatus})\n-\n`)
 				}
 			} else {

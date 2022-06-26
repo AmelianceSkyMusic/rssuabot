@@ -14,6 +14,7 @@ APP.UNRESTRICT_OPTIONS = {
   can_send_polls: true,
   can_send_other_messages: true,
   can_add_web_page_previews: true,
+  can_pin_messages: true,
 }
 
 

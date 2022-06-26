@@ -20,43 +20,33 @@ module.exports.botCommandUnmute = () => {
 			const commandMessageId = ctx.update.message.message_id;
 			await f.removeMsgById(ctx, commandMessageId, 0)
 
+
 			const replyTo = ctx.update.message?.reply_to_message?.from;
 			if (replyTo) {
 				const chatId = ctx.update.message.chat.id
-
-				// *----- action from -----
 				const from = ctx.update.message.from
-				const {	id: fromUserId,
-						first_name: fromUserFirstName,
-						username: fromUserUsername } = from
-				const userFrom = `<a href="tg://user?id=${fromUserId}">${fromUserFirstName}</a>`
+				const fromUserId = ctx.update.message.from.id
+				const fromUserFirstName = ctx.update.message.from.first_name
+				const fromUserUsername = ctx.update.message.from.username
 				const fromGetChatMember = await ctx.telegram.getChatMember(chatId, fromUserId)
 				const fromMemberStatus = fromGetChatMember.status
-
-				// *----- reply to user -----
-				const {	id: replyToId,
-						first_name: replyToFirstName,
-						username: replyToUsername } = replyTo
-				const userReplyTo = `<a href="tg://user?id=${replyToId}">${replyToFirstName}</a>`
-				const replyToGetChatMember = await ctx.telegram.getChatMember(chatId, replyToId)
-				const replyToStatus = replyToGetChatMember.status
-
-				// *----- detect if user has access -----
+				const replyToId = replyTo.id;
+				const replyToFirstName = replyTo.first_name;
+				const replyToUsername = replyTo.username;
+				const getChatMember = await ctx.telegram.getChatMember(chatId, replyToId)
+				const replyToStatus = getChatMember.status
 				if (fromMemberStatus === 'creator' || fromMemberStatus === 'administrator') {
 					if (replyToStatus !== 'creator' && replyToStatus !== 'administrator') {
-						await ctx.telegram.restrictChatMember(chatId, replyToId, { permissions: APP.UNRESTRICT_OPTIONS })
-						const randomMsg = await ctx.replyWithHTML(`${userFrom} розм'ютив ${userReplyTo}`);
+						await ctx.telegram.restrictChatMember(chatId, replyToId, { permissions: BOT.UNRESTRICT_OPTIONS })
 						log(`\n-\n${fromUserFirstName} @${fromUserUsername} ${fromUserId} (${fromMemberStatus})\n→ unmute →\n${replyToFirstName} @${replyToUsername} ${replyToId} (${replyToStatus})\n-\n`)
 					} else {
-						const randomMsg = await ctx.replyWithHTML(`${userFrom} спробував розм'ютити ${userReplyTo}, але нічого не вийшло ¯\\_(ツ)_/¯`);
 						log(`\n-\n${fromUserFirstName} @${fromUserUsername} ${fromUserId} (${fromMemberStatus})\n→ tried to unmute →\n${replyToFirstName} @${replyToUsername} ${replyToId} (${replyToStatus})\n-\n`)
 					}
 				} else {
-					const randomMsg = await ctx.replyWithHTML(`${userFrom} спробував розм'ютити ${userReplyTo}, але нічого не вийшло ¯\\_(ツ)_/¯`);
 					log(`\n-\n${fromUserFirstName} @${fromUserUsername} ${fromUserId} (${fromMemberStatus})\n→ tried to unmute →\n${replyToFirstName} @${replyToUsername} ${replyToId} (${replyToStatus})\n-\n`)
 				}
 			} else {
-				const msg = await ctx.replyWithHTML(`Команда /unmute працює тільки як Reply!`);
+				const msg = await ctx.replyWithHTML(`Команда /mute працює тільки як Reply!`);
 				setTimeout( async () => {
 					try {
 						await ctx.deleteMessage(msg.message_id);

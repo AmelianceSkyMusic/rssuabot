@@ -42,15 +42,15 @@ c.botCommandRp()
 c.botCommandTwo()
 c.botCommandRandom()
 
-c.botCommandChannelPost()
+// c.botCommandChannelPost()
 // c.botCommandChatMember()
 c.botCommandBanpoll() // TODO: Rewrite to ban with mute no anonymous
 
 c.botCommandAdmins()
 c.botCommandTest()
 c.botCommandInfo() // get info from reply to log
-// c.botCommandUnmute()
-// c.botCommandMute()
+c.botCommandUnmute()
+c.botCommandMute()
 
 
 log('script loaded...')

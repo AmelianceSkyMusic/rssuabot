@@ -9,6 +9,8 @@ const commands = `
 /topic - посилання на чат без офтопу
 /link - посилання на чат
 /codeofconduct - правила поведінки
+/mute - зам'ютити
+/unmute - розм'ютити
 `
 
 // /stickers - стікери
