@@ -19,8 +19,18 @@ const { log } = console;
 // >----------------------------------------------------------------<
 
 export default function botCommand(bot) {
-
 	bot.command('admins', async (ctx) => {
+		const functionName = 'botCommand';
+		try {
+			if (f.isReply(ctx)) {
+				return log('hello');
+			} else {
+				f.logsUserReply(ctx, 'tryid to unmute');
+				f.sendMsgReplyNotFonud(ctx, functionName, 5);
+			}
+		} catch (error) {
+			f.error(functionName, error);
+		}
 	});
 
 }

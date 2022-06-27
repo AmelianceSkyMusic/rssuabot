@@ -13,8 +13,8 @@ import { f } from '../_g.js';
 
 export default async function getUserInfo(ctx) {
 
-
 	try {
+		console.log(ctx.update.message.from);
 		const {
 			id: userId,
 			is_bot: userIsBot,
@@ -24,6 +24,7 @@ export default async function getUserInfo(ctx) {
 		} = ctx.update.message.from;
 
 		const chatId = ctx.update.message.chat.id;
+		const userText = ctx.update.message.text;
 
 		const fromGetChatMember = await ctx.telegram.getChatMember(chatId, userId);
 		const userStatus = fromGetChatMember.status;
@@ -37,7 +38,8 @@ export default async function getUserInfo(ctx) {
 			userLanguageCode,
 			userMentionHTML: `<a href="tg://user?id=${userId}">${userFirstName}</a>`,
 			userStatus,
-			userIsAnonymous
+			userText,
+			userIsAnonymous,
 		};
 
 	} catch (error) {

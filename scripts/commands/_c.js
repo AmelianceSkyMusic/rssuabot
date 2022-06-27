@@ -13,6 +13,7 @@ import botCommandReply          from './botCommandReply.js';
 import botCommandRp             from './botCommandRp.js';
 import botCommandTwo            from './botCommandTwo.js';
 import botCommandRandom         from './botCommandRandom.js';
+import botCommandInfolog        from './botCommandInfolog.js';
 
 import botCommandChannelPost    from './botCommandChannelPost.js';
 import botCommandChatMember     from './botCommandChatMember.js';
@@ -43,6 +44,7 @@ export default {
 	botCommandRp,
 	botCommandTwo,
 	botCommandRandom,
+	botCommandInfolog,
 
 	botCommandChannelPost,
 	botCommandChatMember,
