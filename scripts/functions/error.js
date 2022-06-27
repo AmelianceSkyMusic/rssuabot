@@ -4,16 +4,15 @@
 
 
 
-
 // >----------------------------------------------------------------<
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
 export default function error(functionNmme, error) {
-	console.log(
+	console.error(
 		`\n`,
 		`↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓\n`,
-		`ASM ERRROR in → ${functionNmme.name} ←\n`,
+		`ASM ERRROR in → ${functionNmme} ←\n`,
 		`\n`,
 		error,
 		`\n`
