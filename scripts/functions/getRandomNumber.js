@@ -1,5 +1,5 @@
 // >----------------------------------------------------------------<
-// >                            REQUIRE                             <
+// >                            MODULES                             <
 // >----------------------------------------------------------------<
 
 
@@ -9,6 +9,6 @@
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.getRandomNumber = (min, max) => {
+export default function getRandomNumber(min, max) {
 	return Math.trunc(Math.random() * (max - min + 1) + min);
 }

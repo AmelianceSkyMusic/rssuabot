@@ -1,12 +1,12 @@
 // >----------------------------------------------------------------<
-// >                            REQUIRE                             <
+// >                            MODULES                             <
 // >----------------------------------------------------------------<
 
-const { log } = require('console');
+import { f, asm, APP } from '../_g.js';
 
-const {APP} = require('../data/app');
-const asm = require('../modules/_asm');
-const f = require('../functions/_f');
+
+const { log } = console;
+
 
 
 
@@ -14,12 +14,12 @@ const f = require('../functions/_f');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandTest = () => {
-	APP.BOT.command('test', async (ctx) => { log(ctx.update)})
+export default function botCommandTest() {
+	APP.BOT.command('test', async (ctx) => { log(ctx.update);});
 
 	APP.BOT.command('sendtest', async (ctx) => {
-		const chatId = ctx.update.message.chat.id
-		const randomMsg = await ctx.replyWithHTML(`chat.id: ${chatId}`)
+		const chatId = ctx.update.message.chat.id;
+		const randomMsg = await ctx.replyWithHTML(`chat.id: ${chatId}`);
 	// 	const url = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/getUpdates`;
 	// 	https.get(url, res => {
 	// 		let data = '';
@@ -34,7 +34,7 @@ module.exports.botCommandTest = () => {
 	// 	}).on('error', err => {
 	// 		console.log(err.message);
 	// 	})
-	})
+	});
 
 	APP.BOT.command('testobj', async (ctx) => {
 
@@ -43,13 +43,13 @@ module.exports.botCommandTest = () => {
 			const commandMessageId = ctx.update.message.message_id;
 
 			await f.removeMsgById(ctx, commandMessageId, 30);
-			const randomMsg = await ctx.replyWithHTML(`<code>${f.debug(ctx.update)}</code>`)
+			const randomMsg = await ctx.replyWithHTML(`<code>${f.debug(ctx.update)}</code>`);
 			setTimeout( async () => { // remove messages
 				try {
 					await ctx.deleteMessage(randomMsg.message_id);
-				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`) }
+				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`); }
 			}, asm.secToMs(600));
 		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
-	})
+	});
 
-};
+}

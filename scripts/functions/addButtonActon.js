@@ -1,8 +1,8 @@
 // >----------------------------------------------------------------<
-// >                            REQUIRE                             <
+// >                            MODULES                             <
 // >----------------------------------------------------------------<
 
-const { APP } = require("../data/app");
+import { APP } from '../_g.js';
 
 
 
@@ -11,10 +11,10 @@ const { APP } = require("../data/app");
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.addButtonActon = (name, callback) => {
+export default async function addButtonActon(name, callback) {
 	APP.BOT.action(name, async (ctx) => {
 		try {
 			await callback(ctx);
 		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
-	})
+	});
 }

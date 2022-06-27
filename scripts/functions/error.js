@@ -9,6 +9,13 @@
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-export default function debug(obj = {}) {
-	return JSON.stringify(obj, null, 4);
+export default function error(functionNmme, error) {
+	console.log(
+		`\n`,
+		`↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓\n`,
+		`ASM ERRROR in → ${functionNmme.name} ←\n`,
+		`\n`,
+		error,
+		`\n`
+	);
 }

@@ -1,15 +1,16 @@
 // >----------------------------------------------------------------<
-// >                            REQUIRE                             <
+// >                            MODULES                             <
 // >----------------------------------------------------------------<
 
-const constants = require('../data/constants');
-const {APP} = require('../data/app');
+import { APP, constants } from '../_g.js';
+
+
 
 
 // >----------------------------------------------------------------<
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botHelp = () => {
-    APP.BOT.help((ctx) => ctx.reply(constants.commands));
-};
+export default function botHelp() {
+	APP.BOT.help((ctx) => ctx.reply(constants.commands));
+}

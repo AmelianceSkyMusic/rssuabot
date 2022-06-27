@@ -1,14 +1,11 @@
 // >----------------------------------------------------------------<
-// >                            REQUIRE                             <
+// >                            MODULES                             <
 // >----------------------------------------------------------------<
 
-const { log } = require('console');
-const { Telegraf, Markup, Telegram } = require('telegraf')
+import { f, asm, APP } from '../_g.js';
 
-const {APP} = require('../data/app');
-const asm = require('../modules/_asm');
-const f = require('../functions/_f');
-const c = require('../commands/_c');
+const { log } = console;
+
 
 
 
@@ -16,7 +13,7 @@ const c = require('../commands/_c');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommandTwo = () => {
+export default function botCommandTwo() {
 	APP.BOT.command('two', async (ctx) => {
 		try {
 			const commandMessageId = ctx.update.message.message_id;
@@ -25,14 +22,14 @@ module.exports.botCommandTwo = () => {
 			if (memberPressed) {
 				const memberPressedId = memberPressed.id;
 				const memberPressedfirstName = memberPressed.first_name;
-				const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`
+				const user = `<a href="tg://user?id=${memberPressedId}">${memberPressedfirstName}</a>`;
 				await f.removeMsgById(ctx, commandMessageId, 0);
 				const randomMsg = await ctx.replyWithHTML(`${user} сідай, 2😅`);
 				setTimeout( async () => { // remove messages
 					try {
 						await ctx.deleteMessage(randomMsg.message_id);
 					} catch (error) {
-						log(`ASM: Maybe message was removed by the user\n${error}`)
+						log(`ASM: Maybe message was removed by the user\n${error}`);
 					}
 				}, asm.minToMs(60));
 			} else {
@@ -49,5 +46,5 @@ module.exports.botCommandTwo = () => {
 		} catch (error) {
 			console.error(`---------\n→ ASM ERR → ${this.name} → \n↓ ↓ ↓ ↓ ↓\n`, error);
 		}
-	})
-};
+	});
+}

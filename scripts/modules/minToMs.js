@@ -2,6 +2,6 @@
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.minToMs = (min) => {
-    return min * 60 * 1000;
-};
+export default function minToMs(min) {
+	return min * 60 * 1000;
+}

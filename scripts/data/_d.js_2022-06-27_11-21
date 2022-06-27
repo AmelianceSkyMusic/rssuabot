@@ -2,13 +2,19 @@
 // >                            MODULES                             <
 // >----------------------------------------------------------------<
 
+import APP        from './app.js';
+import constants  from './constants.js';
+import notionAPI  from './notionAPI.js';
+
 
 
 
 // >----------------------------------------------------------------<
-// >                           FUNCTIONS                            <
+// >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-export default function debug(obj = {}) {
-	return JSON.stringify(obj, null, 4);
-}
+export default {
+	APP,
+	constants,
+	notionAPI,
+};

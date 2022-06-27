@@ -1,13 +1,13 @@
-const { getRandomNumber } = require('./getRandomNumber');
-const { secToMs } = require('./secToMs');
-const { minToMs } = require('./minToMs');
+import getRandomNumber from './getRandomNumber.js';
+import secToMs from './secToMs.js';
+import minToMs from './minToMs.js';
 
 // >----------------------------------------------------------------<
 // >                             EXPORT                             <
 // >----------------------------------------------------------------<
 
-module.exports = {
+export default {
 	getRandomNumber,
 	secToMs,
 	minToMs
-}
+};

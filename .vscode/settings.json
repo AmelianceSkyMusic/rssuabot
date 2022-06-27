@@ -1,0 +1,33 @@
+{
+    // hide files and folders in explorer
+    "files.exclude": {
+        // "**/JS_Functions": true,
+        // "**/Legacy": true,
+        // "**/node_modules": true,
+        // "**/others": true,
+
+        // "**/RSS/stage0": true,
+        // "**/RSS/stage1/Codewars": true,
+
+        // "**/Templates": true,
+        // "**/Tests": true,
+
+        // "**/.gitIgnore": true,
+        // "**/package-lock.json": true,
+        // "**/package.json": true,
+        // "**/README.md": true,
+        // "**/test.html": true,
+        // "**/test.js": true,
+    },
+    // hide folders in search
+    "search.exclude": {
+        "**/node_modules": true
+    },
+
+    // format on save eslint
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": ["javascript"]
+
+}

@@ -1,10 +1,11 @@
 // >----------------------------------------------------------------<
-// >                            REQUIRE                             <
+// >                            MODULES                             <
 // >----------------------------------------------------------------<
 
-const { log } = require('console');
+import { asm } from '../_g.js';
 
-const asm = require('../modules/_asm');
+const { log } = console;
+
 
 
 
@@ -12,11 +13,12 @@ const asm = require('../modules/_asm');
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.removeMsgById = async (ctx, msgId, sec) => {
+export default async function removeMsgById (ctx, msgId, sec) {
 	setTimeout( async () => { // remove messages
 		try {
 			await ctx.deleteMessage(msgId);
+			return true;
 		} catch (error) {
-			log(`ASM: Maybe message ${msgId} was removed by the user\n${error}`) }
+			log(`ASM: Maybe message ${msgId} was removed by the user\n${error}`); }
 	}, asm.secToMs(sec));
 }

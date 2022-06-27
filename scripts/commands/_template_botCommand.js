@@ -1,24 +1,26 @@
 // >----------------------------------------------------------------<
-// >                            REQUIRE                             <
+// >                            MODULES                             <
 // >----------------------------------------------------------------<
 
-const { log } = require('console');
-const { Telegraf, Markup, Telegram } = require('telegraf')
+import { Telegraf, Markup, Telegram } from 'telegraf';
 
-const constants = require('../data/constants');
-const {APP} = require('../data/app');
-const asm = require('../modules/_asm');
-const f = require('../functions/_f');
-const c = require('../commands/_c');
+// import constants from '../data/constants';
+// import APP from '../data/app';
+// import asm from '../modules/_asm';
+// import f from '../functions/_f';
+// import c from '../commands/_c';
 
+import { c, f, asm, APP, constants } from '../_g.js';
 
+const { log } = console;
 
 // >----------------------------------------------------------------<
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.botCommand = (bot) => {
-	bot.command('admins', async (ctx) => {
-	})
+export default function botCommand(bot) {
 
-};
+	bot.command('admins', async (ctx) => {
+	});
+
+}

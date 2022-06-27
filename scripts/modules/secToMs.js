@@ -2,6 +2,6 @@
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-module.exports.secToMs = (sec) => {
-    return sec * 1000;
-};
+export default function secToMs(sec) {
+	return sec * 1000;
+}
