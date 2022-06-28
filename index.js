@@ -50,7 +50,7 @@ c.botCommandTwo();
 c.botCommandRandom();
 c.botCommandInfolog();
 
-// c.botCommandChannelPost()
+c.botCommandChannelPost();
 c.botCommandChatMember();
 // c.botCommandBanpoll(); // TODO: Rewrite to ban with mute no anonymous
 
