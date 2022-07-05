@@ -22,6 +22,8 @@ export default function botCommandChatMember() {
 
 		try {
 			const chatId = ctx.update.chat_member.chat.id;
+			const chatTilte = ctx.update.chat_member.chat.title;
+			const chatType = ctx.update.chat_member.chat.type;
 			const newChatMemberStatus = ctx.update.chat_member.new_chat_member.status;
 			const oldChatMemberStatus = ctx.update.chat_member.old_chat_member.status;
 			const newChatMember = ctx.update.chat_member.new_chat_member.user;
@@ -29,7 +31,7 @@ export default function botCommandChatMember() {
 			const newChatMemberName = newChatMember?.username;
 			const newChatMemberfirstName = newChatMember.first_name;
 			const user = `<a href="tg://user?id=${newChatMemberId}">${newChatMemberfirstName}</a>`;
-			const logs = `${newChatMemberfirstName} ${newChatMemberName} (${newChatMemberId}) is ${newChatMemberStatus} / was ${oldChatMemberStatus}`;
+			const logs = `${chatTilte} (${chatId}, ${chatType}) →\n→ ${newChatMemberfirstName} ${newChatMemberName} (${newChatMemberId}) is ${newChatMemberStatus} / was ${oldChatMemberStatus}`;
 			log(logs);
 
 			if (newChatMemberStatus === 'member' && oldChatMemberStatus === 'left' ) {
