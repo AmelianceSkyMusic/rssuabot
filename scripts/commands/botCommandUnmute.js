@@ -51,6 +51,9 @@ export default function botCommandUnmute() {
 						await ctx.replyWithHTML(`${userMentionHTML} спробував розм'ютити ${replyMentionHTML}, але нічого не вийшло ¯\\_(ツ)_/¯`);
 						f.logsUserReply(ctx, 'tried to unmute' , 'REPLY');
 					}
+				} else {
+					await ctx.replyWithHTML(`${userMentionHTML} спробував розм'ютити ${replyMentionHTML}, але нічого не вийшло ¯\\_(ツ)_/¯`);
+					f.logsUserReply(ctx, 'tried to unmute' , 'REPLY');
 				}
 			} else {
 				f.logsUserReply(ctx, 'tryid to unmute');

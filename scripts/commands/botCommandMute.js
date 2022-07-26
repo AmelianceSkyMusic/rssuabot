@@ -51,6 +51,9 @@ export default function botCommandMute() {
 						await ctx.replyWithHTML(`${userMentionHTML} спробував зам'ютити ${replyMentionHTML}, але нічого не вийшло ¯\\_(ツ)_/¯`);
 						f.logsUserReply(ctx, 'tried to mute' , 'REPLY');
 					}
+				} else {
+					await ctx.replyWithHTML(`${userMentionHTML} спробував зам'ютити ${replyMentionHTML}, але нічого не вийшло ¯\\_(ツ)_/¯`);
+					f.logsUserReply(ctx, 'tried to mute' , 'REPLY');
 				}
 			} else {
 				f.logsUserReply(ctx, 'tryid to mute');
