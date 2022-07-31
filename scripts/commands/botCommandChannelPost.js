@@ -44,8 +44,8 @@ export default function botCommandChannelPost() {
 				}, asm.minToMs(720));
 
 			} else if(channelUsername === 'DesignIs_Official') { // test
-				const chatId = APP.RSS2022Q1UA_CHAT_ID;
-				// const chatId = APP.RSSUA_CHAT_ID
+				// const chatId = APP.RSS2022Q1UA_CHAT_ID;
+				const chatId = APP.RSSUA_CHAT_ID;
 				const channelPost = ctx.update.channel_post.text;
 				const msg = await ctx.telegram.sendMessage(chatId, channelPost, {parse_mode: 'Markdown'});
 				// const msgId = msg.message_id
