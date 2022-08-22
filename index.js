@@ -48,7 +48,6 @@ c.botCommandSimple();
 c.botCommandRandomWordsPhrase();
 
 c.botCommandReply();
-// c.botCommandAddMsgToNotion();
 c.botCommandRp();
 c.botCommandTwo();
 c.botCommandRandom();
@@ -63,6 +62,8 @@ c.botCommandTest();
 c.botCommandInfo(); // get info from reply to log
 c.botCommandMute();
 c.botCommandUnmute();
+
+c.botCommandAddMsgToNotion();
 
 
 
