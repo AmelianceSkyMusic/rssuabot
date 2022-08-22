@@ -29,10 +29,10 @@ export default function botCommandRandomWordsPhrase()  {
 				let message = [];
 
 				const countOfWords = asm.getRandomNumber(1, 10);
-				log(APP.notion.rssuabot.text);
+				log(APP.notion.rssuabot.words);
 				for (let i = 0; i < countOfWords; i++) {
-					const randomNumOfWordsCount = asm.getRandomNumber(0, APP.notion.rssuabot.text.length - 1);
-					const randomWord = APP.notion.rssuabot.text[randomNumOfWordsCount];
+					const randomNumOfWordsCount = asm.getRandomNumber(0, APP.notion.rssuabot.words.length - 1);
+					const randomWord = APP.notion.rssuabot.words[randomNumOfWordsCount];
 					message.push(randomWord);
 				}
 				const randomMsg = await ctx.replyWithHTML(`${user}, ${message.join(' ')}`);

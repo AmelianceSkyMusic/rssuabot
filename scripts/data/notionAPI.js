@@ -54,8 +54,10 @@ async function notionText() {
 			page_size: 0,
 		});
 
+		APP.notion.rssuabot.words = [];
 		APP.notion.rssuabot.text = [];
-		let rssuabotPhrases = APP.notion.rssuabot.text;
+		let rssuabotWords = APP.notion.rssuabot.words;
+		let rssuabotText = APP.notion.rssuabot.text;
 
 
 		for await (const element of response.results) {
@@ -65,11 +67,12 @@ async function notionText() {
 			// 	rssuabotPhrases = [...rssuabotPhrases, ...phrase.split(' ')];
 			// }
 			if(phrase) {
+				rssuabotText.push(phrase);
 				phrase.split(' ').forEach(word => {
-					word = word.toLowerCase();
+					word = word.toLowerCase().trim();
 
-					if (!/[^a-za-яA-ZА-ЯіІїЇґҐ,.!?]/.test(word)) {
-						rssuabotPhrases.push(word);
+					if (word.length > 0 && !/[^a-za-яA-ZА-ЯіІїЇґҐ,.!?]/.test(word)) {
+						rssuabotWords.push(word);
 					}
 
 				});

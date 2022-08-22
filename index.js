@@ -45,7 +45,8 @@ notionAPI.notionText();
 c.botHelp();
 c.botCommandSimple();
 
-c.botCommandRandomWordsPhrase();
+c.botCommandRd(); // add random phrase from random words
+c.botCommandPh(); // add random phrase
 
 c.botCommandReply();
 c.botCommandRp();

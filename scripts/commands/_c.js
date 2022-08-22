@@ -26,7 +26,8 @@ import botCommandMute           from './botCommandMute.js';
 import botCommandUnmute         from './botCommandUnmute.js';
 
 import botCommandAddMsgToNotion from './botCommandAddMsgToNotion.js';
-import botCommandRandomWordsPhrase from './botCommandRandomWordsPhrase.js';
+import botCommandRd from './botCommandRd.js';
+import botCommandPh from './botCommandPh.js';
 
 
 
@@ -61,6 +62,7 @@ export default {
 	botCommandUnmute,
 
 	botCommandAddMsgToNotion,
-	botCommandRandomWordsPhrase
+	botCommandRd,
+	botCommandPh
 
 };
