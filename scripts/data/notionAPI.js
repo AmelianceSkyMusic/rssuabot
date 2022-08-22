@@ -20,6 +20,10 @@ import { Client } from '@notionhq/client';
 const notion = new Client({
 	auth: process.env.NOTION_TOKEN,
 });
+
+APP.notion = {};
+APP.notion.rssuabot = {};
+
 async function notionRequest() {
 	try {
 		const blockId = process.env.NOTION_PAGEID;
@@ -28,8 +32,7 @@ async function notionRequest() {
 			block_id: blockId,
 			page_size: 50,
 		});
-		APP.notion = {};
-		APP.notion.rssuabot = {};
+
 		APP.notion.rssuabot.phrases = [];
 		const rssuabotPhrases = APP.notion.rssuabot.phrases;
 
@@ -43,6 +46,88 @@ async function notionRequest() {
 	}
 }
 
+async function notionText() {
+	try {
+		const blockId = process.env.NOTION_TEXTID;
+		const response = await notion.blocks.children.list({
+			block_id: blockId,
+			page_size: 50,
+		});
+
+		APP.notion.rssuabot.text = [];
+		let rssuabotPhrases = APP.notion.rssuabot.text;
+
+
+		for await (const element of response.results) {
+			const phrase = element?.paragraph?.rich_text[0]?.plain_text;
+
+			// if(phrase) {
+			// 	rssuabotPhrases = [...rssuabotPhrases, ...phrase.split(' ')];
+			// }
+			if(phrase) {
+				phrase.split(' ').forEach(word => {
+					word = word.toLowerCase();
+
+					if (!/[^a-za-яA-ZА-ЯіІїЇґҐ,.!?]/.test(word)) {
+						rssuabotPhrases.push(word);
+					}
+
+				});
+			}
+		}
+		log('NOTION PHRASES LOADED');
+	} catch (error) {
+		console.error('ASM NOTION ERR:', error);
+	}
+}
+
+
+// https://developers.notion.com/reference/patch-block-children
+async function writeBlock(text, header) {
+
+	const content = [];
+
+	if (header) content.push({
+		'heading_3': {
+			'rich_text': [
+				{
+					'text': {
+						'content': `${header}`,
+					}
+				}
+			]
+		}
+	});
+
+	if (text) content.push({
+		'paragraph': {
+			'rich_text': [
+				{
+					'text': {
+						'content': `${text}`,
+					}
+				}
+			]
+		}
+	});
+
+	const blockId = process.env.NOTION_TEXTID;
+
+	try {
+		const response = await notion.blocks.children.append({
+			block_id: blockId,
+			children: content,
+		});
+		log('ADD TEXT TO NOTION');
+		// console.log(response);
+	} catch (error) {
+		console.error('ASM NOTION ERR:', error);
+	}
+}
+
+
 export default {
 	notionRequest,
+	writeBlock,
+	notionText
 };

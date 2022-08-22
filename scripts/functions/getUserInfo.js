@@ -14,7 +14,6 @@ import { f } from '../_g.js';
 export default async function getUserInfo(ctx) {
 
 	try {
-		console.log(ctx.update.message.from);
 		const {
 			id: userId,
 			is_bot: userIsBot,
@@ -30,6 +29,17 @@ export default async function getUserInfo(ctx) {
 		const userStatus = fromGetChatMember.status;
 		const userIsAnonymous = fromGetChatMember.is_anonymous;
 
+		const userDate = new Date(ctx.update.message.date * 1000);
+
+		const YYYY = userDate.getFullYear();
+		const MM = userDate.getMonth();
+		const DD = userDate.getDate();
+
+		const hh = userDate.getHours();
+		const mm = userDate.getMinutes();
+		const ss = userDate.getSeconds();
+		const userDateShort = `${YYYY}-${MM}-${DD} ${hh}:${mm}:${ss}`;
+
 		return {
 			userId,
 			userIsBot,
@@ -40,6 +50,8 @@ export default async function getUserInfo(ctx) {
 			userStatus,
 			userText,
 			userIsAnonymous,
+			userDate,
+			userDateShort
 		};
 
 	} catch (error) {

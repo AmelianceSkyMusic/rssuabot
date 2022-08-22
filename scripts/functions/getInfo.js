@@ -11,10 +11,11 @@ import { f } from '../_g.js';
 // >                           FUNCTIONS                            <
 // >----------------------------------------------------------------<
 
-export default async function getStatus(ctx, type = '') {
+export default async function getInfo(ctx, type = '') {
 	try {
 		const info = {};
 		const userInfo = await f.getUserInfo(ctx);
+
 		info.userId           = userInfo.userId;
 		info.userIsBot        = userInfo.userIsBot;
 		info.userFirstName    = userInfo.userFirstName;
@@ -24,6 +25,8 @@ export default async function getStatus(ctx, type = '') {
 		info.userStatus       = userInfo.userStatus;
 		info.userText         = userInfo.userText;
 		info.userIsAnonymous  = userInfo.userIsAnonymous;
+		info.userDate  		 = userInfo.userDate;
+		info.userDateShort  	 = userInfo.userDateShort;
 
 
 		if (type === 'REPLY') {
@@ -37,6 +40,8 @@ export default async function getStatus(ctx, type = '') {
 				info.replyStatus     	= replyInfo.replyStatus;
 				info.replyText       	= replyInfo.replyText;
 				info.replyIsAnonymous	= replyInfo.replyIsAnonymous;
+				info.userDate				= replyInfo.userDate;
+				info.userDateShort		= replyInfo.userDateShort;
 			}
 		}
 

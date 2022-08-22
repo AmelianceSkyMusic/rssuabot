@@ -1,9 +1,12 @@
 {
     // hide files and folders in explorer
     "files.exclude": {
-        // "**/JS_Functions": true,
-        // "**/Legacy": true,
-        // "**/node_modules": true,
+        "**/assets": true,
+        "**/_Legacy": true,
+        "**/node_modules": true,
+        ".eslintrc": true,
+        ".gitignore": true,
+        // ".env": true,
         // "**/others": true,
 
         // "**/RSS/stage0": true,
@@ -12,10 +15,10 @@
         // "**/Templates": true,
         // "**/Tests": true,
 
-        // "**/.gitIgnore": true,
-        // "**/package-lock.json": true,
+        "**/.gitIgnore": true,
+        "**/package-lock.json": true,
         // "**/package.json": true,
-        // "**/README.md": true,
+        "**/README.md": true,
         // "**/test.html": true,
         // "**/test.js": true,
     },

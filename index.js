@@ -36,6 +36,7 @@ APP.BOT = bot;
 
 
 notionAPI.notionRequest();
+notionAPI.notionText();
 
 // TODO: Refacto two functions below but disable for this bot
 // c.botCommandNewChatMembers(bot) // remove service add message
@@ -44,7 +45,10 @@ notionAPI.notionRequest();
 c.botHelp();
 c.botCommandSimple();
 
+c.botCommandRandomWordsPhrase();
+
 c.botCommandReply();
+// c.botCommandAddMsgToNotion();
 c.botCommandRp();
 c.botCommandTwo();
 c.botCommandRandom();
@@ -59,6 +63,8 @@ c.botCommandTest();
 c.botCommandInfo(); // get info from reply to log
 c.botCommandMute();
 c.botCommandUnmute();
+
+
 
 
 log('script loaded...');
