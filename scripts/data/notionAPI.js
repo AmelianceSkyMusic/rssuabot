@@ -30,7 +30,7 @@ async function notionRequest() {
 		// const blockId = '2161290adfc34d84a8a76fe3334e1ff8';
 		const response = await notion.blocks.children.list({
 			block_id: blockId,
-			page_size: 50,
+			page_size: 0,
 		});
 
 		APP.notion.rssuabot.phrases = [];
@@ -51,7 +51,7 @@ async function notionText() {
 		const blockId = process.env.NOTION_TEXTID;
 		const response = await notion.blocks.children.list({
 			block_id: blockId,
-			page_size: 50,
+			page_size: 0,
 		});
 
 		APP.notion.rssuabot.text = [];
