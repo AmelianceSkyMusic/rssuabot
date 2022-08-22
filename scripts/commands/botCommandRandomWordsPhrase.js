@@ -17,6 +17,8 @@ export default function botCommandRandomWordsPhrase()  {
 	APP.BOT.command('rd', async (ctx) => {
 		try {
 			const commandMessageId = ctx.update.message.message_id;
+			await f.removeMsgById(ctx, commandMessageId, 0);
+
 			const memberPressed = ctx.update.message.from;
 			const memberPressedId = memberPressed.id;
 			const memberPressedfirstName = memberPressed.first_name;
