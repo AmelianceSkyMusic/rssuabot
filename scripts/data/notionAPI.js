@@ -59,7 +59,6 @@ async function notionText() {
 		let rssuabotWords = APP.notion.rssuabot.words;
 		let rssuabotText = APP.notion.rssuabot.text;
 
-
 		for await (const element of response.results) {
 			const phrase = element?.paragraph?.rich_text[0]?.plain_text;
 
@@ -78,7 +77,7 @@ async function notionText() {
 				});
 			}
 		}
-		log('NOTION PHRASES LOADED:', response.results.length);
+		log('NOTION PHRASES LOADED:', rssuabotText.length);
 	} catch (error) {
 		console.error('ASM NOTION ERR:', error);
 	}
