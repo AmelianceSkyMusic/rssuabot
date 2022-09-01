@@ -77,6 +77,7 @@ async function notionText() {
 				});
 			}
 		}
+		console.log(rssuabotText);
 		log(
 			'NOTION PHRASES LOADED:\n',
 			'Phrases:', rssuabotText.length, '\n',
