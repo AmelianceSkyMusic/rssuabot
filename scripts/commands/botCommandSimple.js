@@ -2,7 +2,7 @@
 // >                            MODULES                             <
 // >----------------------------------------------------------------<
 
-import { f, asm, APP, constants } from '../_g.js';
+import { f, asm, APP } from '../_g.js';
 
 
 
@@ -13,12 +13,6 @@ import { f, asm, APP, constants } from '../_g.js';
 
 export default function botCommandSimple() {
 
-	APP.BOT.on('sticker', async (ctx) => {
-		const sticker = constants.emoji[f.getRandomNumber(0, 19)];
-		setTimeout(() => {
-			ctx.reply(sticker);
-		}, 800);
-	});
 	APP.BOT.command('asm', async (ctx) => {
 		try {
 			const commandMessageId = ctx.update.message.message_id;

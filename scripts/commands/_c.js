@@ -29,6 +29,8 @@ import botCommandAddMsgToNotion from './botCommandAddMsgToNotion.js';
 import botCommandRd from './botCommandRd.js';
 import botCommandPh from './botCommandPh.js';
 
+import botOnSticker from './botOnSticker.js';
+
 
 
 
@@ -63,6 +65,8 @@ export default {
 
 	botCommandAddMsgToNotion,
 	botCommandRd,
-	botCommandPh
+	botCommandPh,
+
+	botOnSticker
 
 };

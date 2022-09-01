@@ -33,12 +33,33 @@ export default function botCommandChannelPost() {
 				];
 
 				const post = '#announcement\n\n' + postArr.join('\n').replaceAll('**', '*').replaceAll('__', '_').trim();
-				const msg = await ctx.telegram.sendMessage(chatId, post, {parse_mode: 'Markdown'});
-				const msgId = msg.message_id;
-				await ctx.telegram.pinChatMessage(chatId, msgId, true);
+
+				const msg1 = await ctx.telegram.sendMessage(chatId, post, {parse_mode: 'Markdown'});
+				const msgId1 = msg1.message_id;
+				await ctx.telegram.pinChatMessage(chatId, msgId1, true);
 				setTimeout( async () => {
 					try {
-						await ctx.telegram.unpinChatMessage(chatId, msgId);
+						await ctx.telegram.unpinChatMessage(chatId, msgId1);
+					} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
+
+				}, asm.minToMs(720));
+
+				const msg2 = await ctx.telegram.sendMessage(APP.RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'});
+				const msgId2 = msg2.message_id;
+				await ctx.telegram.pinChatMessage(APP.RSSUA_CHAT_ID, msgId2, true);
+				setTimeout( async () => {
+					try {
+						await ctx.telegram.unpinChatMessage(APP.RSSUA_CHAT_ID, msgId2);
+					} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
+
+				}, asm.minToMs(720));
+
+				const msg3 = await ctx.telegram.sendMessage(APP.RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'});
+				const msgId3 = msg3.message_id;
+				await ctx.telegram.pinChatMessage(APP.RSSUA_CHAT_ID, msgId3, true);
+				setTimeout( async () => {
+					try {
+						await ctx.telegram.unpinChatMessage(APP.RSS2022Q1UA_CHAT_ID, msgId3);
 					} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
 
 				}, asm.minToMs(720));
