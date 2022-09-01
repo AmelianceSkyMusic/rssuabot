@@ -51,7 +51,7 @@ async function notionText() {
 		const blockId = process.env.NOTION_TEXTID;
 		const response = await notion.blocks.children.list({
 			block_id: blockId,
-			page_size: 0,
+			page_size: 10000,
 		});
 
 		APP.notion.rssuabot.words = [];
