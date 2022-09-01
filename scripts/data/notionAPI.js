@@ -77,7 +77,11 @@ async function notionText() {
 				});
 			}
 		}
-		log('NOTION PHRASES LOADED:', rssuabotText.length);
+		log(
+			'NOTION PHRASES LOADED:\n',
+			'Phrases:\n', rssuabotText.length, '\n',
+			'Words:\n', rssuabotWords.length, '\n'
+		);
 	} catch (error) {
 		console.error('ASM NOTION ERR:', error);
 	}
