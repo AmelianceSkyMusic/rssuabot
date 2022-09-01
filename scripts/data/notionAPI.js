@@ -79,8 +79,8 @@ async function notionText() {
 		}
 		log(
 			'NOTION PHRASES LOADED:\n',
-			'Phrases:\n', rssuabotText.length, '\n',
-			'Words:\n', rssuabotWords.length, '\n'
+			'Phrases:', rssuabotText.length, '\n',
+			'Words:', rssuabotWords.length, ''
 		);
 	} catch (error) {
 		console.error('ASM NOTION ERR:', error);
