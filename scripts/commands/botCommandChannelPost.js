@@ -54,15 +54,7 @@ export default function botCommandChannelPost() {
 
 				}, asm.minToMs(720));
 
-				const msg3 = await ctx.telegram.sendMessage(APP.RSSUA_CHAT_ID, post, {parse_mode: 'Markdown'});
-				const msgId3 = msg3.message_id;
-				await ctx.telegram.pinChatMessage(APP.RSSUA_CHAT_ID, msgId3, true);
-				setTimeout( async () => {
-					try {
-						await ctx.telegram.unpinChatMessage(APP.RSS2022Q1UA_CHAT_ID, msgId3);
-					} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error); }
-
-				}, asm.minToMs(720));
+				await ctx.telegram.sendMessage(APP.RSS2022Q1UA_CHAT_ID, post, {parse_mode: 'Markdown'});
 
 			} else if(channelUsername === 'DesignIs_Official') { // test
 				// const chatId = APP.RSS2022Q1UA_CHAT_ID;
