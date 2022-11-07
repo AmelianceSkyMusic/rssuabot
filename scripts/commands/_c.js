@@ -31,6 +31,8 @@ import botCommandPh from './botCommandPh.js';
 
 import botOnSticker from './botOnSticker.js';
 
+import botCommandTranslate from './botCommandTranslate.js';
+
 
 
 
@@ -67,6 +69,8 @@ export default {
 	botCommandRd,
 	botCommandPh,
 
-	botOnSticker
+	botOnSticker,
+
+	botCommandTranslate
 
 };

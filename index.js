@@ -47,6 +47,8 @@ c.botCommandSimple();
 
 c.botOnSticker();
 
+c.botCommandTranslate();
+
 c.botCommandRd(); // add random phrase from random words
 c.botCommandPh(); // add random phrase
 
