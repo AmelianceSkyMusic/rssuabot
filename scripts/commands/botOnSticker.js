@@ -21,11 +21,11 @@ export default function botOnSticker() {
 
 			const randomMsg = await ctx.replyWithHTML(`${message}`);
 
-			setTimeout( async () => { // remove messages
-				try {
-					await ctx.deleteMessage(randomMsg.message_id);
-				} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`); }
-			}, asm.minToMs(1));
+			// setTimeout( async () => { // remove messages
+			// 	try {
+			// 		await ctx.deleteMessage(randomMsg.message_id);
+			// 	} catch (error) { log(`ASM: Maybe message was removed by the user\n${error}`); }
+			// }, asm.minToMs(1));
 
 		} catch (error) { console.error('---------\n→ ASM ERR\n↓ ↓ ↓ ↓ ↓\n', error);}
 	});
