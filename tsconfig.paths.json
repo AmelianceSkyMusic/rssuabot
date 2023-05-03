@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"~api/*": ["./src/app/api/*"],
+			"~data/*": ["./src/app/data/*"],
+			"~constants/*": ["./src/app/constants/*"],
+			"~helpers/*": ["./src/app/helpers/*"],
+			"~store/*": ["./src/app/store/*"],
+			"~types/*": ["./src/app/types/*"],
+			"~utils/*": ["./src/app/utils/*"],
+			"~a/*": ["./src/ameliance-scripts/*"],
+			"~/*": ["./src/*"],
+		}
+	},
+}

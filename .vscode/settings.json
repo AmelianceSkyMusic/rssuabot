@@ -1,36 +1,112 @@
 {
-    // hide files and folders in explorer
-    "files.exclude": {
-        "**/assets": true,
-        "**/_Legacy": true,
-        "**/node_modules": true,
-        ".eslintrc": true,
-        ".gitignore": true,
-        // ".env": true,
-        // "**/others": true,
+	// "editor.quickSuggestions": {
+	// 	"strings": true
+	// },
+	// hide folders in search
+	"search.exclude": {
+		"**/node_modules": true
+	},
 
-        // "**/RSS/stage0": true,
-        // "**/RSS/stage1/Codewars": true,
+	// format on save eslint
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	// "editor.lineNumbers": "off",
+	//  "editor.folding": false,
+  	// "editor.glyphMargin": false,
 
-        // "**/Templates": true,
-        // "**/Tests": true,
+  	// Enable per-language
+	"[scss]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+	},
+	"[css]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+	},
+	"editor.formatOnPaste": false,
+	"files.eol": "\n",
+	"oneLineComments.customCommentTags": {
+		"javascriptreact": {
+			"outer_start": "{/*",
+			"outer_end": "*/}",
+			"inner_start": "/~~",
+			"inner_end": "~~/"
+		},
+		"typescriptreact": {
+			"outer_start": "{/*",
+			"outer_end": "*/}",
+			"inner_start": "/~~",
+			"inner_end": "~~/"
+		}
+	},
+	"cSpell.language": "en,uk,en-US",
+	"cSpell.words": [
+		"Сорі",
+		"ameliance",
+		"amelianceworship",
+		"appsscript",
+		"asmlib",
+		"chordslist",
+		"Firestore",
+		"ipify",
+		"sheetbest",
+		"signup",
+		"songslist",
+		"testid"
+	],
+	// "editor.formatOnSave": true,
+	// "editor.defaultFormatter": "esbenp.prettier-vscode"
+	"files.exclude": {
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/CVS": true,
+		"**/.DS_Store": true,
+		"**/Thumbs.db": true,
+		"**/*.git": true
+	},
+	"explorerExclude.backup": {},
 
-        "**/.gitIgnore": true,
-        "**/package-lock.json": true,
-        // "**/package.json": true,
-        "**/README.md": true,
-        // "**/test.html": true,
-        // "**/test.js": true,
-    },
-    // hide folders in search
-    "search.exclude": {
-        "**/node_modules": true
-    },
+	"multiCommand.commands": [
+		{
+		  "command": "multiCommand.consoleLog",
+		  "sequence": [
+			 "editor.action.clipboardCopyAction",
+			 "editor.action.insertLineAfter",
+			 {
+				"command": "editor.action.insertSnippet",
+				"args": {
+				  "snippet": "console.log('$CLIPBOARD: ', $CLIPBOARD);"
+				}
+			 },
+		  ]
+		},
+		{
+		  "command": "multiCommand.createReactFC",
+		  "sequence": [
+				{
+					"command": "editor.action.insertSnippet",
+					"args": {
+						"snippet": {
+							"body": [
+								"export function ${1:${TM_FILENAME_BASE}}() {",
+								"\treturn (",
+									"\t\t<div className=\"${2:${TM_FILENAME_BASE/(.*)/${1:/downcase}/}}\">${3:${TM_FILENAME_BASE}}</div>",
+								"\t);",
+								"}"
+							],
+						}
+					}
+				},
+		  ]
+		},
+	],
 
-    // format on save eslint
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "eslint.validate": ["javascript"]
-
+	"css.lint.validProperties": ["composes"],
+	"scss.lint.validProperties": ["composes"],
+	// "typescript.referencesCodeLens.enabled": true,
+	// "typescript.referencesCodeLens.showOnAllFunctions": true,
+	// "javascript.referencesCodeLens.enabled": true,
+	// "javascript.referencesCodeLens.showOnAllFunctions": true
 }
