@@ -37,6 +37,7 @@
 		"eslint-plugin-simple-import-sort": "^10.0.0",
 		"nodemon": "^2.0.22",
 		"ts-node": "^10.9.1",
+		"tsc-alias": "^1.8.6",
 		"typescript": "^5.0.4"
 	},
 	"dependencies": {
