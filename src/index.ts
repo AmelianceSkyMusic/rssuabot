@@ -4,8 +4,8 @@ import { Bot } from 'grammy';
 
 import { returnError } from '~helpers/returnError';
 
+import { getRandomNumber } from './ameliance-scripts/scripts';
 import { emoji } from './app/data/emoji';
-import { getRandomNumber } from './ascript/scripts';
 
 dotenv.config();
 
