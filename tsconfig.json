@@ -7,6 +7,11 @@
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"skipLibCheck": true,
+		"lib": ["es6"],
+		"allowJs": false,
+		"rootDir": "./src",
+		"noImplicitAny": true,
+		"resolveJsonModule": true
 	},
 	"include": ["src/**/*", "node_modules/@types/node"],
 	"extends": "./tsconfig.paths.json",
