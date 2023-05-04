@@ -1,9 +1,8 @@
-import type { CommandContext, Context } from 'grammy';
-
 import { returnError } from '~helpers/returnError';
+import type { Ctx } from '~types/Ctx';
 
-export default async function removeMsgById(
-	ctx: CommandContext<Context>,
+export async function removeMessageById(
+	ctx: Ctx,
 	msgId: number,
 	ms: number,
 ): Promise<boolean> {
