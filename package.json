@@ -4,7 +4,7 @@
 	"description": "ameliance worship telegram bot",
 	"main": "index.ts",
 	"scripts": {
-		"build": "rimraf dist && tsc && tsc-alias",
+		"build": "rm -rf dist && tsc && tsc-alias",
 		"start": "node ./dist/index.js",
 		"dev": "nodemon --watch \"./src/**/*\" -e ts --exec \"npx ts-node -r tsconfig-paths/register src/index.ts\""
 	},
