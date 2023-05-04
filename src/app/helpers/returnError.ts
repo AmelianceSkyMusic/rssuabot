@@ -1,4 +1,4 @@
-import { returnError as returnErr } from '~/ameliance-scripts';
+import { returnError as returnErr } from '~/ascript/scripts';
 import { APP } from '~constants/APP';
 
 export function returnError(error: unknown): string {

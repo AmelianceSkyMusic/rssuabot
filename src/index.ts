@@ -4,9 +4,8 @@ import { Bot } from 'grammy';
 
 import { returnError } from '~helpers/returnError';
 
-// eslint-disable-next-line import/no-relative-packages
-import { getRandomNumber } from './ameliance-scripts';
 import { emoji } from './app/data/emoji';
+import { getRandomNumber } from './ascript/scripts';
 
 dotenv.config();
 
