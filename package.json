@@ -1,17 +1,16 @@
 {
-	"name": "aw-bot",
+	"name": "rssuabot",
 	"version": "0.0.1",
 	"description": "ameliance worship telegram bot",
 	"main": "index.ts",
 	"scripts": {
-		"build": "tsc",
-		"clean": "rm -rf dist",
+		"build": "rimraf dist && tsc && tsc-alias",
 		"start": "node ./dist/index.js",
 		"dev": "nodemon --watch \"./src/**/*\" -e ts --exec \"npx ts-node -r tsconfig-paths/register src/index.ts\""
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/amelianceworship/aw-bot.git"
+		"url": "git+https://github.com/amelianceworship/rssuabot.git"
 	},
 	"keywords": [
 		"bot",
@@ -22,9 +21,9 @@
 	"author": "AmelianceSkyMusic <amelianceskymusic@gmail.com>",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/amelianceworship/aw-bot/issues"
+		"url": "https://github.com/amelianceworship/rssuabot/issues"
 	},
-	"homepage": "https://github.com/amelianceworship/aw-bot#readme",
+	"homepage": "https://github.com/amelianceworship/rssuabot#readme",
 	"devDependencies": {
 		"@types/node": "^18.16.3",
 		"@typescript-eslint/eslint-plugin": "^5.59.2",
