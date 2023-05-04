@@ -1,10 +1,7 @@
 import { bot } from '~/index';
 import { returnError } from '~helpers/returnError';
 
-import { autoRemovableMessage } from '../helpers/autoRemovableMessage';
-import { generateFullName } from '../helpers/generateFullName';
-import { generateUserTag } from '../helpers/generateUserTag';
-import removeMsgById from '../helpers/removeMessageById';
+import { helpers } from '../helpers';
 
 const UA = [
 	'!', '"', '№', ';', '%', ':', '?',
@@ -23,44 +20,33 @@ const transliterateText = (text: string) => text
 	}).join('');
 
 export function transliterate() {
-	bot.command('tr', async (ctx) => {
+	bot.command(['transliterate', 'tr'], async (ctx) => {
 		try {
 			const messageId = ctx.msg.message_id;
+			await helpers.removeMessageById(ctx, messageId, 0);
 
 			const replyToMessage = ctx.msg.reply_to_message;
-			await removeMsgById(ctx, messageId, 0);
 
 			if (replyToMessage) {
 				const repliedMessageId = replyToMessage.message_id;
 				const repliedMessageTest = replyToMessage.text || '';
 
-				const repliedMessageUserId = replyToMessage.from?.id || '';
-				const repliedMessageUserFirstName = replyToMessage.from?.first_name || '';
-				const repliedMessageUserLastName = replyToMessage.from?.last_name || '';
-				const repliedMessageUserFullName = generateFullName(
-					repliedMessageUserFirstName,
-					repliedMessageUserLastName,
-				);
-
-				const repliedMessageUserTag =	generateUserTag(
-					repliedMessageUserId,
-					repliedMessageUserFullName,
-				);
+				const repliedUserFullNameTag = helpers.generateReplyingUserFullNameTag(ctx);
 
 				const transliteratedMsg =	transliterateText(repliedMessageTest);
 
 				await ctx.reply(
-					`${repliedMessageUserTag}, можливо малось на увазі?:\n\n<i>${transliteratedMsg}</i>`,
+					`${repliedUserFullNameTag}, можливо малось на увазі?:\n\n<i>${transliteratedMsg}</i>`,
 					{
 						reply_to_message_id: repliedMessageId,
 						parse_mode: 'HTML',
 					},
 				);
 			} else {
-				await autoRemovableMessage({
+				await helpers.autoRemovableMessage({
 					ctx,
-					text: 'Команда /tr працює тільки як Reply!',
-					reply: true,
+					text: 'команда /transliterate (/tr) працює тільки як Reply!',
+					mention: true,
 				});
 			}
 		} catch (error) { returnError(error); }

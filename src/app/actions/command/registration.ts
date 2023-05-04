@@ -1,7 +1,7 @@
 import { bot } from '~/index';
 import { returnError } from '~helpers/returnError';
 
-import removeMsgById from '../helpers/removeMessageById';
+import { helpers } from '../helpers';
 
 export function registration() {
 	bot.command('registration', async (ctx) => {
@@ -12,7 +12,7 @@ export function registration() {
 				'<a href="https://app.rs.school/registry/student">Реєстрація</a>',
 				{ parse_mode: 'HTML' },
 			);
-			await removeMsgById(ctx, messageId, 5600);
+			await helpers.removeMessageById(ctx, messageId, 5600);
 		} catch (error) { returnError(error); }
 	});
 }

@@ -1,7 +1,7 @@
 import { bot } from '~/index';
 import { returnError } from '~helpers/returnError';
 
-import removeMsgById from '../helpers/removeMessageById';
+import { helpers } from '../helpers';
 
 export function stickers() {
 	bot.command('stickers', async (ctx) => {
@@ -12,7 +12,7 @@ export function stickers() {
 				'<a href="https://t.me/addstickers/RSSchool_Ukraine">Стікери</a>',
 				{ parse_mode: 'HTML' },
 			);
-			await removeMsgById(ctx, messageId, 3600);
+			await helpers.removeMessageById(ctx, messageId, 3600);
 		} catch (error) { returnError(error); }
 	});
 }

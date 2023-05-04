@@ -1,7 +1,7 @@
 import { bot } from '~/index';
 import { returnError } from '~helpers/returnError';
 
-import removeMsgById from '../helpers/removeMessageById';
+import { helpers } from '../helpers';
 
 export function roadmap() {
 	bot.command('roadmap', async (ctx) => {
@@ -12,7 +12,7 @@ export function roadmap() {
 				'<a href="https://github.com/rolling-scopes-school/tasks/blob/master/roadmap.md">Програма навчання</a>',
 				{ parse_mode: 'HTML' },
 			);
-			await removeMsgById(ctx, messageId, 3600);
+			await helpers.removeMessageById(ctx, messageId, 3600);
 		} catch (error) { returnError(error); }
 	});
 }

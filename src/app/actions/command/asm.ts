@@ -1,7 +1,7 @@
 import { bot } from '~/index';
 import { returnError } from '~helpers/returnError';
 
-import removeMsgById from '../helpers/removeMessageById';
+import { helpers } from '../helpers';
 
 export function asm() {
 	bot.command('asm', async (ctx) => {
@@ -12,7 +12,7 @@ export function asm() {
 				'@AmelianceSkyMusic',
 				{ parse_mode: 'HTML' },
 			);
-			await removeMsgById(ctx, messageId, 3600);
+			await helpers.removeMessageById(ctx, messageId, 3600);
 		} catch (error) { returnError(error); }
 	});
 }
