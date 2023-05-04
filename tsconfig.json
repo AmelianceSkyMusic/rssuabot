@@ -13,6 +13,24 @@
 		"noImplicitAny": true,
 		"resolveJsonModule": true
 	},
+	"tsc-alias": {
+		"verbose": false,
+		"resolveFullPaths": true,
+		"replacers": {
+		"exampleReplacer": {
+			"enabled": true,
+			"file": "./exampleReplacer.js"
+		},
+		"otherReplacer": {
+			"enabled": true,
+			"file": "./otherReplacer.js"
+		}
+		},
+		"fileExtensions": {
+			"inputGlob": "js,jsx,mjs",
+			"outputCheck": ["js", "json", "jsx", "mjs"]
+		}
+	},
 	"include": ["src/**/*", "node_modules/@types/node"],
 	"extends": "./tsconfig.paths.json",
 	"exclude": ["*/**/_backup*", "*/**/_legacy*", "*/**/_temp*"]
