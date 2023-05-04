@@ -9,6 +9,7 @@
 			"~store/*": ["./src/app/store/*"],
 			"~types/*": ["./src/app/types/*"],
 			"~utils/*": ["./src/app/utils/*"],
+			"~app/*": ["./src/app/*"],
 			"~/*": ["./src/*"],
 		}
 	},
