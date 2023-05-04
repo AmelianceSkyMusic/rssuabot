@@ -9,7 +9,7 @@
 		"skipLibCheck": true,
 		"lib": ["es6"],
 		"allowJs": false,
-		"rootDir": "./src",
+		// "rootDir": "./src",
 		"noImplicitAny": true,
 		"resolveJsonModule": true
 	},
