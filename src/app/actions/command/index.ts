@@ -10,3 +10,4 @@ export * from './dismission';
 export * from './registration';
 export * from './codeofconduct';
 export * from './stickers';
+export * from './transliterate';
