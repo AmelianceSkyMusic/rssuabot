@@ -2,6 +2,8 @@ import { bot } from '~/index';
 import { returnError } from '~helpers/returnError';
 
 import { autoRemovableMessage } from '../helpers/autoRemovableMessage';
+import { generateFullName } from '../helpers/generateFullName';
+import { generateUserTag } from '../helpers/generateUserTag';
 import removeMsgById from '../helpers/removeMessageById';
 
 const UA = [
@@ -23,7 +25,6 @@ const transliterateText = (text: string) => text
 export function transliterate() {
 	bot.command('tr', async (ctx) => {
 		try {
-			const chatId = ctx.chat.id;
 			const messageId = ctx.msg.message_id;
 
 			const replyToMessage = ctx.msg.reply_to_message;
@@ -31,27 +32,36 @@ export function transliterate() {
 
 			if (replyToMessage) {
 				const repliedMessageId = replyToMessage.message_id;
-				const repliedMessageTest = replyToMessage.text;
+				const repliedMessageTest = replyToMessage.text || '';
 
-				const repliedMessageUserId = replyToMessage.from?.id;
-				const repliedMessageUserName = replyToMessage.from?.username;
-				const repliedMessageUserFirstName = replyToMessage.from?.first_name;
-				const repliedMessageUserLastName = replyToMessage.from?.last_name;
-				const repliedMessageUserFirstLastName = [repliedMessageUserFirstName, repliedMessageUserLastName].join(' ');
+				const repliedMessageUserId = replyToMessage.from?.id || '';
+				const repliedMessageUserFirstName = replyToMessage.from?.first_name || '';
+				const repliedMessageUserLastName = replyToMessage.from?.last_name || '';
+				const repliedMessageUserFullName = generateFullName(
+					repliedMessageUserFirstName,
+					repliedMessageUserLastName,
+				);
 
-				const userTag = `<a href="tg://user?id=${repliedMessageUserId}">${repliedMessageUserFirstLastName}</a>`;
+				const repliedMessageUserTag =	generateUserTag(
+					repliedMessageUserId,
+					repliedMessageUserFullName,
+				);
 
-				const transliteratedMsg =	transliterateText(repliedMessageTest || '');
+				const transliteratedMsg =	transliterateText(repliedMessageTest);
 
 				await ctx.reply(
-					`${userTag}, можливо малось на увазі?:\n\n<i>${transliteratedMsg}</i>`,
+					`${repliedMessageUserTag}, можливо малось на увазі?:\n\n<i>${transliteratedMsg}</i>`,
 					{
 						reply_to_message_id: repliedMessageId,
 						parse_mode: 'HTML',
 					},
 				);
 			} else {
-				await autoRemovableMessage(ctx, 'Команда /tr працює тільки як Reply!');
+				await autoRemovableMessage({
+					ctx,
+					text: 'Команда /tr працює тільки як Reply!',
+					reply: true,
+				});
 			}
 		} catch (error) { returnError(error); }
 	});
