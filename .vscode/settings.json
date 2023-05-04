@@ -50,6 +50,7 @@
 		"chordslist",
 		"Firestore",
 		"ipify",
+		"roadmap",
 		"sheetbest",
 		"signup",
 		"songslist",
@@ -58,15 +59,47 @@
 	// "editor.formatOnSave": true,
 	// "editor.defaultFormatter": "esbenp.prettier-vscode"
 	"files.exclude": {
+		"**/.git": false,
+		"**/.svn": false,
+		"**/.hg": false,
+		"**/CVS": false,
+		"**/.DS_Store": false,
+		"**/Thumbs.db": false,
+		"**/*.git": false,
+		"node_modules": false,
+		".vscode": false,
+		".editorconfig": false,
+		".env": false,
+		".eslintignore": false,
+		".eslintrc-typescript.cjs": false,
+		".eslintrc.cjs": false,
+		".gitignore": false,
+		"package.json": false,
+		"tsconfig.json": false,
+		"src/ameliance-scripts": false,
+		"_legacy": false
+	},
+	"explorerExclude.backup": {
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/CVS": true,
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true,
-		"**/*.git": true
+		"**/*.git": true,
+		"node_modules": true,
+		".vscode": true,
+		".editorconfig": true,
+		".env": true,
+		".eslintignore": true,
+		".eslintrc-typescript.cjs": true,
+		".eslintrc.cjs": true,
+		".gitignore": true,
+		"package.json": true,
+		"tsconfig.json": true,
+		"src/ameliance-scripts": true,
+		"_legacy": true
 	},
-	"explorerExclude.backup": {},
 
 	"multiCommand.commands": [
 		{
