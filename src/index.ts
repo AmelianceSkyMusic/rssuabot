@@ -28,5 +28,6 @@ actions.command.topic();
 // hidden commands
 actions.command.asm();
 actions.command.transliterate();
+actions.command.two();
 
 bot.start();
