@@ -2,9 +2,10 @@
 import * as dotenv from 'dotenv';
 import { Bot } from 'grammy';
 
-import { getRandomNumber } from '~/ameliance-scripts';
 import { returnError } from '~helpers/returnError';
 
+// eslint-disable-next-line import/no-relative-packages
+import { getRandomNumber } from './ameliance-scripts';
 import { emoji } from './app/data/emoji';
 
 dotenv.config();
