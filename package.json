@@ -12,12 +12,7 @@
 		"type": "git",
 		"url": "git+https://github.com/amelianceworship/rssuabot.git"
 	},
-	"keywords": [
-		"bot",
-		"telegram",
-		"worship",
-		"ameliance"
-	],
+	"keywords": [ "bot", "telegram", "worship", "ameliance" ],
 	"author": "AmelianceSkyMusic <amelianceskymusic@gmail.com>",
 	"license": "ISC",
 	"bugs": {
