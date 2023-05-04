@@ -9,7 +9,6 @@
 			"~store/*": ["./src/app/store/*"],
 			"~types/*": ["./src/app/types/*"],
 			"~utils/*": ["./src/app/utils/*"],
-			"~a/*": ["./src/ameliance-scripts/*"],
 			"~/*": ["./src/*"],
 		}
 	},
