@@ -1,8 +1,8 @@
 import { Bot, webhookCallback } from 'grammy';
 
-import { actions } from '~app/actions';
+// import { actions } from '~app/actions';
 import { ENV } from '~constants/ENV';
-import { phrasesStore } from '~store/phrasesStore';
+// import { phrasesStore } from '~store/phrasesStore';
 
 const { BOT_TOKEN } = ENV;
 if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
@@ -14,7 +14,7 @@ export const bot = new Bot(BOT_TOKEN);
 // phrasesStore.getState().fetchRandomClickPhrasesData();
 // phrasesStore.getState().fetchChatRepliesData();
 
-actions.on.sticker();
+// actions.on.sticker();
 // actions.command.help();
 // actions.command.app();
 // actions.command.registration();
