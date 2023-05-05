@@ -1,6 +1,6 @@
-import { bot } from '~/bot';
-import { commands } from '~data/commands';
-import { returnError } from '~helpers/returnError';
+import { bot } from '../../../../api/bot';
+import { commands } from '../../data/commands';
+import { returnError } from '../../helpers/returnError';
 
 export function help() {
 	bot.command('help', async (ctx) => {

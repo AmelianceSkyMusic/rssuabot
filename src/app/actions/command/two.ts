@@ -1,5 +1,4 @@
-import { bot } from '~/bot';
-
+import { bot } from '../../../../api/bot';
 import { helpers } from '../helpers';
 
 export function two() {

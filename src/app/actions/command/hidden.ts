@@ -1,6 +1,6 @@
-import { bot } from '~/bot';
-import { hiddenCommands } from '~data/hiddenCommands';
-import { returnError } from '~helpers/returnError';
+import { bot } from '../../../../api/bot';
+import { hiddenCommands } from '../../data/hiddenCommands';
+import { returnError } from '../../helpers/returnError';
 
 export function hidden() {
 	bot.command('hidden', async (ctx) => {
