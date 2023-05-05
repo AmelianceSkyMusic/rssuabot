@@ -15,7 +15,7 @@
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
 	},
-	"include": ["api/**/*", "node_modules/@types/node"],
+	"include": ["api/**/*", "src/**/*", "node_modules/@types/node"],
 	"extends": "./tsconfig.paths.json",
 	"exclude": ["*/**/_backup*", "*/**/_legacy*", "*/**/_temp*"]
 }

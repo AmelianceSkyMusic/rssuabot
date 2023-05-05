@@ -1,4 +1,4 @@
-import { bot } from '../../core/bot';
+import { bot } from '../../../../api/bot';
 
 export function test() {
 	bot.command('test', async (ctx) => {
