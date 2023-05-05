@@ -1,7 +1,7 @@
 {
 	"name": "rssuabot",
 	"version": "0.0.1",
-	"description": "ameliance worship telegram bot",
+	"description": "rsschool telegram bot",
 	"main": "bot.ts",
 	"scripts": {
 		"build": "rm -rf build && tsc && tsc-alias",
@@ -28,6 +28,7 @@
 		"@types/node": "^18.16.3",
 		"@typescript-eslint/eslint-plugin": "^5.59.2",
 		"@typescript-eslint/parser": "^5.59.2",
+		"@vercel/node": "^2.14.1",
 		"dotenv": "^16.0.3",
 		"eslint": "^8.39.0",
 		"eslint-config-airbnb-base": "^15.0.0",
