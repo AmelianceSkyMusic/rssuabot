@@ -4,7 +4,7 @@ const token = process.env.BOT_TOKEN;
 console.log('token: ', !token);
 // if (!token) throw new Error('BOT_TOKEN is unset');
 
-const bot = new Bot(token);
+const bot = new Bot(token || '');
 
 bot.on(':sticker', async (ctx) => {
 	try {
