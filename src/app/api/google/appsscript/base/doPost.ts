@@ -1,5 +1,4 @@
-import { returnError } from '~helpers/returnError';
-
+import { returnError } from '../../../../helpers/returnError';
 import type { DoPost, Response } from '../types/types';
 import { baseURL } from './baseURL';
 

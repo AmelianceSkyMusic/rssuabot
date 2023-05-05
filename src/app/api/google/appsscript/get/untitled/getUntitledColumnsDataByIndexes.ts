@@ -1,5 +1,4 @@
-import { returnError } from '~helpers/returnError';
-
+import { returnError } from '../../../../../helpers/returnError';
 import { doGet } from '../../base/doGet';
 import type { DataUntitledResponse } from '../../types/types';
 
