@@ -1,11 +1,15 @@
 import { Bot, webhookCallback } from 'grammy';
 
-const token = process.env.BOT_TOKEN;
-if (!token) throw new Error('BOT_TOKEN is unset');
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import { ENV } from '~/constants/ENV';
 
-const bot = new Bot(token);
+const { BOT_TOKEN, MODE } = ENV;
+if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
+
+const bot = new Bot(BOT_TOKEN);
 
 bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
-bot.on('message', (ctx) => ctx.reply('Got another message!'));
+
+if (MODE === 'dev') bot.start();
 
 export default webhookCallback(bot, 'http');
