@@ -1,17 +1,17 @@
 {
 	"compilerOptions": {
-		"baseUrl": ".",
+		"baseUrl": "../../",
 		"paths": {
-			"~api/*": ["./api/src/app/api/*"],
-			"~data/*": ["./api/src/app/data/*"],
-			"~constants/*": ["./api/src/app/constants/*"],
-			"~helpers/*": ["./api/src/app/helpers/*"],
-			"~store/*": ["./api/src/app/store/*"],
-			"~types/*": ["./api/src/app/types/*"],
-			"~utils/*": ["./api/src/app/utils/*"],
-			"~app/*": ["./api/src/app/*"],
-			"~src/*": ["./api/src/*"],
-			"~/*": ["./api/*"],
+			"~api/*": ["./src/app/api/*"],
+			"~data/*": ["./src/app/data/*"],
+			"~constants/*": ["./src/app/constants/*"],
+			"~helpers/*": ["./src/app/helpers/*"],
+			"~store/*": ["./src/app/store/*"],
+			"~types/*": ["./src/app/types/*"],
+			"~utils/*": ["./src/app/utils/*"],
+			"~app/*": ["./src/app/*"],
+			"~src/*": ["./src/*"],
+			"~/*": ["./*"],
 		}
 	},
 }
