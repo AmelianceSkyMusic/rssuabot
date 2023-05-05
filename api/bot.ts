@@ -5,6 +5,10 @@ if (!token) throw new Error('BOT_TOKEN is unset');
 
 const bot = new Bot(token);
 
-console.log('hello');
+bot.on(':sticker', async (ctx) => {
+	try {
+		await ctx.reply('randomEmoji', { reply_to_message_id: ctx.msg.message_id });
+	} catch (error) { console.log(error); }
+});
 
 export default webhookCallback(bot, 'http');
