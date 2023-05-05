@@ -1,12 +1,19 @@
-import { webhookCallback } from 'grammy';
+import { Bot, webhookCallback } from 'grammy';
 
-import { bot } from '../src/app/core/bot';
+import { actions } from '../src/app/actions';
 
 import 'dotenv/config';
 
 export const ENV = process.env;
 
-const { MODE } = ENV;
+const { BOT_TOKEN, MODE } = ENV;
+
+if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
+
+export const bot = new Bot(BOT_TOKEN);
+
+bot.command('start', (ctx) => ctx.reply('_2023-05-05_18-20'));
+actions.command.test();
 
 if (MODE === 'dev') bot.start();
 
