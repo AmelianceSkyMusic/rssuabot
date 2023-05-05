@@ -1,10 +1,15 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import * as dotenv from 'dotenv';
 import { Bot, webhookCallback } from 'grammy';
 
-const token = process.env.BOT_TOKEN;
-console.log('token: ', !token);
-// if (!token) throw new Error('BOT_TOKEN is unset');
+dotenv.config();
 
-const bot = new Bot(token || '');
+export const ENV = process.env;
+
+const { BOT_TOKEN, MODE } = ENV;
+if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
+
+const bot = new Bot(BOT_TOKEN);
 
 bot.on(':sticker', async (ctx) => {
 	try {
@@ -15,6 +20,7 @@ bot.on(':sticker', async (ctx) => {
 
 bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 bot.on('message', (ctx) => ctx.reply('Got another message!'));
+if (MODE === 'production') bot.start();
 
-console.log('hello');
+console.log('start bot');
 export default webhookCallback(bot, 'http');
