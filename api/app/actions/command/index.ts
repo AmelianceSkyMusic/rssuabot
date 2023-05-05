@@ -9,8 +9,10 @@ export * from './dismission';
 export * from './registration';
 export * from './codeofconduct';
 export * from './stickers';
+export * from './transliterate';
 
 // hidden
-export * from './transliterate';
+export * from './hidden';
 export * from './asm';
 export * from './two';
+export * from './test';
