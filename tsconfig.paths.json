@@ -2,15 +2,15 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"~api/*": ["./src/app/api/*"],
-			"~data/*": ["./src/app/data/*"],
-			"~constants/*": ["./src/app/constants/*"],
-			"~helpers/*": ["./src/app/helpers/*"],
-			"~store/*": ["./src/app/store/*"],
-			"~types/*": ["./src/app/types/*"],
-			"~utils/*": ["./src/app/utils/*"],
-			"~app/*": ["./src/app/*"],
-			"~/*": ["./src/*"],
+			"~api/*": ["./api/app/api/*"],
+			"~data/*": ["./api/app/data/*"],
+			"~constants/*": ["./api/app/constants/*"],
+			"~helpers/*": ["./api/app/helpers/*"],
+			"~store/*": ["./api/app/store/*"],
+			"~types/*": ["./api/app/types/*"],
+			"~utils/*": ["./api/app/utils/*"],
+			"~app/*": ["./api/app/*"],
+			"~/*": ["./api/*"],
 		}
 	},
 }
