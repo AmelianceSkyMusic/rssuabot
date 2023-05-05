@@ -11,7 +11,9 @@
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"allowJs": false,
 		"noImplicitAny": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
 	},
 	"include": ["api/**/*", "node_modules/@types/node"],
 	"extends": "./tsconfig.paths.json",
