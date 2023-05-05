@@ -1,8 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as dotenv from 'dotenv';
+import { ENV_DEV } from './ENV_DEV';
 
-const ENVIRONMENT = process.env;
-
-dotenv.config();
-
-export const ENV = process.env.MODE === 'dev' ? process.env : ENVIRONMENT;
+export const ENV = ENV_DEV.MODE === 'dev' ? ENV_DEV : process.env;

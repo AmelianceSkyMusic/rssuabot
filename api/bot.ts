@@ -14,4 +14,4 @@ if (MODE === 'dev') bot.start();
 
 export default webhookCallback(bot, 'http');
 
-console.log('BOT HAS STARTED');
+console.log(`BOT HAS STARTED in "${MODE || 'production'}" MODE`);
