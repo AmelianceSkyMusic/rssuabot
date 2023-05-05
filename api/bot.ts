@@ -13,3 +13,5 @@ bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
 if (MODE === 'dev') bot.start();
 
 export default webhookCallback(bot, 'http');
+
+console.log('BOT HAS STARTED');
