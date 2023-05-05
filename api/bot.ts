@@ -14,7 +14,7 @@ export const bot = new Bot(BOT_TOKEN);
 // phrasesStore.getState().fetchRandomClickPhrasesData();
 // phrasesStore.getState().fetchChatRepliesData();
 
-// actions.on.sticker();
+actions.on.sticker();
 // actions.command.help();
 // actions.command.app();
 // actions.command.registration();
@@ -34,7 +34,6 @@ export const bot = new Bot(BOT_TOKEN);
 // actions.command.test();
 // actions.command.hidden();
 
-bot.start();
 console.log('hello');
 
 export default webhookCallback(bot, 'http');
