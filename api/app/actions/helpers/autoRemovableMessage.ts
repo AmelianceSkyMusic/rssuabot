@@ -1,4 +1,4 @@
-import { bot } from '~/index';
+import { bot } from '~/bot';
 import { returnError } from '~helpers/returnError';
 import type { Ctx } from '~types/Ctx';
 

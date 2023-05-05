@@ -1,4 +1,4 @@
-import { bot } from '~/index';
+import { bot } from '~/bot';
 import { commands } from '~data/commands';
 import { returnError } from '~helpers/returnError';
 

@@ -2,11 +2,11 @@
 	"name": "rssuabot",
 	"version": "0.0.1",
 	"description": "ameliance worship telegram bot",
-	"main": "index.ts",
+	"main": "bot.ts",
 	"scripts": {
 		"build": "rm -rf build && tsc && tsc-alias",
-		"start": "node ./build/index.js",
-		"dev": "nodemon --watch \"./api/**/*\" -e ts --exec \"npx ts-node -r tsconfig-paths/register api/index.ts\""
+		"start": "node ./build/bot.js",
+		"dev": "nodemon --watch \"./api/**/*\" -e ts --exec \"npx ts-node -r tsconfig-paths/register api/bot.ts\""
 	},
 	"repository": {
 		"type": "git",

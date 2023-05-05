@@ -1,4 +1,4 @@
-import { bot } from '~/index';
+import { bot } from '~/bot';
 
 import { helpers } from '../helpers';
 
