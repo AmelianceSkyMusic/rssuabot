@@ -4,15 +4,20 @@
 	"description": "ameliance worship telegram bot",
 	"main": "index.ts",
 	"scripts": {
-		"build": "rm -rf dist && tsc && tsc-alias",
-		"start": "node ./dist/index.js",
-		"dev": "nodemon --watch \"./src/**/*\" -e ts --exec \"npx ts-node -r tsconfig-paths/register src/index.ts\""
+		"build": "rm -rf build && tsc && tsc-alias",
+		"start": "node ./build/index.js",
+		"dev": "nodemon --watch \"./api/**/*\" -e ts --exec \"npx ts-node -r tsconfig-paths/register api/index.ts\""
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/amelianceworship/rssuabot.git"
 	},
-	"keywords": [ "bot", "telegram", "worship", "ameliance" ],
+	"keywords": [
+		"bot",
+		"telegram",
+		"worship",
+		"ameliance"
+	],
 	"author": "AmelianceSkyMusic <amelianceskymusic@gmail.com>",
 	"license": "ISC",
 	"bugs": {
@@ -35,6 +40,7 @@
 		"typescript": "^5.0.4"
 	},
 	"dependencies": {
-		"grammy": "^1.16.0"
+		"grammy": "^1.16.0",
+		"zustand": "^4.3.8"
 	}
 }
