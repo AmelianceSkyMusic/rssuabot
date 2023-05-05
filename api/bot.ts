@@ -7,8 +7,10 @@ const bot = new Bot(token);
 
 bot.on(':sticker', async (ctx) => {
 	try {
+		console.log('randomEmoji: ');
 		await ctx.reply('randomEmoji', { reply_to_message_id: ctx.msg.message_id });
 	} catch (error) { console.log(error); }
 });
 
+console.log('hello');
 export default webhookCallback(bot, 'http');
