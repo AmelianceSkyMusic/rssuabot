@@ -2,7 +2,7 @@ import { Bot, webhookCallback } from 'grammy';
 
 const token = process.env.BOT_TOKEN;
 console.log('token: ', !token);
-if (!token) throw new Error('BOT_TOKEN is unset');
+// if (!token) throw new Error('BOT_TOKEN is unset');
 
 const bot = new Bot(token);
 
@@ -12,6 +12,9 @@ bot.on(':sticker', async (ctx) => {
 		await ctx.reply('randomEmoji', { reply_to_message_id: ctx.msg.message_id });
 	} catch (error) { console.log(error); }
 });
+
+bot.command('start', (ctx) => ctx.reply('Welcome! Up and running.'));
+bot.on('message', (ctx) => ctx.reply('Got another message!'));
 
 console.log('hello');
 export default webhookCallback(bot, 'http');
