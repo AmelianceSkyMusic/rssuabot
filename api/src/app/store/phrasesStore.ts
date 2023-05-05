@@ -1,8 +1,8 @@
 import { createStore } from 'zustand/vanilla';
 
-import { removeEmptyValues } from '~/ameliance-scripts/scripts';
+import { ENV } from '~/bot';
+import { removeEmptyValues } from '~/src/ameliance-scripts/scripts';
 import { api } from '~api/index';
-import { ENV } from '~constants/ENV';
 import { returnError } from '~helpers/returnError';
 
 const { GOOGLE_DATA_TABLE_ID } = ENV;

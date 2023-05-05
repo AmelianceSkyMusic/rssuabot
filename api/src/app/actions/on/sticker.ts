@@ -1,5 +1,5 @@
-import { getRandomNumber } from '~/ameliance-scripts/scripts';
 import { bot } from '~/bot';
+import { getRandomNumber } from '~/src/ameliance-scripts/scripts';
 import { emoji } from '~data/emoji';
 import { returnError } from '~helpers/returnError';
 

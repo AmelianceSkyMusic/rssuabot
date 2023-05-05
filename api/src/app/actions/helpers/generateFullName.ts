@@ -1,4 +1,4 @@
-import { joinWith } from '~/ameliance-scripts/scripts';
+import { joinWith } from '~/src/ameliance-scripts/scripts';
 
 export function generateFullName(userFirstName: string, userLastName: string): string {
 	return joinWith(' ', [userFirstName, userLastName]);
