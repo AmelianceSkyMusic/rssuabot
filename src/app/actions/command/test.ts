@@ -1,5 +1,5 @@
-import { bot } from '../../../../api/bot';
-import { returnError } from '../../helpers/returnError';
+import { returnError } from '~helpers/returnError';
+import { bot } from '~root/bot';
 
 export function test() {
 	bot.command('test', async (ctx) => {

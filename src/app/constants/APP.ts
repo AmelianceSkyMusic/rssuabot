@@ -1,3 +1,3 @@
 export const APP = {
-	name: 'RS School 🇺🇦',
+	name: 'rssuabot',
 };
