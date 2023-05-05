@@ -1,14 +1,16 @@
 import { Bot, webhookCallback } from 'grammy';
 
-// eslint-disable-next-line import/extensions, import/no-unresolved
-import { ENV } from '~/constants/ENV';
+import 'dotenv/config';
 
-const { BOT_TOKEN, MODE } = process.env;
+export const ENV = process.env;
+
+const { BOT_TOKEN, MODE } = ENV;
+
 if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
 const bot = new Bot(BOT_TOKEN);
 
-bot.command('start', (ctx) => ctx.reply('ENV'));
+bot.command('start', (ctx) => ctx.reply('_2023-05-05_18-10'));
 
 if (MODE === 'dev') bot.start();
 
