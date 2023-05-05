@@ -6,7 +6,7 @@ dotenv.config();
 
 export const ENV = process.env;
 
-const { BOT_TOKEN, MODE } = ENV;
+const { BOT_TOKEN, HOST_URL, MODE } = ENV;
 if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
 const bot = new Bot(BOT_TOKEN);
@@ -23,4 +23,5 @@ bot.on('message', (ctx) => ctx.reply('Got another message!'));
 if (MODE === 'production') bot.start();
 
 console.log('start bot');
-export default webhookCallback(bot, 'http');
+if (!HOST_URL) throw new Error('HOST_URL is not defined');
+export default webhookCallback(bot, HOST_URL);
