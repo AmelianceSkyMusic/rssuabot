@@ -10,7 +10,8 @@
 			"~types/*": ["./api/src/app/types/*"],
 			"~utils/*": ["./api/src/app/utils/*"],
 			"~app/*": ["./api/src/app/*"],
-			"~/*": ["./api/src/*"],
+			"~src/*": ["./api/src/*"],
+			"~/*": ["./api/*"],
 		}
 	},
 }
