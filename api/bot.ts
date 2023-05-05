@@ -3,7 +3,7 @@ import { Bot, webhookCallback } from 'grammy';
 // eslint-disable-next-line import/extensions, import/no-unresolved
 import { ENV } from '~/constants/ENV';
 
-const { BOT_TOKEN, MODE } = process.env;
+const { BOT_TOKEN, MODE } = ENV;
 if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
 const bot = new Bot(BOT_TOKEN);
