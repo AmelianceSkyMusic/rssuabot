@@ -8,7 +8,7 @@ if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
 const bot = new Bot(BOT_TOKEN);
 
-bot.command('start', (ctx) => ctx.reply('2023-05-05_17-55'));
+bot.command('start', (ctx) => ctx.reply('ENV'));
 
 if (MODE === 'dev') bot.start();
 
