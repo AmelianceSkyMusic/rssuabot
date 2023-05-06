@@ -31,10 +31,11 @@ actions.command.topic();
 actions.command.transliterate();
 
 // hidden commands
+actions.command.hidden();
 actions.command.asm();
 actions.command.two();
 actions.command.test();
-actions.command.hidden();
+actions.command.store();
 
 if (MODE === 'dev') bot.start();
 

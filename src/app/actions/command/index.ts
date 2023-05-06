@@ -16,3 +16,4 @@ export * from './hidden';
 export * from './asm';
 export * from './two';
 export * from './test';
+export * from './store';
