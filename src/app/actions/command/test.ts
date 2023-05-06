@@ -1,28 +1,16 @@
 import { bot } from '../../../../api/bot';
 import { returnError } from '../../helpers/returnError';
-import { phrasesStore } from '../../store/phrasesStore';
+import { helpers } from '../helpers';
+import { sendMessage } from '../helpers/sendMessage';
 
 export function test() {
 	bot.command('test', async (ctx) => {
 		try {
-			await ctx.reply('test', { reply_to_message_id: ctx.msg.message_id }); // TODO: add auto remove
-			// TODO: store test command
-			const {
-				studentPhrases,
-				randomPhrases,
-				randomClickPhrases,
-				chatReplies,
-			} = phrasesStore.getState();
-			console.log('studentPhrases: ', studentPhrases);
-			console.log('randomPhrases: ', randomPhrases);
-			console.log('randomClickPhrases: ', randomClickPhrases);
-			console.log('chatReplies: ', chatReplies);
-			await ctx.reply([
-				studentPhrases.join(', '),
-				randomPhrases.join(', '),
-				randomClickPhrases.join(', '),
-				chatReplies.join(', '),
-			].join('\n'), { reply_to_message_id: ctx.msg.message_id });
+			const messageId = ctx.msg.message_id;
+			await helpers.removeMessageById({ ctx, messageId });
+
+			const botMessage = await sendMessage(ctx, 'test');
+			await helpers.removeMessageById({ ctx, messageId: botMessage.message_id });
 		} catch (error) { returnError(error); }
 	});
 }

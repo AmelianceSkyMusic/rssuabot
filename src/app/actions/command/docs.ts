@@ -6,12 +6,11 @@ export function docs() {
 	bot.command('docs', async (ctx) => {
 		try {
 			const messageId = ctx.msg.message_id;
-			await bot.api.sendMessage(
-				ctx.chat.id,
+			await helpers.sendMessageHTML(
+				ctx,
 				'<a href="https://docs.rs.school/">Документація</a>',
-				{ parse_mode: 'HTML' },
 			);
-			await helpers.removeMessageById(ctx, messageId, 3600);
+			await helpers.removeMessageById({ ctx, messageId });
 		} catch (error) { returnError(error); }
 	});
 }

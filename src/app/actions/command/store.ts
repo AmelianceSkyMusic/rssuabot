@@ -1,4 +1,5 @@
 import { bot } from '../../../../api/bot';
+import { appLog } from '../../helpers/appLog';
 import { returnError } from '../../helpers/returnError';
 import { phrasesStore } from '../../store/phrasesStore';
 import { helpers } from '../helpers';
@@ -15,7 +16,7 @@ export function store() {
 				chatReplies,
 			} = phrasesStore.getState();
 
-			const message = '<b>phrasesStore<b>'
+			const message = '<b>phrasesStore</b>'
 			+ `\nloading: ${!!phrasesStoreLoading}`
 			+ `\nerror: ${!!phrasesStoreError}`
 			+ `\nstudentPhrases: ${!!studentPhrases.length}`
@@ -23,16 +24,12 @@ export function store() {
 			+ `\nrandomClickPhrases: ${!!randomClickPhrases.length}`
 			+ `\nchatReplies: ${!!chatReplies.length}`;
 
-			console.log('message: ', message);
+			appLog('message: ', message);
 
 			const messageId = ctx.msg.message_id;
-			await helpers.removeMessageById(ctx, messageId, 0);
+			await helpers.removeMessageById({ ctx, messageId, ms: 0 });
 
-			await bot.api.sendMessage(
-				ctx.chat.id,
-				message,
-				{ parse_mode: 'HTML' },
-			);
+			await helpers.sendMessageHTML(ctx, message);
 		} catch (error) { returnError(error); }
 	});
 }

@@ -6,12 +6,11 @@ export function asm() {
 	bot.command('asm', async (ctx) => {
 		try {
 			const messageId = ctx.msg.message_id;
-			await bot.api.sendMessage(
-				ctx.chat.id,
+			await helpers.sendMessageHTML(
+				ctx,
 				'@AmelianceSkyMusic',
-				{ parse_mode: 'HTML' },
 			);
-			await helpers.removeMessageById(ctx, messageId, 3600);
+			await helpers.removeMessageById({ ctx, messageId });
 		} catch (error) { returnError(error); }
 	});
 }

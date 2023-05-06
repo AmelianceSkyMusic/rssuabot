@@ -1,4 +1,3 @@
-import { bot } from '../../../../api/bot';
 import { returnError } from '../../helpers/returnError';
 import type { Ctx } from '../../types/Ctx';
 import { helpers } from '.';
@@ -18,7 +17,6 @@ export async function autoRemovableMessage({
 	mention = false,
 	ms = 3600,
 }: AutoRemovableMessage) {
-	const chatId = ctx.chat.id;
 	const messageId = ctx.msg.message_id;
 
 	const messageUserTag = mention ? `${helpers.generateUserFullNameTag(ctx)}, ` : '';
@@ -34,13 +32,14 @@ export async function autoRemovableMessage({
 				},
 			);
 		} else {
-			sendMessage = await bot.api.sendMessage(
-				chatId,
+			sendMessage = await helpers.sendMessageHTML(
+				ctx,
 				`${messageUserTag}${text}`,
-				{ parse_mode: 'HTML' },
 			);
 		}
 
-		if (sendMessage) await helpers.removeMessageById(ctx, sendMessage.message_id, ms);
+		if (sendMessage) {
+			await helpers.removeMessageById({ ctx, messageId: sendMessage.message_id, ms });
+		}
 	} catch (error) { returnError(error); }
 }

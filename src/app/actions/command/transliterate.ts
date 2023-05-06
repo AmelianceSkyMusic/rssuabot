@@ -22,7 +22,7 @@ export function transliterate() {
 	bot.command(['transliterate', 'tr'], async (ctx) => {
 		try {
 			const messageId = ctx.msg.message_id;
-			await helpers.removeMessageById(ctx, messageId, 0);
+			await helpers.removeMessageById({ ctx, messageId, ms: 0 });
 
 			const replyToMessage = ctx.msg.reply_to_message;
 
