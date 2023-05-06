@@ -19,12 +19,12 @@ export function store() {
 
 			const message = '<b>phrasesStore</b>'
 			+ `\nloading: ${!!phrasesStoreLoading}`
-			+ `\nerror: ${!!phrasesStoreError}`
-			+ `\nstudentPhrases: ${!!studentPhrases.length}`
-			+ `\nrandomPhrases: ${!!randomPhrases.length}`
-			+ `\nrandomClickPhrases: ${!!randomClickPhrases.length}`
-			+ `\nchatReplies: ${!!chatReplies.length}`
-			+ `\nchosenPhrases: ${!!chosenPhrases.length}`;
+			+ `\nerror: ${phrasesStoreError}`
+			+ `\nstudentPhrases: ${studentPhrases.length}`
+			+ `\nrandomPhrases: ${randomPhrases.length}`
+			+ `\nrandomClickPhrases: ${randomClickPhrases.length}`
+			+ `\nchatReplies: ${chatReplies.length}`
+			+ `\nchosenPhrases: ${chosenPhrases.length}`;
 
 			appLog('message: ', message);
 
