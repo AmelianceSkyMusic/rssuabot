@@ -36,8 +36,9 @@ actions.command.two();
 actions.command.ph();
 actions.command.rd();
 actions.command.asm();
-actions.command.test();
+// actions.command.test();
 actions.command.store();
+actions.command.refetch();
 
 if (MODE === 'dev') bot.start();
 
