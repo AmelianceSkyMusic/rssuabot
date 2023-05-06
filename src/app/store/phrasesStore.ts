@@ -1,11 +1,12 @@
 import { createStore } from 'zustand/vanilla';
 
-import { ENV } from '../../../api/bot';
 import { removeEmptyValues } from '../../ameliance-scripts/scripts';
 import { api } from '../api/index';
 import { returnError } from '../helpers/returnError';
 
-const { GOOGLE_DATA_TABLE_ID } = ENV;
+import 'dotenv/config';
+
+const { GOOGLE_DATA_TABLE_ID } = process.env;
 
 interface PhrasesStore {
 	studentPhrases: string[];

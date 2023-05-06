@@ -5,22 +5,23 @@ import { phrasesStore } from '../../store/phrasesStore';
 export function test() {
 	bot.command('test', async (ctx) => {
 		try {
-			await ctx.reply('test', { reply_to_message_id: ctx.msg.message_id });
+			await ctx.reply('test', { reply_to_message_id: ctx.msg.message_id }); // TODO: add auto remove
+			// TODO: store test command
 			const {
 				studentPhrases,
-				// randomPhrases,
-				// randomClickPhrases,
-				// chatReplies,
+				randomPhrases,
+				randomClickPhrases,
+				chatReplies,
 			} = phrasesStore.getState();
 			console.log('studentPhrases: ', studentPhrases);
-			// console.log('randomPhrases: ', randomPhrases);
-			// console.log('randomClickPhrases: ', randomClickPhrases);
-			// console.log('chatReplies: ', chatReplies);
+			console.log('randomPhrases: ', randomPhrases);
+			console.log('randomClickPhrases: ', randomClickPhrases);
+			console.log('chatReplies: ', chatReplies);
 			await ctx.reply([
 				studentPhrases.join(', '),
-				// randomPhrases.join(', '),
-				// randomClickPhrases.join(', '),
-				// chatReplies.join(', '),
+				randomPhrases.join(', '),
+				randomClickPhrases.join(', '),
+				chatReplies.join(', '),
 			].join('\n'), { reply_to_message_id: ctx.msg.message_id });
 		} catch (error) { returnError(error); }
 	});

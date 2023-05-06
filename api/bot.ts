@@ -5,14 +5,12 @@ import { phrasesStore } from '../src/app/store/phrasesStore';
 
 import 'dotenv/config';
 
-export const ENV = process.env;
-
-const { BOT_TOKEN, MODE } = ENV;
+const { BOT_TOKEN, MODE } = process.env;
 
 phrasesStore.getState().fetchStudentPhrasesData();
-// phrasesStore.getState().fetchRandomPhrasesData();
-// phrasesStore.getState().fetchRandomClickPhrasesData();
-// phrasesStore.getState().fetchChatRepliesData();
+phrasesStore.getState().fetchRandomPhrasesData();
+phrasesStore.getState().fetchRandomClickPhrasesData();
+phrasesStore.getState().fetchChatRepliesData();
 
 if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
