@@ -1,5 +1,6 @@
 import { bot } from '../../../../api/bot';
 import { returnError } from '../../helpers/returnError';
+import { phrasesStore } from '../../store/phrasesStore';
 
 export function test() {
 	bot.command('test', async (ctx) => {

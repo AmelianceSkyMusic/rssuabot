@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
-// 		"paths": {
+		"paths": {
 // 			"~root/*": ["./api/*"],
 // 			"~api/*": ["./src/app/api/*"],
 // 			"~data/*": ["./src/app/data/*"],
@@ -12,7 +12,7 @@
 // 			"~utils/*": ["./src/app/utils/*"],
 // 			"~app/*": ["./src/app/*"],
 // 			"~src/*": ["./src/*"],
-// 			"~/*": ["./*"],
-// 		}
+			"~/*": ["./*"],
+		}
 	},
 }
