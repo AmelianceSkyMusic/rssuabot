@@ -9,6 +9,7 @@ export function refetch() {
 			phrasesStore.getState().fetchRandomPhrases();
 			phrasesStore.getState().fetchRandomClickPhrases();
 			phrasesStore.getState().fetchChatReplies();
+			phrasesStore.getState().fetchChosenPhrases();
 		} catch (error) { returnError(error); }
 	});
 }

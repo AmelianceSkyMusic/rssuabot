@@ -1,6 +1,7 @@
 import { bot } from '../../../../api/bot';
 import { api } from '../../api';
 import { returnError } from '../../helpers/returnError';
+import { phrasesStore } from '../../store/phrasesStore';
 import { helpers } from '../helpers';
 
 import 'dotenv/config';
@@ -33,6 +34,8 @@ export function set() {
 						repliedMessageId,
 					);
 				}
+
+				phrasesStore.getState().fetchChosenPhrases();
 			} else {
 				await helpers.autoRemovableMessage({
 					ctx,
