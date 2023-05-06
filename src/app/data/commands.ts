@@ -10,5 +10,5 @@ export const commands = `
 /codeofconduct - правила поведінки
 /stickers - стікери
 /topic - посилання на чат без офтопу
-/transliterate (/tr) - (reply) транслітерувати текст з каракуль
+/transliterate - (or /tr) транслітерувати текст з каракуль
 `;
