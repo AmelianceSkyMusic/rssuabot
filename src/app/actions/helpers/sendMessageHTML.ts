@@ -5,12 +5,14 @@ import { helpers } from '.';
 export async function sendMessageHTML(
 	ctx: Ctx,
 	text: string,
+	mode?: 'mention' | '',
 	params: Record<string, string> = {},
 ) {
 	try {
 		const message = await helpers.sendMessage(
 			ctx,
 			text,
+			mode,
 			{
 				parse_mode: 'HTML',
 				...params,

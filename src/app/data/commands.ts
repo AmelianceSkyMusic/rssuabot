@@ -11,4 +11,7 @@ export const commands = `
 /stickers - стікери
 /topic - посилання на чат без офтопу
 /transliterate - (or /tr) транслітерувати текст з каракуль
+/set - зберегти фразу
+/getphrase - отримати рандомну фразу
+/getrandom - отримати згенеровану фразу
 `;

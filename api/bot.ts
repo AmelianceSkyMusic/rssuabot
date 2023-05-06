@@ -7,10 +7,11 @@ import 'dotenv/config';
 
 const { BOT_TOKEN, MODE } = process.env;
 
-phrasesStore.getState().fetchStudentPhrasesData();
-phrasesStore.getState().fetchRandomPhrasesData();
-phrasesStore.getState().fetchRandomClickPhrasesData();
-phrasesStore.getState().fetchChatRepliesData();
+phrasesStore.getState().fetchStudentPhrases();
+phrasesStore.getState().fetchRandomPhrases();
+phrasesStore.getState().fetchRandomClickPhrases();
+phrasesStore.getState().fetchChatReplies();
+phrasesStore.getState().fetchChosenPhrases();
 
 if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
@@ -29,6 +30,9 @@ actions.command.codeofconduct();
 actions.command.stickers();
 actions.command.topic();
 actions.command.transliterate();
+actions.command.set();
+actions.command.getphrase();
+actions.command.getrandom();
 
 // hidden commands
 actions.command.hidden();
@@ -36,7 +40,7 @@ actions.command.two();
 actions.command.ph();
 actions.command.rd();
 actions.command.asm();
-// actions.command.test();
+actions.command.test();
 actions.command.store();
 actions.command.refetch();
 

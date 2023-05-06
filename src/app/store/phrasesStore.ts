@@ -14,12 +14,15 @@ interface PhrasesStore {
 	randomClickPhrases: string[];
 	chatReplies: string[];
 	randomWords: string[];
+	chosenPhrases: string[];
+	chosenPhrasesRandomWords: string[];
 	loading: boolean;
 	error: string | null;
-	fetchStudentPhrasesData: () => void;
-	fetchRandomPhrasesData: () => void;
-	fetchRandomClickPhrasesData: () => void;
-	fetchChatRepliesData: () => void;
+	fetchStudentPhrases: () => void;
+	fetchRandomPhrases: () => void;
+	fetchRandomClickPhrases: () => void;
+	fetchChatReplies: () => void;
+	fetchChosenPhrases: () => void;
 }
 
 export const phrasesStore = createStore<PhrasesStore>((set) => ({
@@ -28,10 +31,12 @@ export const phrasesStore = createStore<PhrasesStore>((set) => ({
 	randomClickPhrases: [],
 	chatReplies: [],
 	randomWords: [],
+	chosenPhrases: [],
+	chosenPhrasesRandomWords: [],
 	loading: false,
 	error: null,
 
-	fetchStudentPhrasesData: async () => {
+	fetchStudentPhrases: async () => {
 		set({ loading: true });
 		try {
 			const response = await api
@@ -52,7 +57,7 @@ export const phrasesStore = createStore<PhrasesStore>((set) => ({
 		}
 	},
 
-	fetchRandomPhrasesData: async () => {
+	fetchRandomPhrases: async () => {
 		set({ loading: true });
 		try {
 			const response = await api
@@ -73,7 +78,7 @@ export const phrasesStore = createStore<PhrasesStore>((set) => ({
 		}
 	},
 
-	fetchRandomClickPhrasesData: async () => {
+	fetchRandomClickPhrases: async () => {
 		set({ loading: true });
 		try {
 			const response = await api
@@ -94,7 +99,7 @@ export const phrasesStore = createStore<PhrasesStore>((set) => ({
 		}
 	},
 
-	fetchChatRepliesData: async () => {
+	fetchChatReplies: async () => {
 		set({ loading: true });
 		try {
 			const response = await api
@@ -109,6 +114,28 @@ export const phrasesStore = createStore<PhrasesStore>((set) => ({
 			const randomWords = phrases.join(' ').split(' ');
 
 			set({ chatReplies: phrases, randomWords, error: null });
+		} catch (error) {
+			set({ error: returnError(error) });
+		} finally {
+			set({ loading: false });
+		}
+	},
+
+	fetchChosenPhrases: async () => {
+		set({ loading: true });
+		try {
+			const response = await api
+				.google.appsscript.getUntitledColumnsDataByIndexes({
+					spreadsheetId: GOOGLE_DATA_TABLE_ID || '',
+					sheetName: 'chosenPhrases',
+					columnIndexes: [1],
+				});
+
+			const tablesData = response.data[0].map((item) => item.value);
+			const phrases = removeEmptyValues(tablesData);
+			const chosenPhrasesRandomWords = phrases.join(' ').split(' ');
+
+			set({ chosenPhrases: phrases, chosenPhrasesRandomWords, error: null });
 		} catch (error) {
 			set({ error: returnError(error) });
 		} finally {

@@ -4,8 +4,8 @@ import { returnError } from '../../helpers/returnError';
 import { phrasesStore } from '../../store/phrasesStore';
 import { helpers } from '../helpers';
 
-export function rd() {
-	bot.command('rd', async (ctx) => {
+export function getrandom() {
+	bot.command('getrandom', async (ctx) => {
 		try {
 			try {
 				const messageId = ctx.msg.message_id;
@@ -13,9 +13,9 @@ export function rd() {
 
 				const replyToMessage = ctx.msg.reply_to_message;
 
-				const { randomWords } = phrasesStore.getState();
+				const { chosenPhrasesRandomWords } = phrasesStore.getState();
 
-				if (!randomWords.length) {
+				if (!chosenPhrasesRandomWords.length) {
 					await helpers.autoRemovableMessage({
 						ctx,
 						text: 'я їм, спробуй пізніше!',
@@ -29,10 +29,14 @@ export function rd() {
 				const countOfWords = getRandomNumber(1, 10);
 
 				for (let i = 0; i < countOfWords; i++) {
-					const randomNumOfWordsCount = getRandomNumber(0, randomWords.length - 1);
-					const randomWord = randomWords[randomNumOfWordsCount];
+					const randomNumOfWordsCount = getRandomNumber(
+						0,
+						chosenPhrasesRandomWords.length - 1,
+					);
+					const randomWord = chosenPhrasesRandomWords[randomNumOfWordsCount];
 					message.push(randomWord);
 				}
+
 				const newMessage = message.join(' ');
 
 				if (replyToMessage) {

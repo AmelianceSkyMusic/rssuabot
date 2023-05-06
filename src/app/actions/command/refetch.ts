@@ -5,10 +5,10 @@ import { phrasesStore } from '../../store/phrasesStore';
 export function refetch() {
 	bot.command('refetch', async () => {
 		try {
-			phrasesStore.getState().fetchStudentPhrasesData();
-			phrasesStore.getState().fetchRandomPhrasesData();
-			phrasesStore.getState().fetchRandomClickPhrasesData();
-			phrasesStore.getState().fetchChatRepliesData();
+			phrasesStore.getState().fetchStudentPhrases();
+			phrasesStore.getState().fetchRandomPhrases();
+			phrasesStore.getState().fetchRandomClickPhrases();
+			phrasesStore.getState().fetchChatReplies();
 		} catch (error) { returnError(error); }
 	});
 }

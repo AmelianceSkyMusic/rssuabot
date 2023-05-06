@@ -14,6 +14,7 @@ export function store() {
 				randomPhrases,
 				randomClickPhrases,
 				chatReplies,
+				chosenPhrases,
 			} = phrasesStore.getState();
 
 			const message = '<b>phrasesStore</b>'
@@ -22,7 +23,8 @@ export function store() {
 			+ `\nstudentPhrases: ${!!studentPhrases.length}`
 			+ `\nrandomPhrases: ${!!randomPhrases.length}`
 			+ `\nrandomClickPhrases: ${!!randomClickPhrases.length}`
-			+ `\nchatReplies: ${!!chatReplies.length}`;
+			+ `\nchatReplies: ${!!chatReplies.length}`
+			+ `\nchosenPhrases: ${!!chosenPhrases.length}`;
 
 			appLog('message: ', message);
 

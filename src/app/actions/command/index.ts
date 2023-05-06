@@ -10,6 +10,9 @@ export * from './registration';
 export * from './codeofconduct';
 export * from './stickers';
 export * from './transliterate';
+export * from './set';
+export * from './getphrase';
+export * from './getrandom';
 
 // hidden
 export * from './hidden';
