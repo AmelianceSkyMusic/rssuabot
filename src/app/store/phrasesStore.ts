@@ -13,6 +13,7 @@ interface PhrasesStore {
 	randomPhrases: string[];
 	randomClickPhrases: string[];
 	chatReplies: string[];
+	randomWords: string[];
 	loading: boolean;
 	error: string | null;
 	fetchStudentPhrasesData: () => void;
@@ -26,6 +27,7 @@ export const phrasesStore = createStore<PhrasesStore>((set) => ({
 	randomPhrases: [],
 	randomClickPhrases: [],
 	chatReplies: [],
+	randomWords: [],
 	loading: false,
 	error: null,
 
@@ -104,8 +106,9 @@ export const phrasesStore = createStore<PhrasesStore>((set) => ({
 
 			const tablesData = response.data[0].map((item) => item.value);
 			const phrases = removeEmptyValues(tablesData);
+			const randomWords = phrases.join(' ').split(' ');
 
-			set({ chatReplies: phrases, error: null });
+			set({ chatReplies: phrases, randomWords, error: null });
 		} catch (error) {
 			set({ error: returnError(error) });
 		} finally {

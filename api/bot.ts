@@ -32,8 +32,10 @@ actions.command.transliterate();
 
 // hidden commands
 actions.command.hidden();
-actions.command.asm();
 actions.command.two();
+actions.command.ph();
+actions.command.rd();
+actions.command.asm();
 actions.command.test();
 actions.command.store();
 

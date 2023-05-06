@@ -13,7 +13,9 @@ export * from './transliterate';
 
 // hidden
 export * from './hidden';
-export * from './asm';
 export * from './two';
+export * from './ph';
+export * from './rd';
+export * from './asm';
 export * from './test';
 export * from './store';
