@@ -34,7 +34,7 @@ export function ph() {
 			} else {
 				await helpers.autoRemovableMessage({
 					ctx,
-					text: 'команда /two працює тільки як Reply!',
+					text: 'команда /ph працює тільки як Reply!',
 					mention: true,
 				});
 			}

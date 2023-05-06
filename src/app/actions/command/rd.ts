@@ -41,7 +41,7 @@ export function rd() {
 				} else {
 					await helpers.autoRemovableMessage({
 						ctx,
-						text: 'команда /two працює тільки як Reply!',
+						text: 'команда /rd працює тільки як Reply!',
 						mention: true,
 					});
 				}
