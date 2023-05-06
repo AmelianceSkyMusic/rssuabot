@@ -13,10 +13,12 @@ export async function removeMessageById({
 	ms = 3600,
 }: RemoveMessageById): Promise<boolean> {
 	return new Promise((resolve) => {
-		setTimeout(async () => { // remove messages
+		setTimeout(async () => {
 			try {
+				const chatId = ctx.chat?.id;
+				if (!chatId) throw new Error('Can\'t find chat');
 				await ctx.api.deleteMessage(
-					ctx.chat.id,
+					chatId,
 					messageId,
 				);
 				resolve(true);

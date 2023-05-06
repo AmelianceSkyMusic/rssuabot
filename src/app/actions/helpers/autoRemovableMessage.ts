@@ -17,19 +17,18 @@ export async function autoRemovableMessage({
 	mention = false,
 	ms = 3600,
 }: AutoRemovableMessage) {
-	const messageId = ctx.msg.message_id;
+	const messageId = ctx.msg?.message_id;
 
 	const messageUserTag = mention ? `${helpers.generateUserFullNameTag(ctx)}, ` : '';
 
 	let sendMessage = null;
 	try {
 		if (reply) {
-			await ctx.reply(
-				`${messageUserTag}${text}`,
-				{
-					reply_to_message_id: messageId,
-					parse_mode: 'HTML',
-				},
+			await helpers.replyHTML(
+				ctx,
+				text,
+				'mention',
+				messageId,
 			);
 		} else {
 			sendMessage = await helpers.sendMessageHTML(

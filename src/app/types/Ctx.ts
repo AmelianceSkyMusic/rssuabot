@@ -1,3 +1,6 @@
-import type { CommandContext, Context } from 'grammy';
+import type { Context } from 'grammy';
 
-export type Ctx = CommandContext<Context>;
+export type Ctx = Context;
+// export type Ctx = Filter<Context, FilterQuery>;
+// export type Ctx = CommandContext<Context> | Filter< Context, FilterQuery>;
+// export type Ctx = CommandContext<Context> | Filter<C extends Context, Q extends FilterQuery>;

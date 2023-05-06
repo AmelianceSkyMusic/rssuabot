@@ -10,7 +10,7 @@ export function test() {
 			await helpers.removeMessageById({ ctx, messageId });
 
 			const botMessage = await sendMessage(ctx, 'test');
-			await helpers.removeMessageById({ ctx, messageId: botMessage.message_id });
+			if (botMessage) await helpers.removeMessageById({ ctx, messageId: botMessage.message_id });
 		} catch (error) { returnError(error); }
 	});
 }

@@ -30,16 +30,13 @@ export function transliterate() {
 				const repliedMessageId = replyToMessage.message_id;
 				const repliedMessageTest = replyToMessage.text || '';
 
-				const repliedUserFullNameTag = helpers.generateReplyingUserFullNameTag(ctx);
-
 				const transliteratedMsg =	transliterateText(repliedMessageTest);
 
-				await ctx.reply(
-					`${repliedUserFullNameTag}, можливо малось на увазі?:\n\n<i>${transliteratedMsg}</i>`,
-					{
-						reply_to_message_id: repliedMessageId,
-						parse_mode: 'HTML',
-					},
+				await helpers.replyHTML(
+					ctx,
+					`Можливо малось на увазі?:\n\n<i>${transliteratedMsg}</i>`,
+					'mention',
+					repliedMessageId,
 				);
 			} else {
 				await helpers.autoRemovableMessage({

@@ -11,13 +11,7 @@ export function two() {
 		if (replyToMessage) {
 			const repliedMessageId = replyToMessage.message_id;
 
-			await ctx.reply(
-				'Сідай, 2😅',
-				{
-					reply_to_message_id: repliedMessageId,
-					parse_mode: 'HTML',
-				},
-			);
+			await helpers.replyHTML(ctx, 'Сідай, 2😅', '', repliedMessageId);
 		} else {
 			await helpers.autoRemovableMessage({
 				ctx,

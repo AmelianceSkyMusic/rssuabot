@@ -2,7 +2,7 @@ import type { Ctx } from '../../types/Ctx';
 import { helpers } from '.';
 
 export function generateReplyingUserFullNameTag(ctx: Ctx): string {
-	const replyToMessage = ctx.msg.reply_to_message;
+	const replyToMessage = ctx.msg?.reply_to_message;
 
 	if (replyToMessage) {
 		const repliedMessageUserId = replyToMessage.from?.id || '';

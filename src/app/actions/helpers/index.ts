@@ -4,6 +4,8 @@ import { generateReplyingUserFullNameTag } from './generateReplyingUserFullNameT
 import { generateUserFullNameTag } from './generateUserFullNameTag';
 import { generateUserTag } from './generateUserTag';
 import { removeMessageById } from './removeMessageById';
+import { reply } from './reply';
+import { replyHTML } from './replyHTML';
 import { sendMessage } from './sendMessage';
 import { sendMessageHTML } from './sendMessageHTML';
 
@@ -16,4 +18,6 @@ export const helpers = {
 	removeMessageById,
 	sendMessage,
 	sendMessageHTML,
+	reply,
+	replyHTML,
 };
