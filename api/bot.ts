@@ -16,8 +16,25 @@ if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
 export const bot = new Bot(BOT_TOKEN);
 
-bot.command('start', (ctx) => ctx.reply('_2023-05-05_23-55'));
+actions.on.sticker();
+actions.command.help();
+actions.command.app();
+actions.command.registration();
+actions.command.aboutjsfecourse();
+actions.command.roadmap();
+actions.command.docs();
+actions.command.dismission();
+actions.command.link();
+actions.command.codeofconduct();
+actions.command.stickers();
+actions.command.topic();
+actions.command.transliterate();
+
+// hidden commands
+actions.command.asm();
+actions.command.two();
 actions.command.test();
+actions.command.hidden();
 
 if (MODE === 'dev') bot.start();
 
