@@ -35,7 +35,7 @@ export function transliterate() {
 				await helpers.replyHTML(
 					ctx,
 					`Можливо малось на увазі?:\n\n<i>${transliteratedMsg}</i>`,
-					'mention',
+					'',
 					repliedMessageId,
 				);
 			} else {
