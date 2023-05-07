@@ -29,7 +29,7 @@ export function set() {
 				if (response.status === 'success') {
 					await helpers.replyHTML(
 						ctx,
-						`Вітаю! Ваше повідомлення було для наступних поколінь!:\n\n<i>${repliedMessageTest}</i>`,
+						`Вітаю! Ваше повідомлення збережено для наступних поколінь:\n\n<i>${repliedMessageTest}</i>\n\n/getphrase /getrandom`,
 						'',
 						repliedMessageId,
 					);
