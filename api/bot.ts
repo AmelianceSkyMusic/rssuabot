@@ -17,7 +17,7 @@ if (!BOT_TOKEN) throw new Error('BOT_TOKEN is not defined');
 
 export const bot = new Bot(BOT_TOKEN);
 
-actions.on.sticker();
+// actions.on.sticker();
 actions.command.help();
 actions.command.app();
 actions.command.registration();
